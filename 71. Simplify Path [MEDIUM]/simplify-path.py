@@ -5,17 +5,17 @@ https://leetcode.com/problems/simplify-path/
 ----------------------------
 Given an absolute path for a file (Unix-style), simplify it.
 
-Example 1:
+#### Example 1:
 Input: path = "/home/"
 Output: "/home"
 Explanation: Note that there is no trailing slash after the last directory name.
 
-Example 2:
+#### Example 2:
 Input: path = "/../"
 Output: "/"
 Explanation: Going one level up from the root directory is a no-op, as the root level is the highest level you can go.
 
-Example 3:
+#### Example 3:
 Input: path = "/home//foo/"
 Output: "/home/foo"
 Explanation: In the canonical path, multiple consecutive slashes are replaced by a single one.
