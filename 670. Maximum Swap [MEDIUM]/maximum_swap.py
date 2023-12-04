@@ -1,6 +1,8 @@
 """
-https://leetcode.com/problems/valid-palindrome-ii/description/
-REF: https://leetcode.com/problems/maximum-swap/solutions/4266278/easy-to-understand-python3-code-with-full-explanation-o-n-time-o-n-space/
+https://leetcode.com/problems/maximum-swap/
+
+Solution REF: https://leetcode.com/problems/maximum-swap/solutions/4266278/easy-to-understand-python3-code-with-full-explanation-o-n-time-o-n-space/
+
 ### 1. Question Explanation:
 ----------------------------
 You are given an integer num. You can swap two digits at most once to get the maximum valued number.

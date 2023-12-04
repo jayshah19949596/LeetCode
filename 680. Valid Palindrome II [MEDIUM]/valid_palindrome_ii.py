@@ -1,5 +1,5 @@
 """
-https://leetcode.com/problems/valid-palindrome-ii/description/
+https://leetcode.com/problems/valid-palindrome-ii
 
 ### 1. Question Explanation:
 ----------------------------
