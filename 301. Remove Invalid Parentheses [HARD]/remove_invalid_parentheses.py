@@ -33,6 +33,8 @@ Space Complexity: O(N).
 from collections import defaultdict
 from typing import List
 
+from collections import defaultdict
+
 
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
@@ -70,10 +72,10 @@ class Solution:
             else:
                 return float("inf")
 
-        keep_removals_ans = self.recurse(s, cur_idx + 1, new_s + [s[cur_idx]], removals, global_min_removal)
-        remove_removals_ans = float("inf")
+        keep_current_character_ans = self.recurse(s, cur_idx + 1, new_s + [s[cur_idx]], removals, global_min_removal)
+        remove_parenthesis_ans = float("inf")
         if s[cur_idx] in ["(", ")"]:
-            remove_removals_ans = self.recurse(s, cur_idx + 1, new_s, removals + 1, global_min_removal)
+            remove_parenthesis_ans = self.recurse(s, cur_idx + 1, new_s, removals + 1, global_min_removal)
 
-        self.memo[new_s_string] = min(keep_removals_ans, remove_removals_ans)
+        self.memo[new_s_string] = min(keep_current_character_ans, remove_parenthesis_ans)
         return self.memo[new_s_string]
