@@ -38,8 +38,8 @@ Whenever a new element arrives when queue has reached size "self.k" then do foll
 
 ### 3. Complexity Analysis:
 ----------------------------
-Time - O(N)
-Space - O(N)
+Time - O(1)
+Space - O(size)
 """
 from collections import deque
 
