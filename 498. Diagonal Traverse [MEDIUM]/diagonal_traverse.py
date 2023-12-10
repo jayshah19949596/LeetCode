@@ -19,33 +19,15 @@ class Solution:
 
     def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
 
-        # Check for an empty matrix
-        if not matrix or not matrix[0]:
-            return []
+        if not matrix or not matrix[0]: return []  # Check for an empty matrix
+        N, M = len(matrix), len(matrix[0])  #  The dimensions of the matrix
+        row, column = 0, 0  # Indices that will help us progress through the matrix, one element at a time.
+        direction = 1  # Variable to track what direction we are processing the current diagonal
+        result = []  # Final result array that will contain all the elements of the matrix
 
-        # The dimensions of the matrix
-        N, M = len(matrix), len(matrix[0])
-
-        # Incides that will help us progress through
-        # the matrix, one element at a time.
-        row, column = 0, 0
-
-        # As explained in the article, this is the variable
-        # that helps us keep track of what direction we are
-        # processing the current diaonal
-        direction = 1
-
-        # Final result array that will contain all the elements
-        # of the matrix
-        result = []
-
-        # The uber while loop which will help us iterate over all
-        # the elements in the array.
         while row < N and column < M:
 
-            # First and foremost, add the current element to
-            # the result matrix.
-            result.append(matrix[row][column])
+            result.append(matrix[row][column]) # First and foremost, add the current element to the result matrix.
 
             # Move along in the current diagonal depending upon
             # the current direction.[i, j] -> [i - 1, j + 1] if
@@ -61,7 +43,6 @@ class Solution:
                 # If the current diagonal was going in the upwards
                 # direction.
                 if direction:
-
                     # For an upwards going diagonal having [i, j] as its tail
                     # If [i, j + 1] is within bounds, then it becomes
                     # the next head. Otherwise, the element directly below
@@ -69,7 +50,6 @@ class Solution:
                     row += (column == M - 1)
                     column += (column < M - 1)
                 else:
-
                     # For a downwards going diagonal having [i, j] as its tail
                     # if [i + 1, j] is within bounds, then it becomes
                     # the next head. Otherwise, the element directly below
@@ -77,8 +57,7 @@ class Solution:
                     column += (row == N - 1)
                     row += (row < N - 1)
 
-                # Flip the direction
-                direction = 1 - direction
+                direction = 1 - direction # Flip the direction
             else:
                 row = new_row
                 column = new_column
