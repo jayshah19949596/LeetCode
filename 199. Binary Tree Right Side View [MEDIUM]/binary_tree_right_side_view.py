@@ -23,7 +23,7 @@ class Solution:
     def iterative_breadth_first_search(self, root):
         """
         Approach: Level order traversal.
-        Traverse at node at each level at a time from left to right.
+        Traverse nodes from left to right at each level at a time.
         Always add the right most node in the current level being traversed to results array.
         Time Complexity - O(N)
         Space Complexity - O(N)
