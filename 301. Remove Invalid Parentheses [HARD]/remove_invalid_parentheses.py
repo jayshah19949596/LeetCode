@@ -46,13 +46,10 @@ class Solution:
     def isValid(self, s):
         stack = []
         for i in range(len(s)):
-            if s[i] == "(":
-                stack.append(s[i])
+            if s[i] == "(": stack.append(s[i])
             elif s[i] == ")":
-                if stack:
-                    stack.pop()
-                else:
-                    return False
+                if stack: stack.pop()
+                else: return False
         return not stack
 
     def recurse(self, s, cur_idx, new_s, removals, global_min_removal):
