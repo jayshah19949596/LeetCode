@@ -11,10 +11,6 @@ For example, if there are two nodes X and Y in the original list, where X.random
 
 Return the head of the copied linked list.
 
-### 3. Complexity Analysis:
-----------------------------
-Time Complexity - O(N)
-Space Complexity - O(N)
 """
 
 
@@ -27,22 +23,72 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        return self.weaving_in_order_and_unweaving(head)
+        # return self.iterative_with_dictionary(head)
+
+    def iterative_with_dictionary(self, head):
+        """
+        Time Complexity - O(N)
+        Space Complexity - O(N)
+        """
         if not head: return
 
         visited = {}
-        node, copy_prev = head, None
-        while node:
-            copy_node = Node(node.val)
+        cur_node, copy_prev = head, None
+        while cur_node:
+            copy_node = Node(cur_node.val)
             if copy_prev: copy_prev.next = copy_node
-            visited[node] = copy_node
+            visited[cur_node] = copy_node
             copy_prev = copy_node
-            node = node.next
+            cur_node = cur_node.next
 
-        node, copy_node = head, visited[head]
+        cur_node, copy_node = head, visited[head]
         while copy_node:
-            if node.random:
-                copy_node.random = visited[node.random]
+            if cur_node.random:
+                copy_node.random = visited[cur_node.random]
             copy_node = copy_node.next
-            node = node.next
+            cur_node = cur_node.next
 
         return visited[head]
+
+    def weaving_in_order_and_unweaving(self, head):
+        """
+        Time Complexity - O(N)
+        Space Complexity - O(1)
+        """
+        if not head: return head
+
+        # Creating a new weaved list of original and copied nodes.
+        ptr = head
+        while ptr:
+
+            # Cloned node
+            new_node = Node(ptr.val, None, None)
+
+            # Inserting the cloned node just next to the original node.
+            # If A->B->C is the original linked list,
+            # Linked list after weaving cloned nodes would be A->A'->B->B'->C->C'
+            new_node.next = ptr.next
+            ptr.next = new_node
+            ptr = new_node.next
+
+        ptr = head
+
+        # Now link the random pointers of the new nodes created.
+        # Iterate the newly created list and use the original nodes random pointers,
+        # to assign references to random pointers for cloned nodes.
+        while ptr:
+            ptr.next.random = ptr.random.next if ptr.random else None
+            ptr = ptr.next.next
+
+        # Unweave the linked list to get back the original linked list and the cloned list.
+        # i.e. A->A'->B->B'->C->C' would be broken to A->B->C and A'->B'->C'
+        ptr_old_list = head # A->B->C
+        ptr_new_list = head.next # A'->B'->C'
+        head_new = head.next
+        while ptr_old_list:
+            ptr_old_list.next = ptr_old_list.next.next
+            ptr_new_list.next = ptr_new_list.next.next if ptr_new_list.next else None
+            ptr_old_list = ptr_old_list.next
+            ptr_new_list = ptr_new_list.next
+        return head_new
