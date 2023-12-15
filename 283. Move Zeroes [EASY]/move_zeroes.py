@@ -10,6 +10,11 @@ Have two pointers "anchor_idx" and "moving_idx"
 moving_idx will help us do a linear search. So it will keep on incrementing itself.
 anchor_idx will always anchor itself and not increment if current iterating element is 0.
 anchor_idx will
+
+### 3. Complexity Analysis:
+----------------------------
+Time Complexity - O(N)
+Space Complexity - O(1)
 """
 from typing import List
 
