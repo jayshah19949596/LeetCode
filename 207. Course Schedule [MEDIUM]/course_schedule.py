@@ -29,8 +29,8 @@ Step-3: Remove a vertex from the queue (Dequeue operation) and then.
         - Increment the count of visited nodes by 1.
         - Decrease in-degree by 1 for all its neighbouring nodes.
         - If the in-degree of neighbouring nodes is reduced to zero, then add it to the queue.
-Step 4: Repeat Step 3 until the queue is empty.
-Step 5: If the count of visited nodes is not equal to the number of nodes in the graph then the topological sort is not possible for the given graph.
+Step-4: Repeat Step 3 until the queue is empty.
+Step-5: If the count of visited nodes is not equal to the number of nodes in the graph then the topological sort is not possible for the given graph.
 
 ### 3. Complexity Analysis:
 ----------------------------
