@@ -19,14 +19,14 @@ We discard any intervals that contain inf as they aren't finite.
 Input: schedule = [[[1,3],[6,7]],[[2,4]],[[2,5],[9,12]]]
 Output: [[5,6],[7,9]]
 
-##2. Solution Explanation:
+### 2. Solution Explanation:
 ----------------------------
 All solutions iterate over the flattened and sorted schedule of all employees
 If max_previous_end<employee_intervals[i].start then add Interval(max_previous_end, employee_intervals[i][0]) to results
 New max_previous_end will be max(max_previous_end, employee_intervals[i].end)
 
 
-##3. Complexity Analysis:
+### 3. Complexity Analysis:
 ----------------------------
 Time Complexity: O(N*LogN)
 Space Complexity: O(N)
@@ -38,7 +38,6 @@ class Interval:
     def __init__(self, start: int = None, end: int = None):
         self.start = start
         self.end = end
-
 
 
 class Solution:

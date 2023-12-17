@@ -3,7 +3,7 @@ https://leetcode.com/problems/word-break
 
 ### 1. Question Explanation:
 ----------------------------
-Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
+Given a string "s" and a dictionary of strings "wordDict", return true if s can be segmented into a space-separated sequence of one or more dictionary words.
 Note that the same word in the dictionary may be reused multiple times in the segmentation.
 
 #### Example 1:
@@ -34,8 +34,21 @@ class Solution:
 
     def recurse_topdown(self, s, wordDict):
         """
-        Time complexity: O(n^3+m⋅k)
-        Space Complexity: O(n+m⋅k)
+        ### Explanation:
+        For all the words in dictionary that are prefix of string, recursively call function with substring removing the prefix from string.
+        Meanwhile, store the overlapping sub-problems for each substring to avoid the computation of the sub-problem again.
+
+        ### Complexity Analysis
+        Given "n" as the length of "s", "m" as the length of "wordDict", and "k" as the average length of the words in "wordDict"
+
+        Time complexity: O(n^3):
+        There are O(n) nodes. Because of memo, we never visit a node more than once.
+        At each node, we iterate over the nodes in front of the current node, of which there are O(n).
+        For each node end, we create a substring, which also costs O(n)
+        Therefore, handling a node costs O(n^2), so the DFS could cost up to O(n^3):
+
+        Space Complexity: O(n):
+        We use O(n) space for recursion stack and memo.
         """
         if len(s) == 0:
             return True
