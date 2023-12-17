@@ -18,37 +18,35 @@ class Node:
     def __init__(self, val, left=None, right=None):
         self.val = val
         self.left = left
-        self
+        self.right = right
 
 
 class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root: return
+
         def helper(node):
             """
             Performs standard inorder traversal:
             left -> node -> right
             and links all nodes into DLL
             """
+            if not node: return
+
             nonlocal last, first
-            if node:
-                helper(node.left)  # left
+            helper(node.left)  # left
 
-                # node
-                if last:
-                    # link the previous node (last) with the current one (node)
-                    last.right = node
-                    node.left = last
-                else:
-                    # keep the smallest node to close DLL later on
-                    first = node
-                last = node
+            if last:
+                # link the previous node (last) with the current one (node)
+                last.right = node
+                node.left = last
+            else:
+                first = node # keep the smallest node to close DLL later on
 
-                helper(node.right)  # right
+            last = node
+            helper(node.right)  # right
 
-        if not root:
-            return None
-
-        # the smallest (first) and the largest (last) nodes
+        # The smallest (first) and the largest (last) nodes
         first, last = None, None
         helper(root)
 
