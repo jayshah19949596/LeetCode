@@ -41,13 +41,17 @@ class Solution:
         Space: O(1)
         """
         rows, cols = len(matrix), len(matrix[0])
-        # set indexes for bottom left element
-        i = rows - 1
-        while rows > i >= 0:
+        for i in range(rows-1, -1, -1): # set indexes for bottom left element
             if matrix[i][0] == target: return True
-            elif matrix[i][0] > target: i -= 1
-            else: break
-        return bin_search(i, matrix, target)
+            elif matrix[i][0] < target: break
+
+        left, ryt = 0, cols - 1
+        while left <= ryt:
+            mid = (left + ryt) // 2
+            if matrix[i][mid] == target: return True
+            elif matrix[i][mid] > target: ryt = mid - 1
+            elif matrix[i][mid] < target: left = mid + 1
+        return False
 
     def two_pointer_approach(self, matrix: List[List[int]], target: int) -> bool:
         """
@@ -63,15 +67,3 @@ class Solution:
             else: i += 1
 
         return False
-
-
-def bin_search(row, mat, x):
-    left, ryt = 0, len(mat[row]) - 1
-
-    while left <= ryt:
-        mid = (left + ryt) // 2
-        if mat[row][mid] == x: return True
-        elif mat[row][mid] > x: ryt = mid - 1
-        elif mat[row][mid] < x: left = mid + 1
-
-    return False
