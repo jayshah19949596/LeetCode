@@ -1,15 +1,14 @@
-from collections import defaultdict
+from typing import List
 
 """
+=======================
 APPROACH 1: BRUTE FORCE
+=======================
 If any prefix of s is a palindrome, then recursively partition the suffix into palindromes
 
 Time - O(N*2^N), where N is the length of string "s"
 Space - O(N)
 """
-from typing import List
-
-
 class Solution(object):
     def partition(self, s: str) -> List[List[str]]:
         partitons = []
@@ -27,15 +26,13 @@ class Solution(object):
             if prefix == prefix[::-1]:
                 self.find_partitions(s[i:], partial + [s[:i]], partitions)
 
-
 """
-APPROACH 1: MEMOIZATION
-
+=======================
+APPROACH 2: MEMOIZATION
+=======================
 Time - O(N*2^N), where N is the length of string "s"
 Space - O(N)
 """
-
-
 class Solution:
 
     def partition(self, s: str) -> List[List[str]]:
