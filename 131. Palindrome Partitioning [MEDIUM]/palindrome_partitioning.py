@@ -7,16 +7,11 @@ If any prefix of s is a palindrome, then recursively partition the suffix into p
 Time - O(N*2^N), where N is the length of string "s"
 Space - O(N)
 """
+from typing import List
 
 
 class Solution(object):
-    memo = {}
-
-    def partition(self, s):
-        """
-        :type s: str
-        :rtype: List[List[str]]
-        """
+    def partition(self, s: str) -> List[List[str]]:
         partitons = []
         self.find_partitions(s, [], partitons)
         return partitons
@@ -39,7 +34,6 @@ APPROACH 1: MEMOIZATION
 Time - O(N*2^N), where N is the length of string "s"
 Space - O(N)
 """
-from typing import List
 
 
 class Solution:
