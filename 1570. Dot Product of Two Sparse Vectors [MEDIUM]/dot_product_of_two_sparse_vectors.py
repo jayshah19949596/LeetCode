@@ -73,7 +73,7 @@ class SparseVector:
         return answer
 
 
-# APPROACH 2: Index-Value Pairs
+# APPROACH 2: Index-Value Pairs with TWO Pointer approach for dot-product
 class SparseVector:
     """
     represent elements of a sparse vector as a list of <index, value> pairs.
