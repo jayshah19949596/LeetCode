@@ -57,12 +57,10 @@ class SparseVector:
     Time Complexity: O(N) for creating the Hash Map; O(L) for calculating the dot product.
     Space Complexity: O(L) for creating the Hash Map
     """
-
     def __init__(self, nums: List[int]):
         self.idx_to_value = defaultdict(int)
         for i, num in enumerate(nums):
             if num != 0: self.idx_to_value[i] = num
-
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
         answer, i = 0, 0
