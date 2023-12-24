@@ -34,22 +34,20 @@ Space Complexity: O(1)
 
 
 class Solution:
-    def check_palindrome(self, s, i, j):
-        while i < j:
-            if s[i] != s[j]:
-                return False
-            i += 1
-            j -= 1
-
+    def check_palindrome(self, s, left, right):
+        while left<right:
+            if s[left] == s[right]:
+                left, right = left+1, right-1
+            else: return False
         return True
 
     def validPalindrome(self, s: str) -> bool:
-        i, j = 0, len(s) - 1
-        while i < j:
-            # Found a mismatched pair - try both deletions
-            if s[i] != s[j]:
-                # delete the character at jth index or delete the character at ith index
-                return self.check_palindrome(s, i, j - 1) or self.check_palindrome(s, i + 1, j)
-            i += 1
-            j -= 1
+        if not s: return True
+        left, right = 0, len(s)-1
+        while left < right:
+            if s[left] != s[right]: # Found a mismatched pair - try both deletions
+                remove_right = self.check_palindrome(s, left, right - 1)  # delete the character at right index
+                remove_left = self.check_palindrome(s, left + 1, right) # delete the character at left index
+                return remove_right or remove_left
+            left, right = left + 1, right - 1
         return True
