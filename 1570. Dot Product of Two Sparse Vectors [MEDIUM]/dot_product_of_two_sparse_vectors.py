@@ -27,6 +27,7 @@ Input: nums1 = [0,1,0,0,2,0,0], nums2 = [1,0,0,0,3,0,4]
 Output: 6
 """
 from typing import List
+from collections import defaultdict
 
 
 # APPROACH 1: Non-efficient Array Approach
@@ -47,8 +48,7 @@ class SparseVector:
             result += num1 * num2
         return result
 
-
-# APPROACH 2: Hash Set
+# APPROACH 2: Hash Map
 class SparseVector:
     """
     Store the non-zero values and their corresponding indices in a dictionary, with the index being the key. Any index that is not present corresponds to a value 0 in the input array.
@@ -57,14 +57,20 @@ class SparseVector:
     Time Complexity: O(N) for creating the Hash Map; O(L) for calculating the dot product.
     Space Complexity: O(L) for creating the Hash Map
     """
-    def __init__(self, nums: List[int]):
-        self.array = nums
 
-    def dotProduct(self, vec):
-        result = 0
-        for num1, num2 in zip(self.array, vec.array):
-            result += num1 * num2
-        return result
+    def __init__(self, nums: List[int]):
+        self.idx_to_value = defaultdict(int)
+        for i, num in enumerate(nums):
+            if num != 0: self.idx_to_value[i] = num
+
+    # Return the dotProduct of two sparse vectors
+    def dotProduct(self, vec: 'SparseVector') -> int:
+        answer, i = 0, 0
+        for key in self.idx_to_value:
+            if i >= len(vec.idx_to_value): break
+            answer += vec.idx_to_value[key] * self.idx_to_value[key]
+            i += 1
+        return answer
 
 
 # APPROACH 2: Index-Value Pairs
