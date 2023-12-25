@@ -32,27 +32,23 @@ Time Complexity: O(order.length+s.length), the time it takes to iterate through 
 Space Complexity: O(s.length). We count at most 26 different lowercase letters, but the final answer has the same length as T.
 
 """
-from collections import defaultdict
-class Solution:
-    def prepare(self, order: str, s: str):
-        order_set = set(order)
-        string_freq = defaultdict(int)
-        for i in range(len(s)):
-            string_freq[s[i]] += 1
+from collections import Counter
 
-        return order_set, string_freq, []
+
+class Solution:
 
     def customSortString(self, order: str, s: str) -> str:
-        order_set, string_freq, results = self.prepare(order, s)
+        results, s_counter, order_set = [], Counter(s), set([])
 
-        for i in range(len(order)):
-            if order[i] in string_freq:
-                char_times = string_freq[order[i]]
-                element = char_times * order[i]
-                results.append(element)
+        for char in order:
+            if char in s_counter:
+                results.append(char * s_counter[char])
+                order_set.add(char)
 
-        for char in string_freq:
+        for char in s_counter:
             if char not in order_set:
-                results.append(string_freq[char]*char)
+                results.append(char * s_counter[char])
 
         return "".join(results)
+
+
