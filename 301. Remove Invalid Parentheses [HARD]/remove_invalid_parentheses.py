@@ -44,13 +44,13 @@ class Solution:
         return list(self.removals_to_expression_map[min_removal])
 
     def isValid(self, s):
-        stack = []
+        balance = 0
         for i in range(len(s)):
-            if s[i] == "(": stack.append(s[i])
+            if s[i] == "(": balance += 1
             elif s[i] == ")":
-                if stack: stack.pop()
+                if balance>0:balance -= 1
                 else: return False
-        return not stack
+        return balance == 0
 
     def recurse(self, s, cur_idx, new_s, removals, global_min_removal):
         new_s_string = "".join(new_s)
