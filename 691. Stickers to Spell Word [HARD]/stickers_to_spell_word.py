@@ -23,20 +23,21 @@ We cannot form the target "basicbasic" from cutting letters from the given stick
 
 ### 2. Solution Explanation:
 ----------------------------
-Recursively calculate the new target by selecting one sticker at a time 
-And select minimum number of stickers used to reach the target;.
+Create result stack. Go up a level if '..'. Stay at same level if '.'.
 
 ### 3. Complexity Analysis:
 ----------------------------
-Time - O(stickers.length * target.length): 
-The dfs function calls itself stickers.length times upto target.length
-
+Time - O(M^N)
 Space - O(N)
 """
-from typing import List
 
+from typing import List
+from collections import Counter
 
 class Solution:
+    """
+    APPROACH 1: RECURSIVE DFS
+    """
     def minStickers(self, stickers: List[str], target: str) -> int:
         self.global_min_answer = float("inf")
         result = self.dfs(stickers, target, {}, 0)
@@ -44,14 +45,13 @@ class Solution:
 
     @staticmethod
     def get_new_target(target, sticker):
-        new_target = target
+        target_map = Counter(target)
 
         for char in sticker:
-            idx_to_remove = new_target.find(char)
-            if idx_to_remove != -1:
-                new_target = new_target[:idx_to_remove] + new_target[idx_to_remove + 1:]
+            if char in target_map and target_map[char] > 0:
+                target_map[char] -= 1
 
-        return new_target
+        return "".join([char*target_map[char] for char in target_map])
 
     def dfs(self, stickers, target, memo, sticker_used):
         if sticker_used >= self.global_min_answer :
@@ -74,3 +74,40 @@ class Solution:
 
         memo[(sticker_used, target)] = min_answer
         return min_answer
+
+
+class Solution:
+    """
+    APPROACH 2: ITERATIVE DFS
+    """
+    def minStickers(self, stickers: List[str], target: str) -> int:
+        min_sticker_used = float("inf")
+        stack = [[target, 0]]
+        memo = {}
+        visited = set([])
+        while stack:
+            target, sticker_used = stack.pop()
+            visited.add((target, sticker_used))
+            if sticker_used >= min_sticker_used: continue
+
+            if not target:
+                min_sticker_used = min(min_sticker_used, sticker_used)
+                continue
+
+            for sticker in stickers:
+                new_target = Solution.get_new_target(target, sticker)
+                if new_target != target and (new_target, sticker_used+1) not in visited:
+                    stack.append([new_target, sticker_used+1])
+
+        return min_sticker_used if min_sticker_used != float("inf") else -1
+
+    @staticmethod
+    def get_new_target(target, sticker):
+        new_target = target
+
+        for char in sticker:
+            idx_to_remove = new_target.find(char)
+            if idx_to_remove != -1:
+                new_target = new_target[:idx_to_remove] + new_target[idx_to_remove + 1:]
+
+        return new_target
