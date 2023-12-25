@@ -36,7 +36,9 @@ from collections import Counter
 
 class Solution:
     """
+    =========================
     APPROACH 1: RECURSIVE DFS
+    =========================
     """
     def minStickers(self, stickers: List[str], target: str) -> int:
         self.global_min_answer = float("inf")
@@ -78,7 +80,9 @@ class Solution:
 
 class Solution:
     """
+    =========================
     APPROACH 2: ITERATIVE DFS
+    =========================
     """
     def minStickers(self, stickers: List[str], target: str) -> int:
         min_sticker_used = float("inf")
