@@ -24,7 +24,7 @@ class Solution:
         # return self.sorting_solution(nums, k)
         # return self.heapq_solution(nums, k)
         # return self.heapq_custom_solution(nums, k)
-        return self.hoars_selection()
+        return self.hoars_selection(nums, k)
 
     def sorting_solution(self, nums, k):
         """
@@ -55,6 +55,7 @@ class Solution:
             if len(heap) > k:
                 heapq.heappop(heap)
         return heap[0]
+
     def hoars_selection(self, nums: List[int], k: int) -> int:
         """
         APPROACH 4: Quickselect, also known as Hoare's selection algorithm
@@ -71,20 +72,19 @@ class Solution:
             - Otherwise, return pivot.
         2. Call quickSelect with the original 'nums' and 'k', and return the answer.
         """
+
         def quick_select(nums, k):
             pivot = random.choice(nums)
             left, mid, right = [], [], []
 
             for num in nums:
-                if num > pivot:
-                    left.append(num)
-                elif num < pivot:
-                    right.append(num)
-                else:
-                    mid.append(num)
+                if num > pivot: left.append(num)
+                elif num < pivot: right.append(num)
+                else: mid.append(num)
 
-            if k <= len(left): return quick_select(left, k)
-            if len(left) + len(mid) < k: return quick_select(right, k - len(left) - len(mid))
-            return pivot
+            if len(left) >= k: return quick_select(left + mid, k)
+            elif len(left) + len(mid) < k: return quick_select(right, k - len(left) - len(mid))
+            elif len(left) + len(mid) == k: return pivot  # mid list has exactly one elements i.e. unique
+            elif len(left) + len(mid) > k: return pivot  # mid list has more than one elements i.e. duplicate
 
         return quick_select(nums, k)
