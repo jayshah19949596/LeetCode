@@ -1,6 +1,6 @@
 """
 791. Custom Sort String [Medium]
-https://leetcode.com/problems/custom-sort-string/description/
+https://leetcode.com/problems/custom-sort-string/
 
 ### 1. Question Explanation:
 -----------------
