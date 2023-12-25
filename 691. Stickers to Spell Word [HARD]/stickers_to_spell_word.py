@@ -83,8 +83,8 @@ class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
         min_sticker_used = float("inf")
         stack = [[target, 0]]
-        memo = {}
         visited = set([])
+
         while stack:
             target, sticker_used = stack.pop()
             visited.add((target, sticker_used))
