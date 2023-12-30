@@ -1,4 +1,5 @@
 """
+249. Group Shifted Strings [MEDIUM]
 https://leetcode.com/problems/group-shifted-strings/
 
 ### 1. Question Explanation:
@@ -39,17 +40,17 @@ from typing import List
 
 class Solution:
     def shift_string_till_first_char_a(self, original_string):
-        char_a = "a"
-        if original_string[0] == char_a: return original_string
-        intermediate_string = original_string
-        while True:
-            intermedate_string_list = []
-            for char in intermediate_string:
-                if ord(char) == 122: intermedate_string_list.append(char_a)
-                else: intermedate_string_list.append(chr(ord(char)+1))
-            intermediate_string = "".join(intermedate_string_list)
-            if intermediate_string[0] == char_a: break
-        return intermediate_string
+        char_a, string_list = "a", list(original_string)
+
+        while string_list[0] != char_a:
+
+            for i, char in enumerate(string_list):
+                if ord(char) == 122:  # if ascii value is "z" then make it "a"
+                    string_list[i] = char_a
+                else:
+                    string_list[i] = chr(ord(char)+1)
+
+        return "".join(string_list)
 
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
         self.grouping = defaultdict(list)

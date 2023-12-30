@@ -1,4 +1,5 @@
 """
+50. Pow(x, n) [MEDIUM]
 https://leetcode.com/problems/powx-n/
 
 ### 1. Question Explanation:
@@ -38,17 +39,14 @@ class Solution:
         Space - O(1)
         """
         if n == 0: return 1
+        if n < 0: x, n = 1.0 / x, -n
 
         if n % 2 == 0:
             temp = self.binary_exponential_recursive(x, n // 2)
             return temp * temp
         else:
-            if n > 0:
-                temp = self.binary_exponential_recursive(x, (n - 1) // 2)
-                return x * temp * temp
-            else:
-                temp = self.binary_exponential_recursive(x, (n + 1) // 2)
-                return (temp * temp) / x
+            temp = self.binary_exponential_recursive(x, (n - 1) // 2)
+            return x * temp * temp
 
     def binary_exponential_iterative(self, x: float, n: int) -> float:
         """
