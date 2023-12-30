@@ -1,4 +1,5 @@
 """
+973. K Closest Points to Origin [MEDIUM]
 https://leetcode.com/problems/k-closest-points-to-origin/description/
 
 ### 1. Question Explanation:
@@ -24,5 +25,7 @@ from typing import List
 
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        points.sort(key = lambda P: P[0]**2 + P[1]**2)
+        def distance_from_origin(P):
+            return P[0]**2 + P[1]**2
+        points.sort(key=lambda point: distance_from_origin(point))
         return points[:k]
