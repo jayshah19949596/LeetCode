@@ -1,4 +1,5 @@
 """
+346. Moving Average from Data Stream [EASY]
 https://leetcode.com/problems/moving-average-from-data-stream
 
 ### 1. Question Explanation:
@@ -47,17 +48,16 @@ from collections import deque
 class MovingAverage:
 
     def __init__(self, size: int):
-        self.k = size
+        self.window = deque([])
+        self.size = size
         self.cum_sum = 0
-        self.queue = deque([])
 
     def next(self, val: int) -> float:
-        if len(self.queue)<self.k:
-            self.queue.appendleft(val)
-            self.cum_sum += val
-        else:
-            first_val = self.queue.pop()
-            self.queue.appendleft(val)
-            self.cum_sum = self.cum_sum - first_val + val
+        self.cum_sum += val
+        self.window.appendleft(val)
 
-        return self.cum_sum/len(self.queue)
+        if len(self.window) > self.size:
+            popped_val = self.window.pop()
+            self.cum_sum -= popped_val
+
+        return self.cum_sum / len(self.window)
