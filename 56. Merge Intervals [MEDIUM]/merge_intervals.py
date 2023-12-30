@@ -1,4 +1,5 @@
 """
+56. Merge Intervals [MEDIUM]
 https://leetcode.com/problems/merge-intervals/
 
 ### 1. Question Explanation:
@@ -17,7 +18,13 @@ Input: intervals = [[1,4],[4,5]]
 Output: [[1,5]]
 Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
-### 2. Complexity Analysis:
+### 2. Solution Explanation:
+----------------------------
+Ssort the intervals according to the starting time.
+After intervals are sorted, all intervals will be merged in a linear traversal.
+The idea is, in sorted array of intervals, if interval[i] doesn’t overlap with interval[i-1], then interval[i+1] cannot overlap with interval[i-1] because starting time of interval[i+1] must be greater than or equal to interval[i].
+
+### 3. Complexity Analysis:
 ----------------------------
 Time Complexity - O(N.LogN)
 Space Complexity - O(N)
