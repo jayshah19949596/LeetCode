@@ -55,7 +55,6 @@ APPROACH: Space Optimized Solution by modifying input inplace
 """
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        if len(intervals) <= 1: return intervals
         intervals.sort(key=lambda x: x[0])
         anchor_idx = 0
 
@@ -63,7 +62,7 @@ class Solution:
         for moving_idx in range(1, len(intervals)):
 
             # If current interval overlaps with the previous one then merge previous and current Intervals
-            if (intervals[anchor_idx][1] >= intervals[moving_idx][0]):
+            if (intervals[moving_idx][0]<=intervals[anchor_idx][1]):
                 intervals[anchor_idx][1] = max(intervals[anchor_idx][1], intervals[moving_idx][1])
             else:
                 anchor_idx = anchor_idx + 1
