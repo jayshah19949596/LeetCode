@@ -36,6 +36,9 @@ from typing import List
 from collections import defaultdict
 
 
+"""
+APPROACH-1: DFS with Memoization and Pruning
+"""
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
         self.removals_to_expression_map = defaultdict(set)
@@ -76,3 +79,59 @@ class Solution:
 
         self.memo[new_s_string] = min(keep_current_character_ans, remove_parenthesis_ans)
         return self.memo[new_s_string]
+
+
+"""
+APPROACH-2: Additional pruning of operations
+"""
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        removals_map = defaultdict(set)
+        min_removals = float("inf")
+        memo = {}
+        def is_valid(string):
+            balance = 0
+            for char in string:
+                if char == "(":
+                    balance += 1
+                elif char == ")":
+                    if balance>0:
+                        balance -= 1
+                    else:
+                        return False
+            return balance == 0
+
+        def dfs(idx, inter_string, removals, balance):
+            nonlocal removals_map, min_removals, memo, s
+
+            if len(s)-balance < balance:  # Pruning the dfs search by checking if we have characters remaining to bring balance to 0
+                return float("inf")
+
+            if (idx, inter_string) in memo:
+                return memo[(idx, inter_string)]
+
+            if removals>min_removals:  # Pruning the dfs search if removals is greater than min_removals
+                return float("inf")
+
+            if idx == len(s):
+                if balance == 0 and is_valid(inter_string):  # Pruning is_valid operations if balance != 0
+                    removals_map[removals].add(inter_string)
+                    min_removals = min(min_removals, removals)
+                    return min_removals
+                return float("inf")
+
+            new_balance = balance
+            removal_ans = float("inf")
+            if s[idx] == "(":
+                new_balance += 1
+                removal_ans = dfs(idx+1, inter_string, removals+1, balance)
+            elif s[idx] == ")":
+                new_balance -= 1
+                removal_ans = dfs(idx+1, inter_string, removals+1, balance)
+
+            keep_ans = dfs(idx+1, inter_string+s[idx], removals, new_balance)
+            memo[(idx, inter_string)] = min(keep_ans, removal_ans)
+            return memo[(idx, inter_string)]
+
+        dfs(0, "", 0, 0)
+        return list(removals_map[min_removals])
