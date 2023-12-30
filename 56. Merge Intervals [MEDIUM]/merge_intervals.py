@@ -22,7 +22,7 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 ----------------------------
 Ssort the intervals according to the starting time.
 After intervals are sorted, all intervals will be merged in a linear traversal.
-The idea is, in sorted array of intervals, if interval[i] doesn’t overlap with interval[i-1], then interval[i+1] cannot overlap with interval[i-1] because starting time of interval[i+1] must be greater than or equal to interval[i].
+In sorted interval, If interval[i] doesn’t overlap with interval[i-1], then interval[i+1] cannot overlap with interval[i-1] because starting time of interval[i+1] must be greater than or equal to interval[i].
 
 ### 3. Complexity Analysis:
 ----------------------------
