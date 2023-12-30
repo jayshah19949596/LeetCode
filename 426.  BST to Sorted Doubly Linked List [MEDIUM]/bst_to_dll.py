@@ -26,7 +26,7 @@ class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root: return
 
-        def helper(node):
+        def dfs_inorder_helper(node):
             """
             Performs standard inorder traversal:
             left -> node -> right
@@ -35,7 +35,7 @@ class Solution:
             if not node: return
 
             nonlocal last, first
-            helper(node.left)  # left
+            dfs_inorder_helper(node.left)  # left
 
             if last:
                 # link the previous node (last) with the current one (node)
@@ -45,11 +45,11 @@ class Solution:
                 first = node # keep the smallest node to close DLL later on
 
             last = node
-            helper(node.right)  # right
+            dfs_inorder_helper(node.right)  # right
 
         # The smallest (first) and the largest (last) nodes
         first, last = None, None
-        helper(root)
+        dfs_inorder_helper(root)
 
         # close DLL
         last.right = first
