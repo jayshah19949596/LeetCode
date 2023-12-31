@@ -25,7 +25,7 @@ class Solution:
 
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         k = len(lists)
-        node = head = None
+        head = dummy = ListNode(0)
         end_of_list_count = 0
 
         while end_of_list_count != k:
@@ -40,12 +40,8 @@ class Solution:
                     end_of_list_count += 1
 
             if min_klist_idx != -1:
-                new_node = ListNode(min_val, None)
-                if not node:
-                    head = node = new_node
-                else:
-                    node.next = new_node
-                    node = node.next
+                dummy.next = ListNode(min_val)
+                dummy = dummy.next
                 lists[min_klist_idx] = lists[min_klist_idx].next
 
-        return head
+        return head.next
