@@ -1,6 +1,4 @@
 """
-This solution get TLE
-
 ### 1. Solution Explanation:
 ----------------------------
 Using priority queue to insert elements and pop and create Linked List Nodes.
