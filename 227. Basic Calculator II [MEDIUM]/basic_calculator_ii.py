@@ -38,7 +38,7 @@ class Solution:
     Space Complexity - O(N)
     """
     def calculate(self, s: str) -> int:
-        i = answer = num = 0
+        i = num = 0
         stack, op = [], "+"
 
         while i < len(s):
