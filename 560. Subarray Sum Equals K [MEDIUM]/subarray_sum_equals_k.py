@@ -1,4 +1,5 @@
 """
+560. Subarray Sum Equals K [MEDIUM]
 https://leetcode.com/problems/subarray-sum-equals-k
 
 ### 1. Question Explanation:
@@ -37,14 +38,14 @@ class Solution(object):
         sums = defaultdict(int) # key is prefix sum, value is count of number of prefixes
         running_sum = 0
 
-        for num in nums:
+        for i, num in enumerate(nums):
 
             running_sum += num
 
             if running_sum == k:
                 total += 1
             if running_sum - k in sums:
-                total += sums[running_sum - k]
+                total += sums[running_sum - k]   # subarrays at index ith that equals running_sum - k
 
             sums[running_sum] += 1
 
