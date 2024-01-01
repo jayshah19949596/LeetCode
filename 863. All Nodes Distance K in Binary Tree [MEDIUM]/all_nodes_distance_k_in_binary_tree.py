@@ -45,9 +45,7 @@ class Solution:
     def root_target_path(self, node, target, path):
         if not node:
             return False
-        left_ans = self.root_target_path(node.left, target, path)
-        right_ans = self.root_target_path(node.right, target, path)
-        if node == target or left_ans or right_ans:
+        if node == target or self.root_target_path(node.left, target, path) or self.root_target_path(node.right, target, path):
             path.append(node)
             return True
         return False
