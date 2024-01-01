@@ -1,4 +1,5 @@
 """
+71. Simplify Path [MEDIUM]
 https://leetcode.com/problems/simplify-path/
 
 ### 1. Question Explanation:
