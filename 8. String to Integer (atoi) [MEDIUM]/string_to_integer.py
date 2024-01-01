@@ -29,3 +29,4 @@ class Solution:
         if negative: result = -result
 
         return max(min(result, 2 ** 31 - 1), -2 ** 31)  # keep within 4 byte signed integer bounds
+
