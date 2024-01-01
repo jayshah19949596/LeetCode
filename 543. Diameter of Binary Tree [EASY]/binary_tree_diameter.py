@@ -19,7 +19,7 @@ Else longest path is 1 + longest of left and right paths down from child.
 
 ### 3. Complexity Analysis:
 ----------------------------
-Time - O(n)
+Time - O(N)
 Space - O(1)
 """
 from typing import Optional
