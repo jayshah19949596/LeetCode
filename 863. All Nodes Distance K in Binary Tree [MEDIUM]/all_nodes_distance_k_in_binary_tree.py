@@ -30,7 +30,7 @@ class TreeNode:
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         path, results, blocker = [], [], None
-        self.find_path_from_root_to_target(root, target, path)
+        self.root_target_path(root, target, path)
         for i in range(len(path)):
             if i>0: blocker = path[i-1]
             self.find_nodes_with_k_dist(path[i], k-i, results, blocker)
@@ -42,10 +42,12 @@ class Solution:
         self.find_nodes_with_k_dist(node.left, dist-1, results, blocker)
         self.find_nodes_with_k_dist(node.right, dist-1, results, blocker)
 
-    def find_path_from_root_to_target(self, node, target, path):
+    def root_target_path(self, node, target, path):
         if not node:
             return False
-        if node == target or self.find_path_from_root_to_target(node.left, target, path) or self.find_path_from_root_to_target(node.right, target, path):
+        left_ans = self.root_target_path(node.left, target, path)
+        right_ans = self.root_target_path(node.right, target, path)
+        if node == target or left_ans or right_ans:
             path.append(node)
             return True
         return False
