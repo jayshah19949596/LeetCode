@@ -22,8 +22,8 @@ class Solution:
     def findRLEArray(self, encoded1: List[List[int]], encoded2: List[List[int]]) -> List[List[int]]:
         def decode(encoding):
             decoding = []
-            for enocded_ele in encoding:
-                num, num_count = enocded_ele
+            for encoded_ele in encoding:
+                num, num_count = encoded_ele
                 for i in range(num_count):
                     decoding.append(num)
             return decoding
