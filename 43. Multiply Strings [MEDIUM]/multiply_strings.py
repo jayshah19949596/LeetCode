@@ -41,7 +41,7 @@ class Solution(object):
             i_n2 = 0  # To shift position to left after every multiplication of a digit in num2
             for j in range(len2 - 1, -1, -1):   # Go from right to left in num2
                 n2 = int(num2[j])  # Take current digit of second number
-                summ = n1 * n2 + result[i_n1 + i_n2] + carry  # Multiply with current digit of first number and add result to previously stored result at current position.
+                summ = n1 * n2 + result[i_n1 + i_n2] + carry  # Multiply two digits & add result to previously stored result at current position.
                 carry = summ // 10   # Carry for next iteration
                 result[i_n1 + i_n2] = summ % 10  # Store result
                 i_n2 += 1
