@@ -34,7 +34,7 @@ class Solution(object):
             return "0"
 
         result = [0] * (len1 + len2)  # Will keep the result number in vector in reverse order
-        i_n1, i_n2 = 0, 0  # These twoindexes are used to find positions in result.
+        i_n1, i_n2 = 0, 0  # These two indexes are used to find positions in "result" array.
 
         for i in range(len1 - 1, -1, -1):   # Go from right to left in num1
             carry, n1 = 0, int(num1[i])
