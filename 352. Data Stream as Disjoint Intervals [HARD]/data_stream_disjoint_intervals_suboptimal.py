@@ -1,3 +1,16 @@
+"""
+352. Data Stream as Disjoint Intervals [HARD]
+https://leetcode.com/problems/data-stream-as-disjoint-intervals/
+
+### 1. Question Explanation:
+----------------------------
+Given a data stream input of non-negative integers a1, a2, ..., an, summarize the numbers seen so far as a list of disjoint intervals.
+
+Implement the SummaryRanges class:
+1. SummaryRanges(): Initializes the object with an empty stream.
+2. void addNum(int value): Adds the integer value to the stream.
+3. int[][] getIntervals(): Returns a summary of the integers in the stream currently as a list of disjoint intervals [starti, endi]. The answer should be sorted by starti.
+"""
 from bisect import bisect_left
 from typing import List
 
