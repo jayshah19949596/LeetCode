@@ -49,14 +49,14 @@ class Solution:
         dic, heap = {}, []
         i = 0
         for person in sorted_people:
-
+            # Push all the flowers to heap that bloomed before this person came.
             while i < len(flowers) and flowers[i][0] <= person:
                 heapq.heappush(heap, flowers[i][1])
                 i += 1
-
+            # Pop all the flowers from heap that stopped blooming before this person came.
             while heap and heap[0] < person:
                 heapq.heappop(heap)
-
+            # The flowers that remain in the heap are blooming at the time when the person came.
             dic[person] = len(heap)
 
         return [dic[person] for person in people]
