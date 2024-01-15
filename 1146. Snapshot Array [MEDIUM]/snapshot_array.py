@@ -30,14 +30,16 @@ import bisect
 
 class SnapshotArray:
     def __init__(self, length: int):
+        # self.history = [[index[snap_id, value]]]
+        # snap_id = -1, value at that snap_id "-1" for the ith index  = 0
         self.history = [[[-1, 0]] for _ in range(length)]
         self.id = 0  # next snap id
 
     def set(self, index: int, val: int) -> None:
         if self.history[index][-1][0] == self.id:  # update value only if id is unchanged
             self.history[index][-1][1] = val
-            return
-        self.history[index].append([self.id, val])
+        else:
+            self.history[index].append([self.id, val])
 
     def snap(self) -> int:
         self.id += 1
