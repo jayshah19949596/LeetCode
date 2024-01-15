@@ -19,7 +19,7 @@ correct place (nums[i] = i+1) then swap.
 Time - O(n)
 Space - O(1)
 """
-
+from typing import List
 
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
