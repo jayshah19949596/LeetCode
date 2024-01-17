@@ -11,6 +11,7 @@ Time - O(n^2 * n!).  n! results, each of with has n elements
 added, each addition taking O(n) time for list slicing
 Space - O(n *n!)
 """
+from typing import List
 
 
 class Solution2(object):
@@ -38,8 +39,7 @@ class Solution:
         if l == r:
             self.res.append(a[:])
             return
-        else:
-            for i in range(l, r + 1):
-                a[l], a[i] = a[i], a[l]
-                self.perform(a, l + 1, r)
-                a[l], a[i] = a[i], a[l]
+        for i in range(l, r + 1):
+            a[l], a[i] = a[i], a[l]
+            self.perform(a, l + 1, r)
+            a[l], a[i] = a[i], a[l]
