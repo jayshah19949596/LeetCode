@@ -71,13 +71,11 @@ class Solution:
         n = len(nums)
         if n == 0: return 0
 
-        max_loot_so_far = cur_house_max_loot_so_far = nums[0]
-        prev_house_max_loot_so_far = 0
+        max_loot_so_far = prev_house_max_loot_so_far = cur_house_max_loot_so_far = 0
 
-        for i in range(1, len(nums)):
+        for i in range(0, len(nums)):
             max_loot_so_far = max(cur_house_max_loot_so_far, prev_house_max_loot_so_far + nums[i])
             prev_house_max_loot_so_far = cur_house_max_loot_so_far
             cur_house_max_loot_so_far = max_loot_so_far
 
         return max_loot_so_far
-

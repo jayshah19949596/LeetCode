@@ -42,7 +42,6 @@ class Solution:
         max_loot_so_far = cur_house_max_loot_so_far = prev_house_max_loot_so_far = 0
         # start robbing from second house till last but DON'T rob first house
         for i in range(1, len(nums)):
-            num = nums[i]
             max_loot_so_far = max(cur_house_max_loot_so_far, prev_house_max_loot_so_far + nums[i])
             prev_house_max_loot_so_far = cur_house_max_loot_so_far
             cur_house_max_loot_so_far = max_loot_so_far
@@ -50,7 +49,6 @@ class Solution:
         max_loot_so_far2 = cur_house_max_loot_so_far = prev_house_max_loot_so_far = 0
         # start robbing from first house till second last house but DON'T rob last house
         for i in range(0, len(nums)-1):
-            num = nums[i]
             max_loot_so_far2 = max(cur_house_max_loot_so_far, prev_house_max_loot_so_far + nums[i])
             prev_house_max_loot_so_far = cur_house_max_loot_so_far
             cur_house_max_loot_so_far = max_loot_so_far2
