@@ -25,28 +25,20 @@ Reference:
    4b] If it bisects at index 0, it is the smallest element of the sorted arr and we update ans accordingly (compared against the smallest element in arr).
    4c] Else it is somewhere in the middle and we will check for the minimum between the elements left and right of it in arr.
 """
-from bisect import bisect
 from sortedcontainers import SortedList
 from typing import List
 
 
 class Solution:
     def minAbsoluteDifference(self, nums: List[int], x: int) -> int:
-        n = len(nums)
-        i, j = x, 0
+        j, n = 0, len(nums)
         sorted_arr, ans = SortedList(), float('inf')
 
         for i in range(x, n):
             # https://stackoverflow.com/questions/63430867/time-complexity-of-operations-in-sortedlist-python
-            sorted_arr.add(nums[j])  # O(LogN) insertion.
-            idx_i = bisect(sorted_arr, nums[i])
-
-            if idx_i == len(sorted_arr):
-                ans = min(ans, abs(nums[i] - sorted_arr[-1]))
-            elif idx_i == 0:
-                ans = min(ans, abs(nums[i] - sorted_arr[0]))
-            else:
-                ans = min(ans, abs(nums[i] - sorted_arr[idx_i]), abs(nums[i] - sorted_arr[idx_i - 1]))
+            sorted_arr.add(nums[j])
+            idx = sorted_arr.bisect_left(nums[i])
+            ans = min(ans, abs(nums[i] - sorted_arr[min(len(sorted_arr)-1, idx)]), abs(nums[i] - sorted_arr[max(0, idx-1)]))
             j = j + 1
 
         return ans
