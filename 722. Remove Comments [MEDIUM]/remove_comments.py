@@ -18,26 +18,6 @@ Similarly, if the string "/*" occurs in a line or block comment, it is also igno
 #### Example 1:
 Input: source = ["/*Test program */", "int main()", "{ ", "  // variable declaration ", "int a, b, c;", "/* This is a test", "   multiline  ", "   comment for ", "   testing */", "a = b + c;", "}"]
 Output: ["int main()","{ ","  ","int a, b, c;","a = b + c;","}"]
-Explanation: The line by line code is visualized as below:
-/*Test program */
-int main()
-{
-  // variable declaration
-int a, b, c;
-/* This is a test
-   multiline
-   comment for
-   testing */
-a = b + c;
-}
-The string /* denotes a block comment, including line 1 and lines 6-9. The string // denotes line 4 as comments.
-The line by line output code is visualized as below:
-int main()
-{
-
-int a, b, c;
-a = b + c;
-}
 
 #### Example 2:
 Input: source = ["a/*comment", "line", "more_comment*/b"]
