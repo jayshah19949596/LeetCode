@@ -27,6 +27,7 @@ class TicTacToe:
         self.anti_diagonal_count = defaultdict(int)
 
     def move(self, row: int, col: int, player: int) -> int:
+        n = self.n
         self.row_count[(row, player)] += 1
         self.col_count[(col, player)] += 1
 
@@ -35,8 +36,8 @@ class TicTacToe:
         if col == self.n - row - 1:
             self.anti_diagonal_count[player] += 1
 
-        if (self.row_count[(row, player)] == self.n or self.col_count[(col, player)]  == self.n
-        or self.diagonal_count[player]  == self.n or self.anti_diagonal_count[player]  == self.n):
+        if (self.row_count[(row, player)] == n or self.col_count[(col, player)] == n
+        or self.diagonal_count[player] == n or self.anti_diagonal_count[player] == n):
             return player
         return 0
 
