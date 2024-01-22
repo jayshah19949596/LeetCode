@@ -39,10 +39,12 @@ from typing import List
 class Solution:
     def ipToCIDR(self, ip: str, n: int) -> List[str]:
         def ip_to_bin(ip):
-            return "".join(["{:08b}".format(i) for i in map(int, ip.split("."))])
+            binary = ["{:08b}".format(int(i)) for i in ip.split('.')]
+            return "".join(binary)
 
-        def bin_to_ip(b):
-            return ".".join([str(int(b[i:i + 8], 2)) for i in range(0, 32, 8)])
+        def bin_to_ip(bin):
+            ip = [str(int(bin[i:i+8], 2)) for i in range(0, 32, 8)]
+            return ".".join(ip)
 
         ans, cur_ip = [], ip_to_bin(ip)
 
@@ -73,5 +75,6 @@ class Solution:
             Next IP is 11111111000000000000000000010000
             -----------------------------
             """
-            cur_ip = "{:032b}".format(int(cur_ip, 2) + 2 ** trailing_zero)
+            nxt_ip = int(cur_ip, 2)+2**trailing_zero
+            cur_ip = "{:032b}".format(nxt_ip)
         return ans
