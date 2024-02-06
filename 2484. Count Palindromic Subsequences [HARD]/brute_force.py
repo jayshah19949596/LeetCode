@@ -12,8 +12,8 @@ class Solution:
 
             if s[l] == s[r]:
                 recurse([l] + inter + [r], l - 1, r + 1)
-            if l - 1 >= 0: recurse(inter[:], l - 1, r)
-            if r + 1 < len(s): recurse(inter[:], l, r + 1)
+            recurse(inter[:], l - 1, r)
+            recurse(inter[:], l, r + 1)
 
         for i in range(2, len(s) - 2):
             recurse([i], i - 1, i + 1)
