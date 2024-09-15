@@ -74,30 +74,29 @@ class Solution:
     Time Complexity - O(N)
     Space Complexity - O(1)
     """
-    def calculate(self, s: str) -> int:
-        i = answer = prev_num = num = 0
-        stack, op = [], "+"
+   def calculate(self, s: str) -> int:
+        i = tot_sum = prv_num = cur_num = 0
+        op = "+"
 
         while i < len(s):
 
-            while i < len(s) and s[i].isdigit():
-                num = num * 10 + int(s[i])
+            while i < len(s) and s[i].isdigit():  # build num
+                cur_num = cur_num * 10 + int(s[i])
                 i += 1
             else:
                 if i == len(s): i -= 1
 
             if i == len(s) - 1 or s[i] != ' ':  # c is an operator or end of string
                 if op == "+":
-                    answer += prev_num
-                    prev_num = num
+                    tot_sum += prv_num
+                    prv_num = cur_num
                 elif op == "-":
-                    answer += prev_num
-                    prev_num = -num
-                elif op == "*":
-                    prev_num = prev_num * num
-                else:
-                    prev_num = int(prev_num / num)
-                op, num = s[i], 0
+                    tot_sum += prv_num
+                    prv_num = -cur_num
+                elif op == "*": prv_num = prv_num * cur_num
+                else: prv_num = int(prv_num / cur_num)
+                cur_num = 0 # Reset cur_num
+                op = s[i]
             i += 1
 
-        return answer + prev_num
+        return tot_sum+prv_num
