@@ -49,12 +49,12 @@ class Solution:
         Time complexity: O(N⋅LogN)
         Space complexity: O(K)
         """
-        heap = []
+        heap_arr = []
         for num in nums:
-            heapq.heappush(heap, num)
-            if len(heap) > k:
-                heapq.heappop(heap)
-        return heap[0]
+            heapq.heappush(heap_arr, num)
+            if len(heap_arr) > k:
+                heapq.heappop(heap_arr)
+        return heap_arr[0]
 
     def hoars_selection(self, nums: List[int], k: int) -> int:
         """
