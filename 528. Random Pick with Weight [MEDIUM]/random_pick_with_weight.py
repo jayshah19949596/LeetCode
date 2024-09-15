@@ -33,30 +33,31 @@ Time Complexity:
 Space Complexity: O(N)
 """
 import random
+import bisect
 from typing import List
 
 
 class Solution(object):
 
     def __init__(self, w: List[int]):
-        self.cumulative = []
+        self.prefix_sums = []
         prefix_sum = 0
         for weight in w:
             prefix_sum += weight
-            self.cumulative.append(prefix_sum)
+            self.prefix_sums.append(prefix_sum)
         self.total_sum = prefix_sum
 
     def pickIndex(self) -> int:
         target = self.total_sum * random.random()
-        # target = random.randint(1, self.cumulative[-1])
+        # target = random.randint(1, self.prefix_sums[-1])
         # run a linear search to find the target zone
-        for i, prefix_sum in enumerate(self.cumulative):
+        for i, prefix_sum in enumerate(self.prefix_sums):
             if target <= prefix_sum:
                 return i
 
     def pickIndexBinary(self) -> int:
         target = self.total_sum * random.random()
-        # target = random.randint(1, self.cumulative[-1])
+        # target = random.randint(1, self.prefix_sums[-1])
         # run a binary search to find the target zone
         low, high = 0, len(self.prefix_sums)
         while low < high:
@@ -66,6 +67,13 @@ class Solution(object):
             else:
                 high = mid
         return low
+
+    def pickIndexBinaryBisect(self) -> int:
+            target = self.total_sum * random.random()
+            #target = random.randint(1, self.prefix_sums[-1])
+            # run a binary search to find the target zone
+            idx = bisect.bisect_left(self.prefix_sums, target)
+            return idx
 
 
 """
