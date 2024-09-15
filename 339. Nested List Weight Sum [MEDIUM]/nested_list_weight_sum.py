@@ -68,36 +68,30 @@ class NestedInteger:
 
 # DFS iterative
 class Solution:
-    def depthSum(self, nested_list: List[NestedInteger]) -> int:
+    def depthSum(self, nestedList: List[NestedInteger]) -> int:
+        # Add Seed nodes to stack to start DFS traversal
+        stack = [[element, 1] for element in nestedList]
         total = 0
-
-        for i in range(len(nested_list)):
-            nested_item = nested_list[i]
-            stack = [[1, nested_item]]
-            while stack:
-                depth, current = stack.pop()
-                if current.isInteger():
-                    total += current.getInteger() * depth
-                else:
-                    for item in current.getList():
-                        stack.append([depth + 1, item])
+        while stack:
+            cur_element, depth = stack.pop()
+            if cur_element.isInteger():
+                total += cur_element.getInteger()*depth
+            else:
+                for nested_element in cur_element.getList():
+                    stack.append([nested_element, depth+1])
         return total
-
 
 # BFS iterative
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
-        queue = deque(nestedList)
-        depth = 1
+        # Add Seed nodes to queue to start BFS traversal
+        queue = deque([[element, 1] for element in nestedList])
         total = 0
-
-        while len(queue) > 0:
-            for i in range(len(queue)):
-                nested = queue.pop()
-                if nested.isInteger():
-                    total += nested.getInteger() * depth
-                else:
-                    queue.extendleft(nested.getList())
-            depth += 1
-
+        while queue:
+            cur_element, depth = queue.pop()
+            if cur_element.isInteger():
+                total += cur_element.getInteger()*depth
+            else:
+                for nested_element in cur_element.getList():
+                    queue.appendleft([nested_element, depth+1])
         return total
