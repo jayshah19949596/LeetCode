@@ -69,3 +69,25 @@ class Solution:
                 intervals[anchor_idx] = intervals[moving_idx]
 
         return intervals[:anchor_idx + 1]
+
+
+"""
+APPROACH: Using heap
+------------------------------------------------
+"""
+import heapq
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x: x[0])
+        merged, heap = [], []
+        for interval in intervals:
+            start, end = interval
+
+            # Remove all intervals that end before the current start
+            while heap and heap[0] < start:
+                heapq.heappop(heap)
+            if not heap: merged.append(interval) # No overlap, add new interval
+            elif start <= heap[0]: merged[-1][1] = max(merged[-1][1], end) # Overlap found, update the end time of the last interval
+            heapq.heappush(heap, end) # Add the current end time to the heap
+
+        return merged
