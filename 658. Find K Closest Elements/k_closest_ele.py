@@ -75,7 +75,7 @@ Return the elements inside arr contained within the window defined between left 
 
 ### 2. Complexity Analysis:
 ----------------------------
-Time Complexity: O(N), in avg case. O(N^2) in worst case. Worst case probability is negligible.
+Time Complexity: O(log(N)+k)
 Space Complexity: O(N)
 """
 class Solution:
