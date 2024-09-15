@@ -32,7 +32,7 @@ class Solution:
         return points[:k]
 
 """
-APPROACH-1: Divide and Conquer with Quick Select:
+APPROACH-2: Divide and Conquer with Quick Select:
 ------------------------------------------------
 Sort the "points" array by distance.
 Return the first k elements from sorted array.
@@ -76,3 +76,37 @@ class Solution:
         return [distances[idx][1] for idx in range(0, k)]
 
 
+"""
+APPROACH-3: Using Heap
+------------------------------------------------
+
+### Complexity Analysis:
+------------------------------------------------
+Time Complexity: O(N*LogK)
+Space Complexity: O(K)
+"""
+import heapq
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        heap = []
+        for i, point in enumerate(points):
+
+            dist = self.squared_distance(point)
+            if len(heap) < k:
+                heapq.heappush(heap, [-dist, i])
+            elif dist < -heap[0][0]:
+                heapq.heappop(heap)
+                heapq.heappush(heap, [-dist, i])
+
+        result = []
+        while heap:
+            element = heapq.heappop(heap)
+            dist, idx = element
+            result.append(points[idx])
+        return result
+
+
+    def squared_distance(self, point: List[int]) -> int:
+        """Calculate and return the squared Euclidean distance."""
+        return point[0] ** 2 + point[1] ** 2
