@@ -1,4 +1,5 @@
 """
+1570. Dot Product of Two Sparse Vectors [MEDIUM]
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
 
 ### 1. Question Explanation:
@@ -63,7 +64,7 @@ class SparseVector:
             if num != 0: self.idx_to_value[i] = num
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
-        answer, i = 0, 0
+        answer = i = 0
         for key in self.idx_to_value:
             if i >= len(vec.idx_to_value): break
             answer += vec.idx_to_value[key] * self.idx_to_value[key]
