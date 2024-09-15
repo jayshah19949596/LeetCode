@@ -1,5 +1,5 @@
 /*
-2667. Create Hello World Function
+2667. Create Hello World Function [EASY]
 https://leetcode.com/problems/create-hello-world-function
 
 ### 1. Question Explanation:

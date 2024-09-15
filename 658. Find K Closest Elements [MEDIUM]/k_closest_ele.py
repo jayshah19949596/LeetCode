@@ -1,5 +1,5 @@
 """
-658. Find K Closest Elements
+658. Find K Closest Elements [MEDIUM]
 https://leetcode.com/problems/find-k-closest-elements
 
 ### 1. Question Explanation:
