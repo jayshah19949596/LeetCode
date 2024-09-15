@@ -32,7 +32,37 @@ class Solution:
         return points[:k]
 
 """
-APPROACH-2: Divide and Conquer with Quick Select:
+APPROACH-2: Using Heap
+------------------------------------------------
+
+### Complexity Analysis:
+------------------------------------------------
+Time Complexity: O(N*LogK)
+Space Complexity: O(K)
+"""
+import heapq
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        heap = []
+        for i, point in enumerate(points):
+
+            dist = self.squared_distance(point)
+            if len(heap) < k:
+                heapq.heappush(heap, [-dist, i])
+            elif dist < -heap[0][0]:
+                heapq.heappop(heap)
+                heapq.heappush(heap, [-dist, i])
+
+        result = []
+        while heap:
+            element = heapq.heappop(heap)
+            dist, idx = element
+            result.append(points[idx])
+        return result
+
+"""
+APPROACH-3: Divide and Conquer with Quick Select:
 ------------------------------------------------
 Sort the "points" array by distance.
 Return the first k elements from sorted array.
@@ -40,9 +70,10 @@ Return the first k elements from sorted array.
 ### Complexity Analysis:
 ------------------------------------------------
 Time Complexity: 
-O(N) in average case and O(N^2) in the worst case, where N is the length of points.
+Average case: O(N) because it halves (roughly) the remaining elements needing to be processed at each iteration.
+Worst case: O(N^2) in the worst case, where N is the length of points.
 
-Space Complexity: O(N)O(N)O(N).
+Space Complexity: O(N).
 """
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
@@ -75,38 +106,72 @@ class Solution:
         kth_distance_pt = quick_select(distances, 0, len(distances) - 1, k)
         return [distances[idx][1] for idx in range(0, k)]
 
+    def squared_distance(self, point: List[int]) -> int:
+        """Calculate and return the squared Euclidean distance."""
+        return point[0] ** 2 + point[1] ** 2
 
 """
-APPROACH-3: Using Heap
+APPROACH-4: BinarySearch
 ------------------------------------------------
+1. Precompute the Euclidean distances of each point.
+2. Define the initial binary search range by identifying the farthest computed distance.
+3. Perform a binary search from low to high using the reference distances.
+   - Calculate the midpoint of the remaining range as the target distance.
+   - Split the remaining points into those closer and those farther than the target distance.
+   - If the closer array has fewer than k points, add them to the closest array and adjust the value of k.
+   - Keep only the appropriate remaining array for the next iteration and update the binary search range.
+4. Once k elements have been added to the closest array, return the k closest points
 
 ### Complexity Analysis:
 ------------------------------------------------
-Time Complexity: O(N*LogK)
-Space Complexity: O(K)
-"""
-import heapq
+Time Complexity:
+Average case: O(N). It achieves this by halving (on average) the remaining elements needing to be processed at each iteration
+Worst case: O(N^2) in the worst case.
 
+Space Complexity: O(N). An extra O(N) space is required for the arrays containing distances and reference indices.
+"""
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        heap = []
-        for i, point in enumerate(points):
+        # Precompute the Euclidean distance for each point
+        distances = [self.euclidean_distance(point) for point in points]
+        # Create a reference list of point indices
+        remaining = [i for i in range(len(points))]
+        # Define the initial binary search range
+        min_dist, max_dist = 0, max(distances)
 
-            dist = self.squared_distance(point)
-            if len(heap) < k:
-                heapq.heappush(heap, [-dist, i])
-            elif dist < -heap[0][0]:
-                heapq.heappop(heap)
-                heapq.heappush(heap, [-dist, i])
+        # Perform a binary search of the distances
+        # to find the k closest points
+        closest = []
+        while k:
+            mid_dist = (min_dist + max_dist) / 2
+            closer, farther = self.split_distances(remaining, distances, mid_dist)
+            if len(closer) > k:
+                # If more than k points are in the closer distances
+                # then discard the farther points and continue
+                remaining = closer
+                max_dist = mid_dist
+            else:
+                # Add the closer points to the answer array and keep
+                # searching the farther distances for the remaining points
+                k -= len(closer)
+                closest.extend(closer)
+                remaining = farther
+                min_dist = mid_dist
 
-        result = []
-        while heap:
-            element = heapq.heappop(heap)
-            dist, idx = element
-            result.append(points[idx])
-        return result
+        # Return the k closest points using the reference indices
+        return [points[i] for i in closest]
 
+    def split_distances(self, remaining, distances, mid_dist):
+        """Split the distances around the midpoint
+        and return them in separate lists."""
+        closer, farther = [], []
+        for index in remaining:
+            if distances[index] <= mid_dist:
+                closer.append(index)
+            else:
+                farther.append(index)
+        return [closer, farther]
 
-    def squared_distance(self, point: List[int]) -> int:
+    def euclidean_distance(self, point: List[int]) -> float:
         """Calculate and return the squared Euclidean distance."""
         return point[0] ** 2 + point[1] ** 2
