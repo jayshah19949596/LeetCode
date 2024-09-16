@@ -35,15 +35,27 @@ class TreeNode:
 
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        # return self.recursive(root, low, high
-        return self.iterative(root, low, high)
+        ans = [0]
+        # return self.bottom_up_recurse(root, low, high)
+        return self.top_down_recurse(root, low, high, ans)
+        # return self.iterative(root, low, high)
 
-    def recursive(self, node, low, high):
+    def bottom_up_recurse(self, node, low, high):
         if not node: return 0
-        if node.val > high: return self.recursive(node.left, low, high)
-        if node.val < low: return self.recursive(node.right, low, high)
+        if node.val > high:
+            return self.recurse(node.left, low, high)
+        if node.val < low:
+            return self.recurse(node.right, low, high)
+        return node.val + self.recurse(node.left, low, high) + self.recurse(node.right, low, high)
 
-        return node.val + self.recursive(node.left, low, high) + self.recursive(node.right, low, high)
+    def top_down_recurse(self, node, low, high, ans):
+        if node:
+            if low <= node.val <= high:
+                ans[0] = ans[0] + node.val
+            if low < node.val:
+                top_down_recurse(node.left)
+            if node.val < high:
+                top_down_recurse(node.right)
 
     def iterative(self, root, low, high):
         ans = 0
