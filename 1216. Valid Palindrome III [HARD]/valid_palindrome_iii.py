@@ -21,6 +21,7 @@ Space complexity: O(N^2). The visited array and the queue list can hold (N^2) no
 from collections import deque
 
 
+from collections import deque
 class Solution:
     def isValidPalindrome(self, s: str, k: int) -> bool:
         # queue holds a tuple of `l` and `r`, and the depth `curr_k`.
@@ -29,8 +30,9 @@ class Solution:
         while queue:
             l, r, curr_k = queue.popleft()
 
-            # If the budget is exceeded return False
-            if curr_k > k: return False
+            # If the budget is exceeded then discard the current state
+            # and explore others in queue
+            if curr_k > k: continue
 
             # Shave off the two ends of s[l:r+1] until end characters
             # don't match. Each graph node is defined by (l,r)
@@ -45,3 +47,5 @@ class Solution:
                 if (new_l, new_r) not in visited:
                     queue.append((new_l, new_r, curr_k+1))
                     visited.add((new_l, new_r))
+
+        return False
