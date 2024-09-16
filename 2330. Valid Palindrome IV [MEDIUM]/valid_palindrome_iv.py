@@ -25,12 +25,12 @@ Space complexity: O(1).
 """
 class Solution:
     def makePalindrome(self, s: str) -> bool:
-        l, r = 0, len(s)-1
+        left, right = 0, len(s)-1
         no_op = 0
-        while l<r:
-            if s[l] != s[r]:
+        while left<right:
+            if s[left] != s[right]:
                 no_op += 1
                 if no_op == 3:
                     return False
-            l, r = l+1, r-1
+            left, right = left+1, right-1
         return True
