@@ -8,6 +8,14 @@ Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0'
 
 An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 """
+
+"""
+======================
+APPROACH-1: DFS
+======================
+
+
+"""
 class Solution:
     def __init__(self):
         self.neighbors = [[1, 0], [0, 1], [-1, 0], [0, -1]]
@@ -31,6 +39,13 @@ class Solution:
                 if grid[r+nr][c+nc] == "1" and (r+nr, c+nc) not in self.visited:
                     self.group_neighors((r+nr, c+nc), rows, cols, grid)
 
+"""
+======================
+APPROACH-2: Union Find
+======================
+
+
+"""
 class Solution:
     def __init__(self):
         self.neighbors = [[1, 0], [0, 1], [-1, 0], [0, -1]]
