@@ -43,7 +43,6 @@ Time - O(N)
 Space - O(1)
 """
 
-
 class Solution:
     def isNumber(self, s: str) -> bool:
         seen_digit = seen_dot = seen_exponent = False
