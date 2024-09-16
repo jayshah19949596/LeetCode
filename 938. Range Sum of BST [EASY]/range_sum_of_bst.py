@@ -51,28 +51,27 @@ class Solution:
         return node.val + self.bottom_up_recurse(node.left, low, high) + self.bottom_up_recurse(node.right, low, high)
 
     def top_down_recurse(self, node, low, high, ans):
-        if node:
-            if low <= node.val <= high:
-                self.top_down_recurse(node.left, low, high, ans)
-                self.top_down_recurse(node.right, low, high, ans)
-                ans[0] = ans[0] + node.val
-            elif node.val < low: # OutOfBound Condition
-                self.top_down_recurse(node.right, low, high, ans)
-            elif node.val > high:
-                self.top_down_recurse(node.left, low, high, ans)
+        if not node: return
+        elif low <= node.val <= high:
+            self.top_down_recurse(node.left, low, high, ans)
+            self.top_down_recurse(node.right, low, high, ans)
+            ans[0] = ans[0] + node.val
+        elif node.val < low: # OutOfBound Condition
+            self.top_down_recurse(node.right, low, high, ans)
+        elif node.val > high:
+            self.top_down_recurse(node.left, low, high, ans)
 
     def iterative(self, root, low, high):
-        ans = 0
-        stack = [root]
+        stack, ans = [root], 0
         while stack:
             node = stack.pop()
-            if node:
-                if low <= node.val <= high:
-                    ans += node.val
-                    stack.append(node.left)
-                    stack.append(node.right)
-                if node.val < low:
-                    stack.append(node.right)
-                if node.val > high:
-                    stack.append(node.left)
+            if not node: continue
+            elif low <= node.val <= high:
+                ans += node.val
+                stack.append(node.left)
+                stack.append(node.right)
+            elif node.val < low: # OutOfBound Condition
+                stack.append(node.right)
+            elif node.val > high: # OutOfBound Condition
+                stack.append(node.left)
         return ans
