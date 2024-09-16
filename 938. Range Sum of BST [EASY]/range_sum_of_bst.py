@@ -1,4 +1,5 @@
 """
+938. Range Sum of BST [EASY]
 https://leetcode.com/problems/range-sum-of-bst/
 
 ### 1. Question Explanation:
@@ -35,27 +36,30 @@ class TreeNode:
 
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        ans = [0]
+        """ans = [0]
+        self.top_down_recurse(root, low, high, ans)
+        return ans[0]"""
         # return self.bottom_up_recurse(root, low, high)
-        return self.top_down_recurse(root, low, high, ans)
-        # return self.iterative(root, low, high)
+        return self.iterative(root, low, high)
 
     def bottom_up_recurse(self, node, low, high):
         if not node: return 0
         if node.val > high:
-            return self.recurse(node.left, low, high)
+            return self.bottom_up_recurse(node.left, low, high)
         if node.val < low:
-            return self.recurse(node.right, low, high)
-        return node.val + self.recurse(node.left, low, high) + self.recurse(node.right, low, high)
+            return self.bottom_up_recurse(node.right, low, high)
+        return node.val + self.bottom_up_recurse(node.left, low, high) + self.bottom_up_recurse(node.right, low, high)
 
     def top_down_recurse(self, node, low, high, ans):
         if node:
             if low <= node.val <= high:
+                self.top_down_recurse(node.left, low, high, ans)
+                self.top_down_recurse(node.right, low, high, ans)
                 ans[0] = ans[0] + node.val
-            if low < node.val:
-                top_down_recurse(node.left)
-            if node.val < high:
-                top_down_recurse(node.right)
+            elif node.val < low: # OutOfBound Condition
+                self.top_down_recurse(node.right, low, high, ans)
+            elif node.val > high:
+                self.top_down_recurse(node.left, low, high, ans)
 
     def iterative(self, root, low, high):
         ans = 0
@@ -65,8 +69,10 @@ class Solution:
             if node:
                 if low <= node.val <= high:
                     ans += node.val
-                if low < node.val:
                     stack.append(node.left)
-                if node.val < high:
                     stack.append(node.right)
+                if node.val < low:
+                    stack.append(node.right)
+                if node.val > high:
+                    stack.append(node.left)
         return ans
