@@ -1,6 +1,6 @@
 """
 90. Subsets II [MEDIUM]
-https://leetcode.com/problems/subsets-ii/description/
+https://leetcode.com/problems/subsets-ii
 
 ### 1. Question Explanation:
 ----------------------------
