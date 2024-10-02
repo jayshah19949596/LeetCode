@@ -20,33 +20,29 @@ from typing import List
 
 class Solution(object):
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        target = 0
-        nums.sort()
+        i = target = 0
         results = []
-        i = 0
+        nums.sort()
         while i < len(nums):
-            j = i + 1
-            k = len(nums) - 1
+            left, right = i + 1, len(nums) - 1
 
-            while j < k:
-                triplet_sum = nums[i] + nums[j] + nums[k]
-
+            while left < right:
+                triplet_sum = nums[i] + nums[left] + nums[right]
                 if triplet_sum == target:
-                    results.append([nums[i], nums[j], nums[k]])
-                    k -= 1
-                    j += 1
-                    while nums[k] == nums[k + 1] and k > j:
-                        k -= 1
-                    while nums[j] == nums[j - 1] and j < k:
-                        j += 1
+                    results.append([nums[i], nums[left], nums[right]])
+                    left, right = left+1, right-1
+                    while nums[right] == nums[right + 1] and right > left:
+                        right -= 1
+                    while nums[left] == nums[left - 1] and left < right:
+                        left += 1
                 elif triplet_sum < target:
-                    j += 1
-                    while nums[j] == nums[j - 1] and j < k:
-                        j += 1
+                    left += 1
+                    while nums[left] == nums[left - 1] and left < right:
+                        left += 1
                 elif triplet_sum > target:
-                    k -= 1
-                    while nums[k] == nums[k + 1] and k > j:
-                        k -= 1
+                    right -= 1
+                    while nums[right] == nums[right + 1] and right > left:
+                        right -= 1
 
             i += 1
             while i < len(nums) - 2 and nums[i] == nums[i - 1]:
