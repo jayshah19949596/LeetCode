@@ -45,20 +45,20 @@ class Solution:
         Time - O(LogN)
         Space - O(1)
         """
-        left, right = 0, len(nums) - 1
+        left, right = 0, len(nums)-1
 
-        while left < right - 1:
-            middle = (left + right) // 2
-            if nums[middle] >= nums[middle - 1] and nums[middle] >= nums[middle + 1]:
-                return middle
-            elif nums[middle - 1] > nums[middle]:
-                right = middle - 1
+        while left<right:
+            mid = (left + right)//2
+            if ((mid==0 and nums[mid]>nums[mid+1]) or
+               (mid == right and nums[mid]>nums[mid-1]) or
+               (nums[mid]>nums[mid+1] and nums[mid]>nums[mid-1])):
+                return mid
+            elif nums[mid+1]>nums[mid]:
+                left = mid+1
             else:
-                left = middle + 1
+                right = mid-1
 
-        if nums[left] >= nums[right]:
-            return left
-        return right
+        return left
 
     def binary_search_peak_recursive(self, nums, left, right):
         """
