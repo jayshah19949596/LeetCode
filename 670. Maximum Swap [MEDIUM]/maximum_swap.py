@@ -1,4 +1,5 @@
 """
+670. Maximum Swap [MEDIUM]
 https://leetcode.com/problems/maximum-swap/
 
 Solution REF: https://leetcode.com/problems/maximum-swap/solutions/4266278/easy-to-understand-python3-code-with-full-explanation-o-n-time-o-n-space/
@@ -24,7 +25,7 @@ APPROACH: Greedy Approach
 Intuition is to swap the smallest left-most digit with the largest right-most digit in order to maximize the number
 We iterate from right to left, we have to keep track of the largest digit encountered so far and then swap it with left-most digit which is smaller than it.
 
-This is reedy approach Because we are guaranteed to find the right-most largest digit and replace it with the left-most smallest digit.
+This is greedy approach Because we are guaranteed to find the right-most largest digit and replace it with the left-most smallest digit.
 Since this is a greedy approach, we don't need any look backs and only need to iterate through all the digits just once.
 
 
