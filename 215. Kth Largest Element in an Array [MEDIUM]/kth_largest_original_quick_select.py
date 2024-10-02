@@ -6,7 +6,7 @@ from typing import List
 
 class Solution:
     def findKthLargest(self, nums, k):
-        def partition(array, low, high):
+        def lomutos_partition(array, low, high):
             i = low - 1
             pivot_idx = high
             pivot_element = array[pivot_idx]
