@@ -24,14 +24,14 @@ class Solution(object):
         """
         return self.findLCA(root, p, q)  # SOLUTION ===> 1
 
-    def findPath(self, root, path, k):
+    def bottom_up_find_path(self, root, path, k):
         if root is None: return False
 
         if root.val == k.val:
             path.append(root)
             return True
 
-        if self.findPath(root.left, path, k) or self.findPath(root.right, path, k):
+        if self.bottom_up_find_path(root.left, path, k) or self.bottom_up_find_path(root.right, path, k):
             path.append(root)
             return True
 
@@ -40,18 +40,15 @@ class Solution(object):
     def findLCA(self, root, n1, n2):
         path1, path2 = [], []
 
-        if not self.findPath(root, path1, n1) or not self.findPath(root, path2, n2):
+        if not self.bottom_up_find_path(root, path1, n1) or not self.bottom_up_find_path(root, path2, n2):
             return None
 
         i, j = len(path1) - 1, len(path2) - 1
         while (i >= 0 and j >= 0):
-            if path1[i] != path2[j]:
-                break
-            i -= 1
-            j -= 1
+            if path1[i] != path2[j]: break
+            i, j = i-1, j-1
 
         return path1[i + 1]
-
 
 class Solution1(object):
     """
