@@ -35,7 +35,7 @@ from typing import List
 class Solution(object):
     def subarraySum(self, nums: List[int], k: int) -> int:
         total = 0
-        sums = defaultdict(int) # key is prefix sum, value is count of number of prefixes
+        sums_seen = defaultdict(int) # key is prefix sum, value is count of number of prefixes
         running_sum = 0
 
         for i, num in enumerate(nums):
@@ -44,9 +44,9 @@ class Solution(object):
 
             if running_sum == k:
                 total += 1
-            if running_sum - k in sums:
-                total += sums[running_sum - k]   # subarrays at index ith that equals running_sum - k
+            if running_sum - k in sums_seen:
+                total += sums_seen[running_sum - k]  # subarrays at index ith that equals running_sum - k
 
-            sums[running_sum] += 1
+            sums_seen[running_sum] += 1
 
         return total
