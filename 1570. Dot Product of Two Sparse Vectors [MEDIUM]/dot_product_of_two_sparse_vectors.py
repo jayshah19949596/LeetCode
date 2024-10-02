@@ -59,17 +59,21 @@ class SparseVector:
     Space Complexity: O(L) for creating the Hash Map
     """
     def __init__(self, nums: List[int]):
-        self.idx_to_value = defaultdict(int)
-        for i, num in enumerate(nums):
-            if num != 0: self.idx_to_value[i] = num
-    # Return the dotProduct of two sparse vectors
-    def dotProduct(self, vec: 'SparseVector') -> int:
-        answer = i = 0
-        for key in self.idx_to_value:
-            if i >= len(vec.idx_to_value): break
-            answer += vec.idx_to_value[key] * self.idx_to_value[key]
-            i += 1
-        return answer
+            self.idx_to_value = defaultdict(int)
+            self.max_i = 0
+            for i, num in enumerate(nums):
+                if num != 0:
+                    self.idx_to_value[i] = num
+                    self.max_i = max(self.max_i, i)
+
+        # Return the dotProduct of two sparse vectors
+        def dotProduct(self, vec: 'SparseVector') -> int:
+            answer = 0
+            for key in self.idx_to_value:
+                answer += vec.idx_to_value[key] * self.idx_to_value[key]
+                if key >= vec.max_i: break # PRUNING
+            return answer
+
 
 
 # APPROACH 2: Index-Value Pairs with TWO Pointer approach for dot-product
