@@ -22,11 +22,9 @@ from typing import List
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         moving_idx = anchor_idx = 0
-        while moving_idx < len(nums):
-            current_num = nums[moving_idx]
+        for moving_idx in range(len(nums)):
+            if nums[moving_idx] == 0: continue
             nums[anchor_idx] = nums[moving_idx]
-            if current_num != 0: anchor_idx += 1
-            moving_idx += 1
-
+            anchor_idx += 1
         for i in range(anchor_idx, len(nums)):
             nums[i] = 0
