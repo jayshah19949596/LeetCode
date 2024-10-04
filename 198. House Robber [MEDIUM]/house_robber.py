@@ -31,6 +31,26 @@ Total amount you can rob = 2 + 9 + 1 = 12.
 """
 from typing import List
 
+class Solution:
+    """
+    ------------------------------------------
+    APPROACH 1: Recursion
+    ------------------------------------------
+    Time: O(2^N)
+    Space: O(N)
+    """
+    def rob(self, houses: List[int]) -> int:
+        num_len = len(houses)
+        memo = {}
+
+        def recurse(idx):
+            if idx<0: return 0
+            rob_current = houses[idx] + recurse(idx - 2)
+            skp_current = recurse(idx - 1)
+
+            return max(rob_current,skp_current )
+
+        return recurse(num_len - 1)
 
 class Solution:
     """
@@ -45,17 +65,11 @@ class Solution:
         memo = {}
 
         def recurse(idx):
-            if idx == 0:
-                memo[0] = houses[0]
-            elif idx == 1:
-                memo[1] = max(houses[0], houses[1])
-
+            if idx<0: return 0
             if idx in memo: return memo[idx]
-
             max_amnt_so_far = max(recurse(idx - 1), houses[idx] + recurse(idx - 2))
             memo[idx] = max_amnt_so_far
             return memo[idx]
-
         return recurse(num_len - 1)
 
 
