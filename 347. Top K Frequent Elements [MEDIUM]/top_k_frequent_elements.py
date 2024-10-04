@@ -4,7 +4,20 @@ from typing import List
 
 """
 ============================
-## APPROACH 1: Using Heap
+## APPROACH 1: Sorting
+============================
+"""
+from collections import Counter
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        num_freq = Counter(nums)
+        sorted_nums_by_freq = sorted(num_freq, key=num_freq.get, reverse=True)
+        return sorted_nums_by_freq[:k]
+
+"""
+============================
+## APPROACH 2: Using Heap
 
 ### 1. Solution Explanation:
 ----------------------------
@@ -34,7 +47,7 @@ class Solution:
 
 """
 ============================
-# APPROACH 2: Quickselect with Lomutos Partition
+# APPROACH 3: Quickselect with Lomutos Partition
 ============================
 
 ### 1. Solution Explanation:
