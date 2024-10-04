@@ -16,9 +16,8 @@ class Solution:
         return max(y[0]-x[0], y[1]-x[1])
 
     def a_star_search(self, grid):
-        min_moves = float("inf")
         n, m = len(grid)-1, len(grid[0])-1
-        if grid[0][0] == 1 or grid[-1][-1] == 1: return min_moves
+        if grid[0][0] == 1 or grid[-1][-1] == 1: return float("inf")
 
         neighboring_rows = [0, 1, -1, 0, -1, 1, -1, 1]
         neighboring_cols = [1, 0, 0, -1, -1, 1, 1, -1]
@@ -27,12 +26,9 @@ class Solution:
 
         while queue:
             cur_dist, moves, cur_row, cur_col = heapq.heappop(queue)
-            if moves>min_moves:
-                continue
-
             if cur_row == len(grid) - 1 and cur_col == len(grid[0]) - 1:
-                min_moves = min(min_moves, moves)
-                continue
+                # No need to keep track of Min Moves. The First destination found already has moves.
+                return moves
 
             if (cur_row, cur_col) in visited: continue
             visited.add((cur_row, cur_col))
@@ -43,4 +39,5 @@ class Solution:
                         grid[next_row][next_col] == 0:
                     hueristic = moves+Solution.get_estimate_dist([cur_row + neighbor_row, cur_col + neighbor_col], [n, m])
                     heapq.heappush(queue, [hueristic, moves+1, cur_row + neighbor_row, cur_col + neighbor_col])
-        return min_moves
+
+        return float("inf")
