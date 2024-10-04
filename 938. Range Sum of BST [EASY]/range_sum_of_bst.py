@@ -39,8 +39,18 @@ class Solution:
         """ans = [0]
         self.top_down_recurse(root, low, high, ans)
         return ans[0]"""
-        # return self.bottom_up_recurse(root, low, high)
+        # return self.full_search_dfs(root, low, high)
+        # return self.bttm_up_full_search_dfs(root, low, high)
         return self.iterative(root, low, high)
+
+    def bttm_up_full_search_dfs(self, node, low, high):
+        if not node: return 0
+        left = self.bttm_up_full_search_dfs(node.left, low, high)
+        right = self.bttm_up_full_search_dfs(node.right, low, high)
+        summ = left+right
+        if low <= node.val <= high:
+            summ = summ + node.val
+        return summ
 
     def bottom_up_recurse(self, node, low, high):
         if not node: return 0
