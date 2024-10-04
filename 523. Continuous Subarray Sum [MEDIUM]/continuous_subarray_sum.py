@@ -18,6 +18,7 @@ from typing import List
 
 
 class Solution:
+    # Explanation: https://www.youtube.com/watch?v=OKcrLfR-8mE&t=397s
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         prefix_sum, hash_map = 0, {0: 0}  # key is prefix sum mod k, value is index in nums
 
@@ -25,10 +26,10 @@ class Solution:
             prefix_sum += num
             if prefix_sum % k not in hash_map:  # if the remainder s % k occurs for the first time
                 hash_map[prefix_sum % k] = i + 1
-            elif i + 1 - hash_map[prefix_sum % k] >= 2:
+            else:
                 # The remainder reoccurs means we added a sum to prefix which is divisible by k
                 # if the subarray size is at least two
-                return True
+                if i + 1 - hash_map[prefix_sum % k] >= 2: return True
         return False
 
     def brute_force(self, nums: List[int], k: int) -> bool:
