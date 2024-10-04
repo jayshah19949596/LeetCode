@@ -31,6 +31,12 @@ class Solution:
 
         # find minimum difference across adjacent elements
         ans = min(minutes[i + 1] - minutes[i] for i in range(len(minutes) - 1))
-
+        print(minutes)
+        """
+        An edge case we have to consider is if the smallest difference is between the last and first element,
+        in which case the time loops back to "00:00".
+        For example, if the last and first time is "22:00" and "02:00",
+        then the time difference is 4 hours or 240 minutes.
+        """
         # consider difference between last and first element
-        return min(ans, 24 * 60 - minutes[-1] + minutes[0])
+        return min(ans, (24 * 60) - minutes[-1] + minutes[0])
