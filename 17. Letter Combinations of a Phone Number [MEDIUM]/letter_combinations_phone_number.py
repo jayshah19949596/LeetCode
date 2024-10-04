@@ -28,7 +28,9 @@ APPROACH: DFS approach to get all letter combinations for a phone number
 
 ### 3. Complexity Analysis:
 ----------------------------
-Time Complexity: O((4^N)*N)
+Time Complexity: O((4^N)*N) where N is the length of digits.
+                 Note that 4 in this expression is referring to the maximum value length in the hash map,
+                 and not to the length of the input.
 Space Complexity: O(N)
 """
 from typing import List
