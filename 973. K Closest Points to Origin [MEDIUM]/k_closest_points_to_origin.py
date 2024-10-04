@@ -44,10 +44,13 @@ import heapq
 
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        def squared_distance(pt: List[int]) -> int:
+            """Calculate and return the squared Euclidean distance."""
+            return pt[0] ** 2 + pt[1] ** 2
+
         heap = []
         for i, point in enumerate(points):
-
-            dist = self.squared_distance(point)
+            dist = squared_distance(point)
             if len(heap) < k:
                 heapq.heappush(heap, [-dist, i])
             elif dist < -heap[0][0]:
@@ -60,6 +63,8 @@ class Solution:
             dist, idx = element
             result.append(points[idx])
         return result
+
+
 
 """
 APPROACH-3: Divide and Conquer with Quick Select:
