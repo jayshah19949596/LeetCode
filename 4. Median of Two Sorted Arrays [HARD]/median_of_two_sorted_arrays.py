@@ -7,6 +7,11 @@ class Solution:
     3. Calculate the corresponding partition in the larger array.
     4. Compare elements around the partition to determine if it's correct.
     5. Adjust the partition if necessary and repeat until the correct partition is found.
+
+    COMPLEXITY ANALYSIS:
+    ----------------------------
+    Time: O(Log(min(m,n))), where m and n are the lengths of the input arrays
+    Space: O(1)
     """
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         if len(nums1)>len(nums2): nums1, nums2 = nums2, nums1
