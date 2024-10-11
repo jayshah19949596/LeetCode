@@ -24,16 +24,20 @@ from typing import List
 
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
+        i, n = 0, len(nums)
+        while i < n:
+            correct_idx = nums[i] - 1 # Correct index of the current value is nums[i] - 1
 
-        def swap(nums, i, j):
-            nums[i], nums[j] = nums[j], nums[i]
+            if (0 < nums[i] <= n
+            # And Condition If the value is already ibn place then ignore. This is to handle traffic.
+            and nums[i] != nums[correct_idx]):
+                nums[i], nums[correct_idx] = nums[correct_idx], nums[i] # Swap the current value to it index
+            else:
+                i += 1
 
         for i in range(len(nums)):
-            while (nums[i] > 0 and nums[i] <= len(nums) and nums[i] != nums[nums[i] - 1]):
-                swap(nums, i, nums[i] - 1)
+            if (nums[i] != i+1):
+                return i+1
 
-        for i in range(len(nums)):
-            if (nums[i] != i + 1):
-                return i + 1
+        return len(nums)+1
 
-        return len(nums) + 1
