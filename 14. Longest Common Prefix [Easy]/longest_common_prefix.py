@@ -8,7 +8,7 @@ class Solution:
             for i in range(1, len(strs)):
                 if char_idx>=len(strs[i]) or strs[i][char_idx] != char:
                     return "".join(results)
-            char_idx += 1
             results.append(char)
+            char_idx += 1
 
         return "".join(results)
