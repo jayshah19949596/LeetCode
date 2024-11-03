@@ -1,6 +1,7 @@
 """
 31. Next Permutation [MEDIUM]
 https://leetcode.com/problems/next-permutation
+Ref explaination: https://leetcode.com/problems/next-permutation/solutions/1910236/python-easy-o-n-solution-explained/?envType=company&envId=facebook&favoriteSlug=facebook-six-months
 
 ### 1. Question:
 ----------------------------
