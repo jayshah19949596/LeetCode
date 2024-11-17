@@ -68,15 +68,17 @@ from collections import defaultdict
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         def lomutos_partition(arr, low, high):
-            i = low - 1
+            
             part_idx = high
             part_ele = arr[part_idx][1]
+            i = low
+            
             for j in range(low, high):
                 if arr[j][1] <= part_ele:
-                    i += 1
                     arr[i], arr[j] = arr[j], arr[i]
-            arr[i+1], arr[part_idx] = arr[part_idx], arr[i+1]
-            return i + 1
+                    i += 1
+            arr[i], arr[part_idx] = arr[part_idx], arr[i]
+            return i 
 
         def create_freq_arr(arr):
             freq_map = defaultdict(int)
@@ -97,5 +99,4 @@ class Solution:
             elif new_part_idx > k: right = new_part_idx - 1
             else: left = new_part_idx + 1
 
-        #print(k, n, nk, freq_nums)
         return [freq_nums[i][0] for i in range(n, k, -1)]
