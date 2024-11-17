@@ -24,12 +24,13 @@ elif first_list[i].start<=second_list[j].end
 class Solution:
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
         if not firstList or not secondList: return []
+        
         i, j = 0, 0
-
         results = []
+      
         while i<len(firstList) and j<len(secondList):
-            #print(firstList[i][0]<=secondList[j][0]<=firstList[i][1] or secondList[j][0]<=firstList[i][0]<=secondList[j][1])
-            if  firstList[i][0]<=secondList[j][0]<=firstList[i][1] or secondList[j][0]<=firstList[i][0]<=secondList[j][1]:
+
+          if  firstList[i][0]<=secondList[j][0]<=firstList[i][1] or secondList[j][0]<=firstList[i][0]<=secondList[j][1]:
                 #find_intersection
                 intersection = [max(firstList[i][0], secondList[j][0]), min(firstList[i][1], secondList[j][1])]
                 results.append(intersection)
