@@ -51,11 +51,9 @@ class Solution:
         heap = []
         for i, point in enumerate(points):
             dist = squared_distance(point)
-            if len(heap) < k:
-                heapq.heappush(heap, [-dist, i])
-            elif dist < -heap[0][0]:
+            heapq.heappush(heap, [-dist, i])
+            if len(heap) > k:
                 heapq.heappop(heap)
-                heapq.heappush(heap, [-dist, i])
 
         result = []
         while heap:
