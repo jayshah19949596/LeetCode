@@ -39,7 +39,9 @@ Space Complexity: O(1)
 from collections import deque
 from typing import List
 
-
+# =================================
+# Approach - 1: Traversing Reverse
+# =================================
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
         max_height_until_now = heights[-1]
@@ -49,4 +51,21 @@ class Solution:
             if current_hight > max_height_until_now:
                 results.appendleft(i)
                 max_height_until_now = current_hight
+        return results
+
+
+# =============================
+# Approach - 2: Using stack
+# =============================
+class Solution:
+    def findBuildings(self, heights: List[int]) -> List[int]:
+        stack, results = [], []
+        for i, height in enumerate(heights):
+            while stack and height>=heights[stack[-1]]:
+                while results and height>=heights[results[-1]]:
+                    results.pop()
+                stack.pop()
+            else:
+                stack.append(i)
+                results.append(i)
         return results
