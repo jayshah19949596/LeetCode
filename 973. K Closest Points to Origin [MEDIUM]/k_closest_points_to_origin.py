@@ -87,20 +87,20 @@ class Solution:
 
         distances = [[distance_from_origin(points[i]), points[i]] for i in range(len(points))]
 
-        def partition(array, low, high):
+        def lomutos_partition(array, low, high):
             partition_idx = high
             partition_ele = array[high]
-            i = low - 1
+            i = low
             for j in range(low, high):
                 if array[j][0] <= partition_ele[0]:
-                    i += 1
                     array[i], array[j] = array[j], array[i]
-            array[i + 1], array[partition_idx] = array[partition_idx], array[i + 1]
-            return i + 1
+                    i += 1
+            array[i], array[partition_idx] = array[partition_idx], array[i]
+            return i
 
         def quick_select(array, low, high, k):
             if low <= high:
-                partition_idx = partition(array, low, high)
+                partition_idx = lomutos_partition(array, low, high)
                 if partition_idx == k:
                     return array[partition_idx]
                 elif partition_idx > k:
@@ -110,10 +110,6 @@ class Solution:
 
         kth_distance_pt = quick_select(distances, 0, len(distances) - 1, k)
         return [distances[idx][1] for idx in range(0, k)]
-
-    def squared_distance(self, point: List[int]) -> int:
-        """Calculate and return the squared Euclidean distance."""
-        return point[0] ** 2 + point[1] ** 2
 
 """
 APPROACH-4: BinarySearch
