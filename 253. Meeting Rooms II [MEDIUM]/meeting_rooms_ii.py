@@ -45,11 +45,9 @@ class Solution:
         max_room = rooms = s_ptr = e_ptr = 0
         while s_ptr < len(starts) and e_ptr < len(ends):
             if starts[s_ptr] < ends[e_ptr]:
-                rooms += 1
-                s_ptr += 1
+                rooms, s_ptr = rooms+1, s_ptr+1
             else:
-                rooms -= 1
-                e_ptr += 1
+                rooms, e_ptr = rooms-1, e_ptr+1
             max_room = max(max_room, rooms)
         return max_room
 
