@@ -61,3 +61,58 @@ class Solution:
                 column = new_column
 
         return result
+
+
+
+
+"""
+Requirements:
+1. rectangle matrix
+What do you mean by diagonal matreix 
+
+Input: mat = [ 
+               0.  1   2 
+              0[1, 2, 3],
+              1[4, 5, 6],
+              2[7, 8, 9]]
+
+Output: [1,2,4,7,5,3,6,8,9]
+
+Time: O(k) , k = m*n
+Space:  O(k), k = m*n
+
+"""
+#  
+class Solution:
+    def not_in_boundary(self, r, c, rows, cols):
+        return r<0 or r>rows or c<0 or c>cols
+
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        if len(mat) == 1: return mat[0]
+
+        direction = 1 # 1 is upwards -1 is downwards
+        rows, cols = len(mat)-1, len(mat[0])-1
+        r, c = 0, 0
+        results = [] # [1, 2, 4]
+        while (r, c) != (rows, cols):
+            
+            results.append(mat[r][c])  # 
+            if direction == 1: # going upwards
+                new_r, new_c = r-1, c+1 # -1, 1
+                if self.not_in_boundary(new_r, new_c, rows, cols):
+                    new_r, new_c = r, c+1  # 0, 1
+                    if self.not_in_boundary(new_r, new_c, rows, cols):
+                        new_r, new_c = r+1, c
+                    direction *= -1  # -1
+            else:
+                new_r, new_c = r+1, c-1  # 2 -1
+                if self.not_in_boundary(new_r, new_c, rows, cols):
+                    new_r, new_c = r+1, c
+                    if self.not_in_boundary(new_r, new_c, rows, cols):
+                        new_r, new_c = r, c+1
+                    direction *= -1
+            r, c = new_r, new_c
+            
+        results.append(mat[-1][-1])
+        return results
+
