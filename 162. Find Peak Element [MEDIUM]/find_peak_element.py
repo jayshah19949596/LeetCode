@@ -46,11 +46,11 @@ class Solution:
         Space - O(1)
         """
         left, right = 0, len(nums)-1
-
+        
         while left<right:
             mid = (left + right)//2
             if ((mid==0 and nums[mid]>nums[mid+1]) or
-               (mid == right and nums[mid]>nums[mid-1]) or
+               (mid == len(nums)-1 and nums[mid]>nums[mid-1]) or
                (nums[mid]>nums[mid+1] and nums[mid]>nums[mid-1])):
                 return mid
             elif nums[mid+1]>nums[mid]:
