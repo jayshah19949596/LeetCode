@@ -21,7 +21,7 @@ from typing import List
 
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
-        moving_idx = anchor_idx = 0
+        anchor_idx = 0
         for moving_idx in range(len(nums)):
             if nums[moving_idx] == 0: continue
             nums[anchor_idx] = nums[moving_idx]
