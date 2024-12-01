@@ -57,15 +57,12 @@ class Solution:
 # =============================
 # Approach - 2: Using stack
 # =============================
+from collections import deque
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
-        stack, results = [], []
-        for i, height in enumerate(heights):
-            while stack and height>=heights[stack[-1]]:
-                while results and height>=heights[results[-1]]:
-                    results.pop()
-                stack.pop()
-            else:
-                stack.append(i)
-                results.append(i)
+        results = []
+        for i in range(len(heights)):
+            while results and heights[i]>=heights[results[-1]]:
+                results.pop()
+            results.append(i)
         return results
