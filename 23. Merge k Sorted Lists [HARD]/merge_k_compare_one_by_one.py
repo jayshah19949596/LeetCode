@@ -20,28 +20,16 @@ class ListNode:
         self.val = val
         self.next = next
 
-
 class Solution:
-
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        k = len(lists)
-        head = dummy = ListNode(0)
-        end_of_list_count = 0
-
-        while end_of_list_count != k:
-            min_klist_idx, min_val = -1, float('inf')
-            end_of_list_count = 0
-
-            for i, klist in enumerate(lists):
-                if klist and klist.val < min_val:
-                    min_val = klist.val
-                    min_klist_idx = i
-                if klist is None:
-                    end_of_list_count += 1
-
-            if min_klist_idx != -1:
-                dummy.next = ListNode(min_val)
-                dummy = dummy.next
-                lists[min_klist_idx] = lists[min_klist_idx].next
-
-        return head.next
+    def mergeKLists(self, klists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        dummy = cur_node = ListNode(0)
+        while True:
+            min_node, min_idx = ListNode(float("inf")), None
+            for i, node in enumerate(klists):
+                if node and min_node.val>node.val:
+                    min_node, min_idx = node, i
+            if min_idx is None: break
+            klists[min_idx] = klists[min_idx].next
+            cur_node.next = min_node
+            cur_node = cur_node.next
+        return dummy.next
