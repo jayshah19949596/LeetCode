@@ -1,4 +1,8 @@
+"""
+https://leetcode.com/problems/shortest-distance-from-all-buildings/
 
+Solutioin - Reference https://leetcode.com/problems/shortest-distance-from-all-buildings/editorial
+"""
 class Solution:
     def shortestDistance(self, grid: List[List[int]]) -> int:
         rows = len(grid)
