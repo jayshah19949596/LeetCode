@@ -56,3 +56,45 @@ class Solution:
         last.right = first
         first.left = last
         return first
+
+
+
+"""
+ITERATIVE
+"""
+class Solution:
+    def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        # base case: when there is nothing, we return NULL
+        if root is None: return None
+        
+        # create a dummy_list for keep track of head, iter_node will traverse the tree in-order dfs fashion and link to build a doubly linked list
+        dummy_head = prev = Node(0)
+        
+        # iterative In-order DFS
+        current, stack = root, []
+    
+        while stack or current:
+            while current:
+                stack.append(current)
+                current = current.left 
+            
+            # at the first time, this will be the smallest number
+            current = stack.pop()
+            
+            # no need to create a new node, just traverse and connect both ways directly
+            prev.right = current
+            current.left = prev
+            prev = prev.right
+    
+            current = current.right
+    
+        # here, at this point, iter_node is the "last node"
+        first_node = dummy_head.right
+        first_node.left = prev
+        prev.right = first_node
+        
+        # return the first node as requested by prompt
+        return dummy_head.right
+    
+    # TC: O(n) since we visit all nodes in-order dfs.
+    # SC: O(n) since we stack to store all values.
