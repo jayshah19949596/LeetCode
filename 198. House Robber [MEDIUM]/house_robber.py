@@ -81,9 +81,6 @@ class Solution:
     Space: O(1)
     """
     def rob(self, nums: List[int]) -> int:
-        n = len(nums)
-        if n == 0: return 0
-
         max_loot_so_far = max_loot_till_prev = max_loot_till_before_prev = 0
 
         for i in range(0, len(nums)):
