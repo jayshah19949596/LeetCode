@@ -15,13 +15,22 @@ After merging the accounts, return the accounts in the following
 format: the first element of each account is the
 name, and the rest of the elements are emails in sorted order.
 The accounts themselves can be returned in any order.
+"""
 
+"""
+=====================================
+Approach-1: Graph based DFS solution 
+=====================================
 Create mapping from email to list of accounts with that
 email. For each account dfs to visit the accounts of its
 emails recursively.
-Time - O(n log n) where n is total number of emails.
-Each email visited once, then list sorted.
-Space - O(n)
+
+--------------------------------------
+### Complexity Analysis:
+--------------------------------------
+Time complexity: O(NKlogNK)
+Space complexity: O(NK)
+Here N is the number of accounts and K is the maximum length of an account.
 """
 
 from collections import defaultdict
@@ -57,3 +66,89 @@ class Solution(object):
                 result.append([account[0]] + sorted(list(all_emails)))
 
         return result
+
+
+"""
+=====================================
+Approach-2: Union Find
+=====================================
+
+--------------------------------------
+### Complexity Analysis:
+--------------------------------------
+Time complexity: O(NKlogNK)
+Space complexity: O(NK)
+Here N is the number of accounts and K is the maximum length of an account.
+
+"""
+class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [1] * n # this is to identify how many children does each indexed parent has
+
+    def find(self, x):
+        while x != self.parent[x]:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return x
+
+    def union(self, n1, n2):
+        parent1, parent2 = self.find(n1), self.find(n2)
+
+        if self.rank[parent1] > self.rank[parent2]:
+            self.parent[parent2] = parent1
+            self.rank[parent1] += self.rank[parent2]
+        else:
+            self.parent[parent1] = parent2
+            self.rank[parent2] += self.rank[parent1]
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        # utilize multiple techniques here
+        # lets say that we have something looks like this as originals:
+        # accounts = [
+        #     ["John","johnsmith@mail.com","john_newyork@mail.com"],
+        #     ["John","johnsmith@mail.com","john00@mail.com"],
+        #     ["Mary","mary@mail.com"],
+        #     ["John","johnnybravo@mail.com"]
+        # ]
+
+        # for every account records, we need to check whether if the groups of emails have overlapping or not.
+        # if they have overlapping, we need to combine them. if not, they are "two different" person with a same name
+        # in this case, I am going to utilize a one data structure called unionFind, technique used for the graph
+        # data structures
+        uf = UnionFind(len(accounts))
+        emailToAccIdx = {}
+
+        for idx, account in enumerate(accounts):
+            for email in account[1:]:
+                if email in emailToAccIdx:
+                    uf.union(idx, emailToAccIdx[email])
+                else:
+                    emailToAccIdx[email] = idx
+        
+        # then we will have something like:
+        # emailToAccIdx = {
+        #     'email1': '0',
+        #     'email3': '2',
+        #     'email4': '3',
+        #     'email5': '4'
+        # Lets say that there is an email 6 with account index 5, but this email has overlapping with account 0. this will get unionized in uf object
+        # }
+
+        emailToGroup = collections.defaultdict(list)
+
+        for email, account_idx in emailToAccIdx.items():
+            parent_account = uf.find(account_idx)
+            emailToGroup[parent_account].append(email)
+
+        # then things get easier from here. we just need to assign names for each account grouped
+
+        res = []
+
+        for account_idx, emails in emailToGroup.items():
+            res.append(
+                [accounts[account_idx][0]] + sorted(emails)
+            )
+        
+        return res
