@@ -40,43 +40,42 @@ class Solution:
     Space: O(N)
     """
     def rob(self, houses: List[int]) -> int:
-        num_len = len(houses)
-        memo = {}
-
+        
         def recurse(idx):
-            if idx<0: return 0
-            rob_current = houses[idx] + recurse(idx - 2)
-            skp_current = recurse(idx - 1)
-
-            return max(rob_current,skp_current )
-
-        return recurse(num_len - 1)
+            if idx>=len(houses): return 0
+            keep_cur_rob = houses[idx]+recurse(idx + 2)
+            skip_cur_rob = recurse(idx + 1)
+            return max(keep_cur_rob, skip_cur_rob)
+        
+        return recurse(0)
 
 class Solution:
     """
     ------------------------------------------
-    APPROACH 1: Recursion with Memoization
+    APPROACH 2: Recursion with Memoization
     ------------------------------------------
     Time: O(N)
     Space: O(N)
     """
     def rob(self, houses: List[int]) -> int:
-        num_len = len(houses)
         memo = {}
-
         def recurse(idx):
-            if idx<0: return 0
             if idx in memo: return memo[idx]
-            max_amnt_so_far = max(recurse(idx - 1), houses[idx] + recurse(idx - 2))
-            memo[idx] = max_amnt_so_far
+            if idx>=len(houses): return 0
+
+            keep_cur_rob = houses[idx] + recurse(idx + 2)
+            skip_cur_rob = recurse(idx + 1)
+            memo[idx] = max(skip_cur_rob, skip_cur_rob)
             return memo[idx]
-        return recurse(num_len - 1)
+        
+        return recurse(0)
+
 
 
 class Solution:
     """
     ------------------------------------------
-    APPROACH 2: Space Optimized Dynamic Programming
+    APPROACH 3: Space Optimized Dynamic Programming
     ------------------------------------------
     Time: O(N)
     Space: O(1)
@@ -85,11 +84,11 @@ class Solution:
         n = len(nums)
         if n == 0: return 0
 
-        max_loot_so_far = prev_house_max_loot_so_far = cur_house_max_loot_so_far = 0
+        max_loot_so_far = max_loot_till_prev = max_loot_till_before_prev = 0
 
         for i in range(0, len(nums)):
-            max_loot_so_far = max(cur_house_max_loot_so_far, prev_house_max_loot_so_far + nums[i])
-            prev_house_max_loot_so_far = cur_house_max_loot_so_far
-            cur_house_max_loot_so_far = max_loot_so_far
+            max_loot_so_far = max(max_loot_till_prev, max_loot_till_before_prev + nums[i])
+            max_loot_till_before_prev = max_loot_till_prev
+            max_loot_till_prev = max_loot_so_far
 
         return max_loot_so_far
