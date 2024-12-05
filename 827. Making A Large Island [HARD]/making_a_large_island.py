@@ -44,30 +44,33 @@ class Solution(object):
 APPROACH-2: Component Sizes
 ============================
 """
+
 class Solution(object):
-    def get_neighbors(self):
-        neighbor_rows = [0, 1, 0, -1]
-        neighbor_cols = [1, 0, -1, 0]
-        return zip(neighbor_rows, neighbor_cols)
+    def __init__(self):
+        self.island_to_area = {}
+        self.cell_to_island = {}
+        self.neighbors = [[0, 1], [1, 0], [-1, 0], [0, -1]]
 
     def largestIsland(self, grid):
-        area_map = {}
+        self.cell_to_island = {}
         max_area = 0
         rows, cols = len(grid) - 1, len(grid[0]) - 1
         for r in range(len(grid)):
             for c in range(len(grid[0])):
                 if grid[r][c] == 1:
-                    if (r, c) not in area_map:
-                        self.iterative_dfs(grid, r, c, rows, cols, area_map)
-                        max_area = max(max_area, area_map[(r, c)][1])
+                    if (r, c) not in self.cell_to_island:
+                        self.iterative_dfs(grid, r, c, rows, cols)
+                        island_area = self.island_to_area[self.cell_to_island[(r, c)]]
+                        max_area = max(max_area, island_area)
 
         for r in range(len(grid)):
             for c in range(len(grid[0])):
                 if grid[r][c] == 0:
                     visisted, area = set([]), 1
-                    for nr, nc in self.get_neighbors():
-                        if (r + nr, c + nc) in area_map:
-                            island_id, island_area = area_map[(r + nr, c + nc)]
+                    for nr, nc in self.neighbors:
+                        if (r+nr, c+nc) in self.cell_to_island:
+                            island_id = self.cell_to_island[(r+nr, c+nc)]
+                            island_area = self.island_to_area[island_id]
                             if island_id not in visisted:
                                 visisted.add(island_id)
                                 area += island_area
@@ -75,24 +78,20 @@ class Solution(object):
 
         return max_area
 
-    def iterative_dfs(self, grid, r, c, rows, cols, area_map):
-        area = 1
-        visited = set([(r, c)])
-        neighbor_rows = [0, 1, 0, -1]
-        neighbor_cols = [1, 0, -1, 0]
-        stack = [(r, c)]
+    def iterative_dfs(self, grid, r, c, rows, cols):
+        island_id = len(self.cell_to_island)+1
+        self.cell_to_island[(r, c)] = island_id
+        stack, area = [(r, c)], 1
 
         while stack:
             cur_r, cur_c = stack.pop()
-            for nr, nc in self.get_neighbors():
+            for nr, nc in self.neighbors:
                 new_r, new_c = cur_r + nr, cur_c + nc
                 if rows >= new_r >= 0 and cols >= new_c >= 0 and grid[new_r][new_c] == 1:
-                    if (new_r, new_c) not in visited:
-                        visited.add((new_r, new_c))
+                    if (new_r, new_c) not in self.cell_to_island:
+                        self.cell_to_island[(new_r, new_c)] = island_id
                         area += 1
                         stack.append((new_r, new_c))
-
-        island_id = len(area_map) + 1
-        for row, col in visited:
-            area_map[(row, col)] = [island_id, area]
+        
+        self.island_to_area[island_id] = area
         return area
