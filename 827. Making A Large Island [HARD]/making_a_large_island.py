@@ -52,7 +52,6 @@ class Solution(object):
         self.neighbors = [[0, 1], [1, 0], [-1, 0], [0, -1]]
 
     def largestIsland(self, grid):
-        self.cell_to_island = {}
         max_area = 0
         rows, cols = len(grid) - 1, len(grid[0]) - 1
         for r in range(len(grid)):
