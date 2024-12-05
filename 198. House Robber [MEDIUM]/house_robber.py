@@ -33,9 +33,9 @@ from typing import List
 
 class Solution:
     """
-    ------------------------------------------
-    APPROACH 1: Recursion
-    ------------------------------------------
+    ------------------------------------------------
+    APPROACH 1: Bottom-up Recursion with Brute Force
+    ------------------------------------------------
     Time: O(2^N)
     Space: O(N)
     """
@@ -51,9 +51,9 @@ class Solution:
 
 class Solution:
     """
-    ------------------------------------------
-    APPROACH 2: Recursion with Memoization
-    ------------------------------------------
+    ------------------------------------------------
+    APPROACH 2:  Bottom-up Recursion with Memoization
+    ------------------------------------------------
     Time: O(N)
     Space: O(N)
     """
@@ -74,9 +74,9 @@ class Solution:
 
 class Solution:
     """
-    ------------------------------------------
+    ------------------------------------------------
     APPROACH 3: Space Optimized Dynamic Programming
-    ------------------------------------------
+    ------------------------------------------------
     Time: O(N)
     Space: O(1)
     """
