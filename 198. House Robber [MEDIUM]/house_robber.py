@@ -65,7 +65,7 @@ class Solution:
 
             keep_cur_rob = houses[idx] + recurse(idx + 2)
             skip_cur_rob = recurse(idx + 1)
-            memo[idx] = max(skip_cur_rob, skip_cur_rob)
+            memo[idx] = max(keep_cur_rob, skip_cur_rob)
             return memo[idx]
         
         return recurse(0)
