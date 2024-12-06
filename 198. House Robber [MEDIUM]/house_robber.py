@@ -80,11 +80,16 @@ class Solution:
     Time: O(N)
     Space: O(1)
     """
+class Solution:
     def rob(self, houses: List[int]) -> int:
-        max_loot_so_far = max_loot_till_prev_idx = max_loot_till_before_prev_idx = 0
+        max_loot_so_far = 0
+        max_loot_till_prev_idx = 0
+        max_loot_till_before_prev_idx = 0
 
-        for i in range(0, len(nums)):
-            max_loot_so_far = max(max_loot_till_before_prev_idx + houses[i], max_loot_till_prev_idx)
+        for i in range(0, len(houses)):
+            take_current_rob = max_loot_till_before_prev_idx + houses[i]
+            skip_current_rob = max_loot_till_prev_idx
+            max_loot_so_far = max(take_current_rob, skip_current_rob)
             max_loot_till_before_prev_idx = max_loot_till_prev_idx
             max_loot_till_prev_idx = max_loot_so_far
 
