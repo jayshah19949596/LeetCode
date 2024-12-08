@@ -33,9 +33,9 @@ class Solution:
             else:
                 i += 1
 
-        for i in range(len(nums)):
+        for i in range(n):
             if (nums[i] != i+1):
                 return i+1
 
-        return len(nums)+1
+        return n+1
 
