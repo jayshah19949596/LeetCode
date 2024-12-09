@@ -34,7 +34,7 @@ class Solution:
                 i += 1
 
         for i in range(n):
-            if (nums[i] != i+1):
+            if (nums[i]-1 != i):
                 return i+1
 
         return n+1
