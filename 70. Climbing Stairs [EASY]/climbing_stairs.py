@@ -13,7 +13,7 @@ class Solution:
     def climbStairs(self, n):
         memo = {}
         def climb_recursive_memo(i):
-            if i in memo : return memo[n]
+            if i in memo : return memo[i]
             if i > n: return 0
             if i == n: return 1            
             one_step, two_step = climb_recursive_memo(i+1), climb_recursive_memo(i+2)
