@@ -47,8 +47,7 @@ class Solution:
 
             elif ch == '(':
 
-                # Push the result and sign on to the stack, for later
-                # We push the result first, then sign
+                # Push the result and sign on to the stack, for later We push the result first, then sign
                 stack.append(res)
                 stack.append(sign)
 
@@ -58,21 +57,17 @@ class Solution:
 
             elif ch == ')':
 
-                # Evaluate the expression to the left
-                # with result, sign and operand
+                # Evaluate the expression to the left with result, sign and operand
                 res += sign * operand
 
-                # ')' marks end of expression within a set of parenthesis
-                # Its result is multiplied with sign on top of stack
-                # as stack.pop() is the sign before the parenthesis
+                # ')' marks end of expression within a set of parenthesis 
+                # Its result is multiplied with sign on top of stack as stack.pop() is the sign before the parenthesis
                 res *= stack.pop() # stack pop 1, sign
 
                 # Then add to the next operand on the top.
-                # as stack.pop() is the result calculated before this parenthesis
-                # (operand on stack) + (sign on stack * (result from parenthesis))
+                # As stack.pop() is the result calculated before this parenthesis (operand on stack) + (sign on stack * (result from parenthesis))
                 res += stack.pop() # stack pop 2, operand
-
-                # Reset the operand
-                operand = 0
+                
+                operand = 0  # Reset the operand
 
         return res + sign * operand
