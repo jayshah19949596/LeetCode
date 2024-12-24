@@ -1,9 +1,9 @@
 class Solution:
     def climbStairs(self, n):
-        def climb_recursive(i):
-            if i > n: return 0
-            if i == n: return 1            
-            one_step, two_step = climb_recursive(i+1), climb_recursive(i+2)
+        def climb_recursive(idx):
+            if idx > n: return 0
+            if idx == n: return 1            
+            one_step, two_step = climb_recursive(idx+1), climb_recursive(idx+2)
             climb_ways_from_cur_stair = one_step + two_step
             return climb_ways_from_cur_stair
         
@@ -12,14 +12,14 @@ class Solution:
 class Solution:
     def climbStairs(self, n):
         memo = {}
-        def climb_recursive_memo(i):
-            if i in memo : return memo[i]
-            if i > n: return 0
-            if i == n: return 1            
-            one_step, two_step = climb_recursive_memo(i+1), climb_recursive_memo(i+2)
+        def climb_recursive_memo(idx):
+            if idx in memo : return memo[idx]
+            if idx > n: return 0
+            if idx == n: return 1            
+            one_step, two_step = climb_recursive_memo(idx+1), climb_recursive_memo(idx+2)
             climb_ways_from_cur_stair = one_step + two_step
-            memo[i] = climb_ways_from_cur_stair
-            return memo[i]
+            memo[idx] = climb_ways_from_cur_stair
+            return memo[idx]
         
         return climb_recursive_memo(0)
 
