@@ -24,7 +24,7 @@ class Solution:
         return climb_recursive_memo(0)
 
 class Solution:
-    def climb_iteratively(self, n):
+    def climbStairs(self, n):
         if n <= 0: return 0
         if n<= 2: return n
 
