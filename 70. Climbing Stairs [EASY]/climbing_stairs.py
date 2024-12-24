@@ -28,12 +28,12 @@ class Solution:
         if n <= 0: return 0
         if n<= 2: return n
 
-        tot_steps_till_stair_one, tot_steps_till_stair_two = 1, 2
-        tot_steps_till_before_prev_stair, tot_steps_till_prev_stair = tot_steps_till_stair_one, tot_steps_till_stair_two
+        ways_till_stair_one, ways_till_stair_two = 1, 2
+        ways_till_before_prev_stair, ways_till_prev_stair = ways_till_stair_one, ways_till_stair_two
         
         for i in range(3, n+1):
-            # tot_steps_till_cur_stair stores total steps TILL current stair. This will be addition of total steps TILL Prev Stair &&&& total steps TILL Before Prev Stair 
-            tot_steps_till_cur_stair = tot_steps_till_before_prev_stair + tot_steps_till_prev_stair
-            tot_steps_till_before_prev_stair = tot_steps_till_prev_stair
-            tot_steps_till_prev_stair = tot_steps_till_cur_stair
-        return tot_steps_till_cur_stair
+            # ways_till_cur_stair stores total steps TILL current stair. This will be addition of total steps TILL Prev Stair &&&& total steps TILL Before Prev Stair 
+            ways_till_cur_stair = ways_till_before_prev_stair + ways_till_prev_stair
+            ways_till_before_prev_stair = ways_till_prev_stair
+            ways_till_prev_stair = ways_till_cur_stair
+        return ways_till_cur_stair
