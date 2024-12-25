@@ -35,9 +35,9 @@ Space Complexity: O(NK)O(NK), the total information content stored in ans.
 class Solution():
     def groupAnagrams(self, strs):
         ouput = defaultdict(list)
-        for s in strs:
+        for word in strs:
             char_count = [0] * 26
-            for c in s:
-                char_count[ord(c) - ord('a')] += 1
-            ouput[tuple(char_count)].append(s)
+            for char in word:
+                char_count[ord(char) - ord('a')] += 1
+            ouput[tuple(char_count)].append(word)
         return list(ouput.values())
