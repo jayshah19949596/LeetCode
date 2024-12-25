@@ -32,12 +32,12 @@ and KK is the maximum length of a string in strs.
 Counting each string is linear in the size of the string, and we count every string.
 Space Complexity: O(NK)O(NK), the total information content stored in ans.
 """
- class Solution(object):
+class Solution():
     def groupAnagrams(self, strs):
         ouput = defaultdict(list)
         for s in strs:
             char_count = [0] * 26
             for c in s:
                 char_count[ord(c) - ord('a')] += 1
-            ouput[tuple(count)].append(s)
-        return list(ans.values())
+            ouput[tuple(char_count)].append(s)
+        return list(ouput.values())
