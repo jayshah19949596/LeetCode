@@ -22,14 +22,16 @@ class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         prefix_sum, hash_map = 0, {0: 0}  # key is prefix sum mod k, value is index in nums
 
-        for i, num in enumerate(nums):
+        for idx, num in enumerate(nums):
             prefix_sum += num
-            if prefix_sum % k not in hash_map:  # if the remainder s % k occurs for the first time
-                hash_map[prefix_sum % k] = i + 1
+            remainder = prefix_sum % k 
+            if remainder not in hash_map:  # if the remainder: s % k occurs for the first time
+                hash_map[remainder] = idx + 1
             else:
                 # The remainder reoccurs means we added a sum to prefix which is divisible by k
                 # if the subarray size is at least two
-                if i + 1 - hash_map[prefix_sum % k] >= 2: return True
+                if idx + 1 - hash_map[remainder] >= 2: return True
+                    
         return False
 
     def brute_force(self, nums: List[int], k: int) -> bool:
