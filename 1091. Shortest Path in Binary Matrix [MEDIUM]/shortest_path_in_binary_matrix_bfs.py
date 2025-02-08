@@ -31,7 +31,6 @@ class Solution:
 
         while queue:
             cur_row, cur_col, moves = queue.popleft()
-
             if cur_row == len(grid) - 1 and cur_col == len(grid[0]) - 1:
                 min_moves = min(min_moves, moves)
                 continue
@@ -41,7 +40,7 @@ class Solution:
             for neighbor_row, neighbor_col in zip(neighboring_rows, neighboring_cols):
                 next_row, next_col = cur_row + neighbor_row, cur_col + neighbor_col
                 if next_row >= 0 and next_row < len(grid) and next_col >= 0 and next_col < len(grid[0]) and \
-                        grid[next_row][next_col] == 0:
+                        grid[next_row][next_col] == 0 and moves+1<min_moves: #pruning 
                     queue.append([cur_row + neighbor_row, cur_col + neighbor_col, moves + 1])
 
         return min_moves
