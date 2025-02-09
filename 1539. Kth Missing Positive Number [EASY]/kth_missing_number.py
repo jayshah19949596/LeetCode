@@ -3,6 +3,25 @@
 https://leetcode.com/problems/kth-missing-positive-number
 
 """
+
+"""
+===========================
+Approach 1: Brute Force
+===========================
+"""
+class Solution:
+    def findKthPositive(self, arr: List[int], k: int) -> int:
+        for i in range(len(arr)):
+            no_of_missing = arr[i]-(i+1)
+            if no_of_missing>=k:
+                return arr[i-1]+k-(arr[i-1]-(i-1+1))
+        return arr[i]+k-no_of_missing
+
+"""
+===========================
+Approach 1: Binary Solution
+===========================
+"""
 class Solution:
     def findKthPositive(self, arr: List[int], k: int) -> int:
         left, right = 0, len(arr) - 1
