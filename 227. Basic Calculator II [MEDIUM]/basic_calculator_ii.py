@@ -38,23 +38,22 @@ class Solution:
     Space Complexity - O(N)
     """
     def calculate(self, s: str) -> int:
-        i = num = 0
         stack, op = [], "+"
+        num = i = 0
+        operators = set(["+", "-", "*", "/"])
 
-        while i < len(s):
+        while i<len(s):
 
-            while i < len(s) and s[i].isdigit():  # build num
+            while i < len(s) and s[i].isdigit():
                 num = num * 10 + int(s[i])
                 i += 1
-            else:
-                if i == len(s): i -= 1
-
-            if i == len(s) - 1 or s[i] != ' ':  # c is an operator or end of string
+            
+            if i >= len(s)-1 or s[i] in operators:
                 if op == "+": stack.append(num)
                 elif op == "-": stack.append(-num)
-                elif op == "*": stack.append(stack.pop() * num)
-                else: stack.append(int(stack.pop() / num))
-                op, num = s[i], 0  # Reset num
+                elif op == "*": stack.append(stack.pop()*num)
+                elif op == "/": stack.append(int(stack.pop()/num))
+                if i<len(s): op, num = s[i], 0
             i += 1
 
         return sum(stack)
