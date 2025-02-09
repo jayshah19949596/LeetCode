@@ -35,8 +35,8 @@ Space Complexity: O(1)
 """
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        balance = 0
-        insertions = 0
+        insertions = balance = 0
+        
         for idx, char in enumerate(s):
             if char == "(":
                 balance += 1
@@ -45,4 +45,5 @@ class Solution:
                     balance -= 1
                 else:
                     insertions += 1
+                    
         return insertions+balance
