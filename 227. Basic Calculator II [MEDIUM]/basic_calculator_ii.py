@@ -83,8 +83,6 @@ class Solution:
             while i < len(s) and s[i].isdigit():  # build num
                 cur_num = cur_num * 10 + int(s[i])
                 i += 1
-            else:
-                if i == len(s): i -= 1
 
             if i >= len(s)-1 or s[i] in operators:
                 if op == "+":
@@ -95,8 +93,9 @@ class Solution:
                     prv_num = -cur_num
                 elif op == "*": prv_num = prv_num * cur_num
                 else: prv_num = int(prv_num / cur_num)
-                cur_num = 0 # Reset cur_num
-                op = s[i]
+
+                if i<len(s): op, cur_num = s[i], 0
+                
             i += 1
 
         return tot_sum+prv_num
