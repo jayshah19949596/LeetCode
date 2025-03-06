@@ -76,6 +76,7 @@ class Solution:
    def calculate(self, s: str) -> int:
         i = tot_sum = prv_num = cur_num = 0
         op = "+"
+        operators = set(["+", "-", "*", "/"])
 
         while i < len(s):
 
@@ -85,7 +86,7 @@ class Solution:
             else:
                 if i == len(s): i -= 1
 
-            if i == len(s) - 1 or s[i] != ' ':  # c is an operator or end of string
+            if i >= len(s)-1 or s[i] in operators:
                 if op == "+":
                     tot_sum += prv_num
                     prv_num = cur_num
