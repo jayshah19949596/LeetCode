@@ -42,15 +42,15 @@ class Solution:
             copy_prev = copy_node
             cur_node = cur_node.next
 
-        cur_node, copy_node = head, visited[head]
-        while copy_node:
+        cur_node = head
+        while cur_node:
             if cur_node.random:
+                copy_node = visited[cur_node]
                 copy_node.random = visited[cur_node.random]
-            copy_node = copy_node.next
             cur_node = cur_node.next
-
         return visited[head]
 
+    
     def weaving_in_order_and_unweaving(self, head):
         """
         Time Complexity - O(N)
