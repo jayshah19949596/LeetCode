@@ -10,15 +10,14 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        t1_cost, t2_cost = float("inf"), float("inf")
-        t1_profit, t2_profit = 0, 0
+        min_t1_cost, min_t2_cost = float("inf"), float("inf")
+        max_t1_profit = max_t2_profit = 0
 
         for price in prices:
             # the maximum profit if only one transaction is allowed
-            t1_cost = min(t1_cost, price)
-            t1_profit = max(t1_profit, price - t1_cost)
+            min_t1_cost = min(min_t1_cost, price)
+            max_t1_profit = max(max_t1_profit, price - min_t1_cost)
             # Reinvest the gained profit in the second transaction
-            t2_cost = min(t2_cost, price - t1_profit)
-            t2_profit = max(t2_profit, price - t2_cost)
-
-        return t2_profit
+            min_t2_cost = min(min_t2_cost, price - max_t1_profit)
+            max_t2_profit = max(max_t2_profit, price - min_t2_cost)
+        return max_t2_profit
