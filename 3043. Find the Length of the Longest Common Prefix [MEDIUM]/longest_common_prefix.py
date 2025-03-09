@@ -1,38 +1,22 @@
-class TrieNode:
-    def __init__(self):
-        # Each node has up to 10 possible children (digits 0-9)
-        self.children = [None] * 10
-
-
 class Trie:
     def __init__(self):
-        self.root = TrieNode()
+        self.trie = defaultdict(str)
 
     # Insert a number into the Trie by treating it as a string of digits
     def insert(self, num):
-        node = self.root
-        num_str = str(num)
-        for digit in num_str:
-            idx = int(digit)
-            if not node.children[idx]:
-                node.children[idx] = TrieNode()
-            node = node.children[idx]
+        node = self.trie
+        for digit in str(num):
+            if digit not in node:
+                node[digit] = defaultdict(str)
+            node = node[digit]
 
     # Find the longest common prefix for a number in arr2 with the Trie
     def find_longest_prefix(self, num):
-        node = self.root
-        num_str = str(num)
-        length = 0
-
-        for digit in num_str:
-            idx = int(digit)
-            if node.children[idx]:
-                # Increase length if the current digit matches
-                length += 1
-                node = node.children[idx]
-            else:
-                # Stop if no match for the current digit
-                break
+        node, length = self.trie, 0
+        for digit in str(num):
+            if digit not in node: break 
+            node = node[digit]
+            length += 1
         return length
 
 
