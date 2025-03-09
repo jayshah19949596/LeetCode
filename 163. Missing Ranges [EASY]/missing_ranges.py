@@ -25,9 +25,9 @@ class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
         prev_seen_num = lower-1
         nums.append(upper+1)
-        results = []
-        for i, num in enumerate(nums):
-            if prev_seen_num+1 != num:
-                results.append([prev_seen_num+1, num-1])
-            prev_seen_num = num
-        return results
+        missing_ranges = []
+        for i, cur_num in enumerate(nums):
+            if prev_seen_num+1 != cur_num:
+                missing_ranges.append([prev_seen_num+1, cur_num-1])
+            prev_seen_num = cur_num
+        return missing_ranges
