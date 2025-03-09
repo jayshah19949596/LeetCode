@@ -15,6 +15,11 @@ class TreeNode:
         self.right = None
 
 
+"""
+-------------------------------------------------------------------------
+Approach 1: Bottom-up recustion without Pruning with Binary Search Tree 
+-------------------------------------------------------------------------
+"""
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         def dfs(node, p, q):
@@ -36,6 +41,36 @@ class Solution:
         return dfs(root, p, q)
 
 
+"""
+---------------------------------------------------------------------
+Approach 2: Bottom-up recustion WITH Pruning [MOST Optimal Pruning]
+---------------------------------------------------------------------
+"""
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def dfs(node, p, q):
+            if not node: return 
+            if node == p or node == q: return node 
+            
+            left_return =  right_return = None
+            if p.val<node.val or q.val<node.val:
+                left_return = dfs(node.left, p, q)
+            if p.val>node.val or q.val>node.val:
+                right_return = dfs(node.right, p, q)
+            
+            if left_return and right_return: 
+                return node  
+            elif left_return: 
+                return left_return
+            elif right_return: 
+                return right_return
+        return dfs(root, p, q)
+
+"""
+---------------------------------------------------------------------
+Approach 3: Top-down recustion WITH top level Pruning ONLY [Sub-Optimal Pruning]
+---------------------------------------------------------------------
+"""
 class Solution:
     def lowestCommonAncestor(self, root, p, q):
         if not root: return
