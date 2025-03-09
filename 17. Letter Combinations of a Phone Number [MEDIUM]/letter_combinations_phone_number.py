@@ -76,3 +76,24 @@ class Solution:
             self.recurse_dfs(digits, idx + 1, results, intermediate_answer + [letter])
 
         return results
+
+
+
+
+class Solution:        
+    def letterCombinations(self, digits: str) -> List[str]:
+        num2letter = { 
+            2: ["a", "b", "c"], 3: ["d", "e", "f"], 4: ["g", "h", "i"],
+            5: ["j", "k", "l"], 6: ["m", "n", "o"], 7: ["p", "q", "r", "s"],
+            8: ["t", "u", "v"], 9: ["w", "x", "y", "z"]
+        }
+
+        if not digits: return []
+        cur_level = [[]]
+        for num in digits:
+            nxt_level = []
+            for node_list in cur_level:
+                for char in num2letter[int(num)]:
+                    nxt_level.append(node_list+[char])
+            cur_level = nxt_level
+        return ["".join(node_list) for node_list in cur_level]
