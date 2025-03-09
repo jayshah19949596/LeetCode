@@ -118,17 +118,17 @@ class Solution:
         # in this case, I am going to utilize a one data structure called unionFind, technique used for the graph
         # data structures
         uf = UnionFind(len(accounts))
-        emailToAccIdx = {}
+        email_to_acc_idx = {}
 
         for idx, account in enumerate(accounts):
             for email in account[1:]:
-                if email in emailToAccIdx:
-                    uf.union(idx, emailToAccIdx[email])
+                if email in email_to_acc_idx:
+                    uf.union(idx, email_to_acc_idx[email])
                 else:
-                    emailToAccIdx[email] = idx
+                    email_to_acc_idx[email] = idx
         
         # then we will have something like:
-        # emailToAccIdx = {
+        # email_to_acc_idx = {
         #     'email1': '0',
         #     'email3': '2',
         #     'email4': '3',
@@ -136,19 +136,18 @@ class Solution:
         # Lets say that there is an email 6 with account index 5, but this email has overlapping with account 0. this will get unionized in uf object
         # }
 
-        emailToGroup = collections.defaultdict(list)
+        email_to_group = collections.defaultdict(list)
 
-        for email, account_idx in emailToAccIdx.items():
+        for email, account_idx in email_to_acc_idx.items():
             parent_account = uf.find(account_idx)
-            emailToGroup[parent_account].append(email)
+            email_to_group[parent_account].append(email)
 
         # then things get easier from here. we just need to assign names for each account grouped
 
         res = []
 
-        for account_idx, emails in emailToGroup.items():
-            res.append(
-                [accounts[account_idx][0]] + sorted(emails)
-            )
+        for account_idx, emails in email_to_group.items():
+            person_name = accounts[account_idx][0]
+            res.append( [person_name] + sorted(emails) )
         
         return res
