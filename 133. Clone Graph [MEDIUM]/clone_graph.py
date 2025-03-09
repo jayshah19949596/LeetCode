@@ -41,11 +41,8 @@ class Solution:
                 if neighbor_node not in visited:
                     copy_neighbor_node = Node(neighbor_node.val)
                     visited[neighbor_node] = copy_neighbor_node
-                    cur_copy_node_neighbor_list.append(copy_neighbor_node)
                     stack.append(neighbor_node)
-                else:
-                    cur_copy_node_neighbor_list.append(visited[neighbor_node])
-                    
+                cur_copy_node_neighbor_list.append(visited[neighbor_node])
             cur_copy_node.neighbors = cur_copy_node_neighbor_list
 
         return visited[node]
