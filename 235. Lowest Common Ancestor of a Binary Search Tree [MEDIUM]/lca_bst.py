@@ -44,6 +44,7 @@ class Solution:
 """
 ---------------------------------------------------------------------
 Approach 2: Bottom-up recustion WITH Pruning [SUB-Optimal Pruning]
+In this approach recursion goes till the child nodes. 
 ---------------------------------------------------------------------
 """
 class Solution:
@@ -69,6 +70,7 @@ class Solution:
 """
 ---------------------------------------------------------------------
 Approach 3: Top-down recustion WITH top level Pruning ONLY [MOST-Optimal Pruning]
+In this approach recursion DOESN'T go till child nodes. Recursion ends at the lowest common ancestor. 
 ---------------------------------------------------------------------
 """
 class Solution:
