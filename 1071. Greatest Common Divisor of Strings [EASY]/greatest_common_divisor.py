@@ -1,3 +1,6 @@
+"""
+Ref: https://leetcode.com/problems/greatest-common-divisor-of-strings/editorial/
+"""
 class Solution:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
         len1, len2 = len(str1), len(str2)
