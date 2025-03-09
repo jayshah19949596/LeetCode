@@ -43,7 +43,7 @@ class Solution:
 
 """
 ---------------------------------------------------------------------
-Approach 2: Bottom-up recustion WITH Pruning [MOST Optimal Pruning]
+Approach 2: Bottom-up recustion WITH Pruning [SUB-Optimal Pruning]
 ---------------------------------------------------------------------
 """
 class Solution:
@@ -68,7 +68,7 @@ class Solution:
 
 """
 ---------------------------------------------------------------------
-Approach 3: Top-down recustion WITH top level Pruning ONLY [Sub-Optimal Pruning]
+Approach 3: Top-down recustion WITH top level Pruning ONLY [MOST-Optimal Pruning]
 ---------------------------------------------------------------------
 """
 class Solution:
