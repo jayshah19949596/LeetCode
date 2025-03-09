@@ -1,3 +1,21 @@
+"""
+Approach
+Find the deepest leaves:
+
+Compute the depth of each node.
+The deepest leaves will be the ones at the maximum depth.
+Find the Lowest Common Ancestor (LCA):
+
+Traverse the tree bottom-up.
+If both left and right subtrees have the deepest leaves, the current node is the LCA.
+If only one side has the deepest leaves, propagate that side up.
+Solution
+We use a recursive function that returns two values:
+
+The depth of the subtree.
+The LCA of the deepest leaves in that subtree.
+
+"""
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
