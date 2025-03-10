@@ -82,3 +82,26 @@ class Solution:
 
         return dp[len(s)]
 
+"""
+======================
+Optimized Memoization
+======================
+"""
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        memo = {}
+        def recurse(s, idx):
+            if idx in memo: return memo[idx]
+            if idx == len(s):
+                return True
+            for word in wordDict:
+                for i in range(len(word)):
+                    if idx+i>=len(s): break
+                    if word[i] != s[idx+i]: break
+                else:
+                    ans = recurse(s, idx+len(word))
+                    memo[idx] = ans
+                    if ans: return True
+            return False
+        return recurse(s, 0)
+
