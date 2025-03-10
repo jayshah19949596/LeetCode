@@ -55,3 +55,40 @@ class Solution:
             path.append(node)
             return True
         return False
+
+
+"""
+-------------------------------------------------------------------------------------------------
+"""
+
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        path, results, blocker = [], [], None
+        self.root_target_path(root, target, path)
+        for i in range(min(k+1, len(path))):
+            # blocker is the immediate child node i.e. path[i-1] from current node i.e. path[i]
+            if i>0: blocker = path[i-1]
+            self.find_nodes_with_k_dist(path[i], k-i, results, blocker)
+        return results
+
+    def find_nodes_with_k_dist(self, node, dist, results, blocker):
+        if not node or node == blocker or dist<0: return
+        if dist == 0: results.append(node.val)
+        self.find_nodes_with_k_dist(node.left, dist-1, results, blocker)
+        self.find_nodes_with_k_dist(node.right, dist-1, results, blocker)
+
+    def root_target_path(self, node, target, path):
+        if not node:
+            return False
+        if node == target or self.root_target_path(node.left, target, path) or self.root_target_path(node.right, target, path):
+            path.append(node)
+            return True
+        return False
