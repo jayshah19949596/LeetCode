@@ -55,7 +55,7 @@ class Solution:
 
     def two_pointer_approach(self, matrix: List[List[int]], target: int) -> bool:
         """
-        Time: O(N*M)
+        Time: O(N+M)
         Space: O(1)
         """
         i, j = 0, len(matrix[0]) - 1
