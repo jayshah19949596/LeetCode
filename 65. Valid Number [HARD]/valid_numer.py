@@ -47,20 +47,20 @@ class Solution:
     def isNumber(self, s: str) -> bool:
         seen_digit = seen_dot = seen_exponent = False
         for i, char in enumerate(s):
-            if char.isdigit():
+            if char.isdigit():         # There should be a digit
                 seen_digit = True
-            elif char in ["+", "-"]:
+            elif char in ["+", "-"]:   # Signs should be at 0th index or right next to exponent
                 if i > 0 and s[i-1] not in ["e", "E"]:
                     return False
-            elif char in ["e", "E"]:
+            elif char in ["e", "E"]:  # There should 1] only be one exponent that too after a digit and 2] there should be a digit after exponent 
                 if seen_exponent or not seen_digit:
                     return False
                 seen_exponent = True
                 seen_digit = False
-            elif char == ".":
+            elif char == ".":         # There should 1] only be one dot and 2] No exponent after the dot
                 if seen_dot or seen_exponent:
                     return False
                 seen_dot = True
-            else:
+            else:                    # any other character is not allowed
                 return False                
         return seen_digit
