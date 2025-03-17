@@ -20,17 +20,17 @@ from typing import List
 class Solution:
     # Explanation: https://www.youtube.com/watch?v=OKcrLfR-8mE&t=397s
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        prefix_sum, hash_map = 0, {0: 0}  # key is prefix sum mod k, value is index in nums
+        prefix_sum, hash_map = 0, {0: -1}  # key is prefix sum mod k, value is index in nums
 
         for idx, num in enumerate(nums):
             prefix_sum += num
             remainder = prefix_sum % k 
             if remainder not in hash_map:  # if the remainder: s % k occurs for the first time
-                hash_map[remainder] = idx + 1
+                hash_map[remainder] = idx
             else:
                 # The remainder reoccurs means we added a sum to prefix which is divisible by k
                 # if the subarray size is at least two
-                if idx + 1 - hash_map[remainder] >= 2: return True
+                if idx - hash_map[remainder] >= 2: return True
                     
         return False
 
