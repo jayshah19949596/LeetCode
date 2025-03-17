@@ -49,6 +49,7 @@ class Solution:
 
         largest_outlier = float('-inf')
         for num in num_counts.keys():
+            # Assuming current num as special number
             potential_outlier = total_sum - 2 * num
             if ( potential_outlier in num_counts and 
                  (potential_outlier != num or num_counts[num] > 1)
