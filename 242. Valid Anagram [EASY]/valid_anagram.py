@@ -28,12 +28,11 @@ class Solution:
         count_s = Counter(s)
         count_zeros = 0
         for char in t:
-            if char in count_s and count_s[char]>0:
+            if char in count_s and count_s[char] > 0:
                 count_s[char] -= 1
-                if count_s[char] == 0:
-                    count_zeros += 1
-            else:
-                return False
+                if count_s[char] == 0: count_zeros += 1
+                continue
+            return False
         return count_zeros == len(count_s)
 
     def using_sorting(self, s: str, t: str) -> bool:
