@@ -66,19 +66,21 @@ class AuthenticationManager:
     def _remove(self, node):
         node.prev.next = node.next
         node.next.prev = node.prev
+        self.count -= 1
 
     def _append(self, node):
         node.prev = self.tail.prev
         node.next = self.tail
         self.tail.prev.next = node
         self.tail.prev = node
+        self.count += 1
 
     def generate(self, tokenId: str, currentTime: int) -> None:
         expiry = currentTime + self.ttl
         node = Node(tokenId, expiry)
         self.map[tokenId] = node
         self._append(node)
-        self.count += 1
+        
 
     def renew(self, tokenId: str, currentTime: int) -> None:
         if tokenId not in self.map:
@@ -90,7 +92,6 @@ class AuthenticationManager:
 
         # remove old node
         self._remove(node)
-
         # append renewed node
         node.expiry = currentTime + self.ttl
         self._append(node)
@@ -100,6 +101,5 @@ class AuthenticationManager:
             node = self.head.next
             self._remove(node)
             del self.map[node.tokenId]
-            self.count -= 1
 
         return self.count
