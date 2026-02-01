@@ -1,6 +1,13 @@
 # ====================================================================
 # Solution 1: Sub-Optimized countUnexpiredTokens with only HashMap
 # ====================================================================
+
+"""
+countUnexpiredTokens:
+   Time: O(n)
+   Amortized Time: O(n)
+   Space: O(n)
+"""
 from collections import defaultdict
 class AuthenticationManager:
 
@@ -30,6 +37,13 @@ class AuthenticationManager:
 # ===================================================
 # Solution 2: Optimized countUnexpiredTokens with DLL
 # ===================================================
+
+"""
+countUnexpiredTokens:
+   Time: O(n)
+   Amortized Time: O(1)
+   Space: O(n)
+"""
 class Node:
     def __init__(self, tokenId, expiry):
         self.tokenId = tokenId
