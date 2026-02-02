@@ -11,7 +11,7 @@ class Solution:
 
         heights.append(0)
         area = 0
-        window = []
+        window = [] # Use as Monotonic Stack in increasing order height
 
         for i in range(len(heights)):
             while window and heights[window[-1]] >= heights[i]:
