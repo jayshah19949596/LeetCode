@@ -92,3 +92,37 @@ class Solution:
                     nxt_level.append(node_list+[char])
             cur_level = nxt_level
         return ["".join(node_list) for node_list in cur_level]
+
+
+
+"""
+===================================
+Pure STACK Based
+===================================
+"""
+class Solution:        
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        num2letter = { 
+            2: ["a", "b", "c"], 3: ["d", "e", "f"], 4: ["g", "h", "i"],
+            5: ["j", "k", "l"], 6: ["m", "n", "o"], 7: ["p", "q", "r", "s"],
+            8: ["t", "u", "v"], 9: ["w", "x", "y", "z"]
+        }
+
+        results = []
+        stack = [[0, []]]
+        while stack:
+            print(stack)
+            cur_ele = stack.pop()
+            cur_idx, cur_node = cur_ele
+            if cur_idx == len(digits):
+                results.append(cur_node)
+                continue
+            for digit in digits[cur_idx]:
+                for alpha in num2letter[int(digit)]:
+                    stack.append([cur_idx+1, cur_node+[alpha]])
+
+        return ["".join(result) for result in results]
+
