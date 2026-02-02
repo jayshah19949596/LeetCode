@@ -21,8 +21,8 @@ class Solution:
                 if window: left_exc_bound = window[-1]
                 else: left_exc_bound = -1
 
-                dist = ryt_exc_bound - left_exc_bound - 1
-                area = max(area, height * dist)
+                width = dist = ryt_exc_bound - left_exc_bound - 1
+                area = max(area, height * width)
 
             window.append(i)
 
