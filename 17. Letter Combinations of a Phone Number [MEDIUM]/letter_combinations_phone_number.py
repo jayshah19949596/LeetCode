@@ -97,7 +97,7 @@ class Solution:
 
 """
 ===================================
-Pure STACK Based
+Pure STACK Based DFS
 ===================================
 """
 class Solution:        
@@ -123,6 +123,42 @@ class Solution:
             for digit in digits[cur_idx]:
                 for alpha in num2letter[int(digit)]:
                     stack.append([cur_idx+1, cur_node+[alpha]])
+
+        return ["".join(result) for result in results]
+
+
+
+
+"""
+===================================
+Pure QUEUE Based BFS
+===================================
+"""
+from collections import deque
+
+class Solution:        
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        num2letter = { 
+            2: ["a", "b", "c"], 3: ["d", "e", "f"], 4: ["g", "h", "i"],
+            5: ["j", "k", "l"], 6: ["m", "n", "o"], 7: ["p", "q", "r", "s"],
+            8: ["t", "u", "v"], 9: ["w", "x", "y", "z"]
+        }
+
+        results = []
+        queue = deque([[0, []]])
+        while queue:
+            print(queue)
+            cur_ele = queue.pop()
+            cur_idx, cur_node = cur_ele
+            if cur_idx == len(digits):
+                results.append(cur_node)
+                continue
+            for digit in digits[cur_idx]:
+                for alpha in num2letter[int(digit)]:
+                    queue.appendleft([cur_idx+1, cur_node+[alpha]])
 
         return ["".join(result) for result in results]
 
