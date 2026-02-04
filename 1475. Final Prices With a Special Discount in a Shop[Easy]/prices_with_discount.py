@@ -5,13 +5,14 @@ class Solution:
         result = []
         stack = []
 
-        for i in range(len(prices)):
-            result.append(prices[i])
+        for cur_idx, cur_price in enumerate(prices):
+            results.append(cur_price)
             # Process items that can be discounted by current price
-            while stack and prices[stack[-1]] >= prices[i]:
+            while stack and cur_price <= prices[stack[-1]]:
                 # Apply discount to previous item using current price
-                result[stack.pop()] -= prices[i]
+                prv_idx = stack.pop()
+                results[prv_idx] = prices[prv_idx] - cur_price
             # Add current index to stack
-            stack.append(i)
+            stack.append(cur_idx)
 
         return result
