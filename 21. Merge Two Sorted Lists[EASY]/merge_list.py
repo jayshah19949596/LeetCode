@@ -4,18 +4,22 @@ Solution 1: Iterative
 ====================================
 """
 class Solution:
-    def mergeTwoLists(self, l1, l2):
+    def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        def get_value(node):
+            if node: return node.val
+            return float("inf")
+
         dummy = cur = ListNode(0)
 
-        while l1 and l2:
-            if l1.val <= l2.val:
+        while l1 or l2:
+            if get_value(l1) <= get_value(l2):
                 cur.next, l1 = l1, l1.next
             else:
                 cur.next, l2 = l2, l2.next
             cur = cur.next
 
-        cur.next = l1 or l2
         return dummy.next
+
 
 
 """
