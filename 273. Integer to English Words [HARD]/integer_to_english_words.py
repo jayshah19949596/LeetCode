@@ -26,12 +26,12 @@ def helper(num):
         result = belowHundred[num // 10] + " " + helper(num % 10)
     elif (num < 1_000):
         result = helper(num // 100) + " Hundred " + helper(num % 100)
-    elif (num < 1_000_000):
-        result = helper(num // 1_000) + " Thousand " + helper(num % 1000)
-    elif (num < 1_000_000_000):
-        result = helper(num // 1_000_000) + " Million " + helper(num % 1000000)
-    else:
-        result = helper(num // 1_000_000_000) + " Billion " + helper(num % 1000000000)
+    elif (num < 1_000_000):     # One Million
+        result = helper(num // 1_000) + " Thousand " + helper(num % 1_000)
+    elif (num < 1_000_000_000): # One Billion
+        result = helper(num // 1_000_000) + " Million " + helper(num % 1_000_000)
+    else:                       # 1_000_000_000_000 ---> One Trillion
+        result = helper(num // 1_000_000_000) + " Billion " + helper(num % 1_000_000_000)
     return result.strip()
 
 
