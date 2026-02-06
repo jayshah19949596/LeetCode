@@ -29,21 +29,23 @@ from typing import List
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        queue_window = deque()
-        max_window_results = []
+        queue = deque()  # deque acts as a monotonic decreasing queue
+        results = []
 
         for i, num in enumerate(nums):
 
-            while queue_window and nums[queue_window[-1]] < num:  # pop smaller numbers from RHS
-                queue_window.pop()
+            while queue and nums[queue[-1]] < num:  # pop smaller numbers from RHS
+                queue.pop()
 
-            queue_window.append(i)  # append this number at RHS
+            queue.append(i)  # append this number at RHS
 
-            if i-queue_window[0] >= k:  # if LHS is outside window, remove it
-                queue_window.popleft()
+            if i-queue[0] >= k:  # if LHS is outside window, remove it
+                queue.popleft()
 
             if i >= k - 1:  # if window is at least k, add LHS to result
-                max_window_results.append(nums[queue_window[0]])
+                results.append(nums[queue[0]])
 
-        return max_window_results
+        return results
+
+
 
