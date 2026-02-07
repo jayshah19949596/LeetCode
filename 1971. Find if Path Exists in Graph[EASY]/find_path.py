@@ -7,13 +7,14 @@ class Solution:
             graph[to_node].append(from_node)
         
         queue = deque([source])
-        visited = set([])
+        visited = set([source]) # Mark visited when enqueuing
         while queue:
             cur_node = queue.pop()
             if cur_node == destination: return True
-            visited.add(cur_node)
+            
             for connection in graph[cur_node]:
                 if connection not in visited:
+                    visited.add(connection)
                     queue.appendleft(connection)
 
         return False
