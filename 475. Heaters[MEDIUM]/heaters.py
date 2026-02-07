@@ -20,7 +20,9 @@ class Solution(object):
     def findRadius(self, houses, heaters):
         heaters.sort()
         radius = 0
+        # Iterate all houses
         for house in houses:
+            # For each house find the nearest heater using binary search
             left, right = 0, len(heaters) - 1
             while left < right:
                 mid = (left + right) // 2
