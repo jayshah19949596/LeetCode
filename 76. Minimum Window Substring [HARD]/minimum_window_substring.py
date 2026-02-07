@@ -25,33 +25,33 @@ from collections import Counter
 # If the letter is not found, remove the window. Return the smallest window.
 # Time - O(mn), worst case when all letters are identical means len(S) windows
 # Space - O(m)
-class Solution(object):
+from collections import Counter
+
+class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(s) < len(t): return ""
-        start = end = 0
-        tc = collections.Counter(t) # original counter
-        wc = collections.Counter()  # window counter
-        missing = len(t)           # number of characters missing from the window
-        best = ""
-        
-        while end < len(s):
-            # go right until we have all characters needed
-            while missing != 0 and end<len(s):   
-                if s[end] in tc:
-                    wc[s[end]] += 1
-                    if wc[s[end]] <= tc[s[end]]:
-                        missing -= 1
-                end += 1
-            
-            # remove characters from the left until we don't have enough characters anymore
-            while missing == 0 and start < len(s):
-                while s[start] not in tc: # skip irrelevant characters
-                    start += 1
-                # compare to and save best solution
-                if end-start < len(best) or not best:
-                    best = s[start:end]
-                wc[s[start]] -= 1
-                if wc[s[start]] < tc[s[start]]:
+        if not s or not t:
+            return ""
+
+        need = Counter(t) # what we must have
+        window = Counter() # what we currently have
+        missing = len(t) # how many required characters are still missing
+
+        left = 0
+        res = ""
+
+        for right, ch in enumerate(s):
+            window[ch] += 1
+            if window[ch] <= need[ch]:
+                missing -= 1
+
+            while missing == 0:
+                if not res or right - left + 1 < len(res):
+                    res = s[left:right + 1]
+
+                left_char = s[left]
+                window[left_char] -= 1
+                if window[left_char] < need[left_char]:
                     missing += 1
-                start += 1
-        return best
+                left += 1
+        
+        return res
