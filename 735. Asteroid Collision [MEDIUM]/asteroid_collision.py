@@ -28,8 +28,31 @@ Time Complexity: O(N).
 Space Complexity: O(N).
 """
 from typing import List
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
+
+        for cur_aestroid in asteroids:
+            alive = True # cur_aestroid alive
+
+            # collision only when stack top moves right and current moves left
+            while alive and stack and stack[-1] > 0 and cur_aestroid < 0:
+                if stack[-1] < -cur_aestroid:    # top explodes
+                    stack.pop()
+                elif stack[-1] == -cur_aestroid: # both explode
+                    stack.pop()
+                    alive = False
+                else:                            # current explodes
+                    alive = False
+
+            if alive:
+                stack.append(cur_aestroid)
+
+        return stack
 
 
+
+from typing import List
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         i, stack = 0, []
