@@ -18,8 +18,8 @@ import heapq
 class MedianFinder:
 
     def __init__(self):
-        self.higher = []
-        self.lower = []
+        self.higher = [] # contains values in right side of median
+        self.lower = [] # contains values in left side of median
 
     def addNum(self, num: int) -> None:
         if not self.lower or num <= -self.lower[0]:  # push onto appropriate heap
