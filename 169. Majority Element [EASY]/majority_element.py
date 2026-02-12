@@ -1,12 +1,12 @@
 class Solution:
+    """
+    Boyer-Moore Voting Algorithm
+    Idea: If we pair each occurrence of the majority element with a different element, 
+    then majority element will still remain at the end because it appears > n/2 times.
+    """
     def majorityElement(self, nums):
-        # Boyer-Moore Voting Algorithm
-        # Idea: If we pair each occurrence of the majority element with a different element, 
-        # then majority element will still remain at the end because it appears > n/2 times.
-
-        count = 0
-        candidate = None
-
+        
+        count, candidate = 0, None
         for num in nums:
 
             # If count drops to 0, choose current number as a new candidate.
