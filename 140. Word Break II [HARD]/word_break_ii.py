@@ -31,6 +31,33 @@ from collections import defaultdict
 from typing import List
 
 
+from typing import List
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordSet = set(wordDict)
+        memo = {}  # {substring: list of sentences}
+
+        def dfs(sub): # returns a list of tail words.
+            if sub in memo:
+                return memo[sub]
+
+            if not sub:
+                return [""]  # base case: empty sentence
+
+            res = []
+            for word in wordSet:
+                if sub.startswith(word):
+                    tails = dfs(sub[len(word):])
+                    for tail in tails:
+                        if tail == "":res.append(word)
+                        else: res.append(word + " " + tail)
+
+            memo[sub] = res
+            return res
+
+        return dfs(s)
+        
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         wordSet = set(wordDict)
