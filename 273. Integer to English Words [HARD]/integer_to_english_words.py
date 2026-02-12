@@ -3,36 +3,36 @@
 https://leetcode.com/problems/integer-to-english-words
 
 """
+
 class Solution:
+    
     def numberToWords(self, num: int) -> str:
-        if num == 0:
-            return "Zero"
-        res = helper(num)
-        return res
+        if num == 0: return "Zero"
+        belowTen = {0: "", 1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight",
+                    9: "Nine"}
+        belowTwenty = {10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen", 15: "Fifteen", 16: "Sixteen",
+                    17: "Seventeen", 18: "Eighteen", 19: "Nineteen"}
+        belowHundred = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
 
+        def recurse(num):
+            if num<10:
+                return belowTen[num]
+            elif num<20:
+                return belowTwenty[num]
+            elif num<100:
+                result = belowHundred[num // 10] + " " + recurse(num%10)
+            elif num<1_000:
+                result = recurse(num//100) + " Hundred " + recurse(num%100)
+            elif num<1_000_000:
+                result = recurse(num//1_000) + " Thousand " + recurse(num%1_000)
+            elif num<1_000_000_000:
+                result = recurse(num//1_000_000) + " Million " + recurse(num%1_000_000)
+            else:
+                result = recurse(num//1_000_000_000) + " Billion " + recurse(num%1_000_000_000)
+            return result.strip()
+        
+        return recurse(num)
 
-def helper(num):
-    belowTen = {0: "", 1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven", 8: "Eight",
-                9: "Nine"}
-    belowTwenty = {10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen", 15: "Fifteen", 16: "Sixteen",
-                   17: "Seventeen", 18: "Eighteen", 19: "Nineteen"}
-    belowHundred = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
-    result = ""
-    if (num < 10):
-        result = belowTen[num]
-    elif (num < 20):
-        result = belowTwenty[num]
-    elif (num < 100):
-        result = belowHundred[num // 10] + " " + helper(num % 10)
-    elif (num < 1_000):
-        result = helper(num // 100) + " Hundred " + helper(num % 100)
-    elif (num < 1_000_000):     # One Million
-        result = helper(num // 1_000) + " Thousand " + helper(num % 1_000)
-    elif (num < 1_000_000_000): # One Billion
-        result = helper(num // 1_000_000) + " Million " + helper(num % 1_000_000)
-    else:                       # 1_000_000_000_000 ---> One Trillion
-        result = helper(num // 1_000_000_000) + " Billion " + helper(num % 1_000_000_000)
-    return result.strip()
 
 
 
