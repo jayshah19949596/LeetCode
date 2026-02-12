@@ -1,42 +1,45 @@
+from typing import List
 from collections import defaultdict, deque
 
 
 class Solution:
     @staticmethod
-    def create_graph(prerequisites):
-        graph = defaultdict(list)
-        incoming_edges = defaultdict(int)
-        unique_nodes = set([])
-        for prerequisite in prerequisites:
-            start, end = prerequisite[1], prerequisite[0]
-            graph[start].append(end)
-            incoming_edges[end] += 1
-            unique_nodes.add(start), unique_nodes.add(end)
-        return graph, incoming_edges, len(unique_nodes)
+    def create_graph(prerequisites, numCourses):
+        graph = defaultdict(list)          # same as prereq_list
+        incoming_edges = defaultdict(int)  # same as nb_prerequisites
+
+        # Initialize all courses to ensure isolated nodes are included
+        for course in range(numCourses):
+            incoming_edges[course] = 0
+
+        for after, before in prerequisites:
+            graph[before].append(after)
+            incoming_edges[after] += 1
+
+        return graph, incoming_edges
 
     @staticmethod
-    def get_seed_nodes(graph, incoming_edges):
+    def get_seed_nodes(incoming_edges):
         queue = deque()
-        for node in graph:
-            if incoming_edges[node] == 0:
-                queue.appendleft(node)
+        for course, count in incoming_edges.items():
+            if count == 0:
+                queue.append(course)
         return queue
 
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        if numCourses == 1 and not prerequisites: return [0] 
-        graph, incoming_edges, no_of_unique_nodes = Solution.create_graph(prerequisites)
-        queue = Solution.get_seed_nodes(graph, incoming_edges)
-        num_of_courses_compelted = 0
-        order = [] 
+
+        graph, incoming_edges = Solution.create_graph(prerequisites, numCourses)
+        queue = Solution.get_seed_nodes(incoming_edges)
+
+        order = []
+
         while queue:
-            cur_node = queue.pop()
+            cur_node = queue.popleft()
             order.append(cur_node)
-            num_of_courses_compelted += 1
+
             for child_node in graph[cur_node]:
                 incoming_edges[child_node] -= 1
                 if incoming_edges[child_node] == 0:
                     queue.append(child_node)
 
         return order if len(order) == numCourses else []
-
-        
