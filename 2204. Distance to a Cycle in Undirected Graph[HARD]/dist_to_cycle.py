@@ -43,7 +43,7 @@ class Solution:
         while bfs:
             cur, d = bfs.popleft()
             for nei in graph[cur]:
-                if dist[nei] != -1:
+                if dist[nei] != -1: # if not -1 which means already visited from shortest dist
                     continue
                 dist[nei] = d + 1
                 bfs.append((nei, d + 1))
