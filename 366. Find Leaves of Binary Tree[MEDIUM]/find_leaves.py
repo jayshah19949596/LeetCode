@@ -15,19 +15,21 @@
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
-    def findLeaves(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        self.leaves = []     # leaves[i] is ordered list of nodes with height i
-        self.height(root)
-        return self.leaves
+class Solution:
+    def findLeaves(self, root: Optional[TreeNode]) -> List[List[int]]:
+        leaves = []
 
-    def height(self, node):
-        if not node: return -1
-        h = 1 + max(self.height(node.left), self.height(node.right))
-        if len(self.leaves) <= h: self.leaves.append([])
-        self.leaves[h].append(node.val)
-        return h
+        def dfs(node):
+            if not node: return -1
+
+            left_height = dfs(node.left)
+            right_height = dfs(node.right)
+            h = 1 + max(left_height, right_height)
+
+            if len(leaves) <= h: leaves.append([])
+            leaves[h].append(node.val) 
+
+            return h
+
+        dfs(root)
+        return leaves
