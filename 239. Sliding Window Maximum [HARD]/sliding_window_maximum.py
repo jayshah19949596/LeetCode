@@ -32,17 +32,17 @@ class Solution:
         queue = deque()  # deque acts as a monotonic decreasing queue
         results = []
 
-        for i, num in enumerate(nums):
+        for end, num in enumerate(nums):
 
             while queue and nums[queue[-1]] < num:  # pop smaller numbers from RHS
                 queue.pop()
 
-            queue.append(i)  # append this number at RHS
+            queue.append(end)  # append this number at RHS
 
-            if i-queue[0] >= k:  # if LHS is outside window, remove it
+            if end-queue[0]+1 > k:  # if LHS is outside window, remove it
                 queue.popleft()
 
-            if i >= k - 1:  # if window is at least k, add LHS to result
+            if end >= k - 1:  # if window is at least k, add LHS to result
                 results.append(nums[queue[0]])
 
         return results
