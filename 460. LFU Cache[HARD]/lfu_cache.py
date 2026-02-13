@@ -39,13 +39,13 @@ class LFUCache:
             self._increase_frequency(key)
             freq, _ = self.key_to_freq[key]
             self.key_to_freq[key] = (freq, value)
-            return
+            
+        else:
+            # Evict if at capacity
+            if len(self.key_to_freq) == self.cap:
+                evict_key, _ = self.freq_to_key[self.min_freq].popitem(last=False)
+                del self.key_to_freq[evict_key]
 
-        # Evict if at capacity
-        if len(self.key_to_freq) == self.cap:
-            evict_key, _ = self.freq_to_key[self.min_freq].popitem(last=False)
-            del self.key_to_freq[evict_key]
-
-        # Insert new key with frequency 1
-        self.min_freq = 1
-        self._insert(key, 1, value)
+            # We know with certainty that the new minimum frequency becomes 1 after inserting a new key.
+            self.min_freq = 1
+            self._insert(key, 1, value)
