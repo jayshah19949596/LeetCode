@@ -1,12 +1,9 @@
 from typing import List
-import sys
-sys.setrecursionlimit(1_000_000)
 
 class Solution:
     def minEdgeReversals(self, n: int, edges: List[List[int]]) -> List[int]:
         # Build adjacency: (neighbor, cost)
-        # For directed u->v:
-        #   u->v has cost 0, v->u has cost 1
+        # For directed u->v: has cost 0, v->u has cost 1
         graph = [[] for _ in range(n)]
         for u, v in edges:
             graph[u].append((v, 0))
