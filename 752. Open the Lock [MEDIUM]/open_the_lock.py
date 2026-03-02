@@ -53,6 +53,12 @@ class Solution:
 """
 =======================
 Approach:2 - A*
+
+Because the state space is small, edges are uniform, and the target is known, bidirectional BFS typically outperforms A*. 
+A* helps when the heuristic is extremely strong or the state space is very large.
+
+For unweighted, reversible problems with known target and moderate depth, bidirectional BFS usually provides the best practical performance. 
+A* becomes superior when the heuristic is highly informative or the search space is extremely large.
 =======================
 """
 import heapq
