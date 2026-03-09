@@ -73,6 +73,5 @@ class Solution:
                 incoming_edges[child_node] -= 1
                 if incoming_edges[child_node] == 0:
                     queue.append(child_node)
-            if num_of_courses_compelted > numCourses: return False
 
         return num_of_courses_compelted == no_of_unique_nodes
