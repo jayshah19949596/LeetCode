@@ -3,7 +3,7 @@ from collections import defaultdict, OrderedDict
 class LFUCache:
     def __init__(self, capacity: int):
         self.cap = capacity
-        self.key_to_freq = defaultdict(int)  # key -> (frequency, value)
+        self.key_to_freq = defaultdict(tuple)  # key -> (frequency, value)
         self.freq_to_key = defaultdict(OrderedDict)  # frequency -> OrderedDict(key -> None)
         self.min_freq = 0
 
