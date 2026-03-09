@@ -7,7 +7,7 @@ class LFUCache:
         self.freq_to_key = defaultdict(OrderedDict)  # frequency -> OrderedDict(key -> None)
         self.min_freq = 0
 
-    def _insert(self, key, freq, value):
+    def _insert_key(self, key, freq, value):
         """Insert key into a specific frequency bucket."""
         self.key_to_freq[key] = (freq, value)
         self.freq_to_key[freq][key] = None
@@ -24,7 +24,7 @@ class LFUCache:
             self.min_freq += 1
 
         # Insert into next frequency bucket
-        self._insert(key, freq + 1, value)
+        self._insert_key(key, freq + 1, value)
         return value
 
     def get(self, key: int) -> int:
@@ -48,4 +48,4 @@ class LFUCache:
 
             # We know with certainty that the new minimum frequency becomes 1 after inserting a new key.
             self.min_freq = 1
-            self._insert(key, 1, value)
+            self._insert_key(key, 1, value)
