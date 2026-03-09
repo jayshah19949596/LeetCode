@@ -29,7 +29,7 @@ class Solution:
                 if node and min_node.val>node.val:
                     min_node, min_idx = node, i
             if min_idx is None: break
-            klists[min_idx] = klists[min_idx].next
             cur_node.next = min_node
             cur_node = cur_node.next
+            klists[min_idx] = klists[min_idx].next
         return dummy.next
