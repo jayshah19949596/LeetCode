@@ -16,8 +16,8 @@ class Solution:
     def maxEvents(self, events: List[List[int]]) -> int:
         total_events = len(events)
         last_day = max(event[1] for event in events)
-        first_day = min(event[0] for event in events)
         events.sort()  # sort by start day
+        first_day = events[0][0]
 
         min_heap = []   # stores event end days
         events_attended = 0
