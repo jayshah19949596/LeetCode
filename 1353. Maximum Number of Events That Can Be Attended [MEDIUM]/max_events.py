@@ -16,14 +16,14 @@ class Solution:
     def maxEvents(self, events: List[List[int]]) -> int:
         total_events = len(events)
         last_day = max(event[1] for event in events)
-
+        first_day = min(event[0] for event in events)
         events.sort()  # sort by start day
 
         min_heap = []   # stores event end days
         events_attended = 0
         event_index = 0
 
-        for current_day in range(1, last_day + 1):
+        for current_day in range(first_day, last_day + 1):
 
             # add events that start on or before current_day
             while event_index < total_events and events[event_index][0] <= current_day:
