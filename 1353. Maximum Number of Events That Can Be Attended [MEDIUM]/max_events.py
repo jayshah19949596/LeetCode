@@ -20,8 +20,7 @@ class Solution:
         first_day = events[0][0]
 
         min_heap = []   # stores event end days
-        events_attended = 0
-        event_idx= 0
+        events_attended = event_idx = 0
 
         for current_day in range(first_day, last_day + 1):
 
