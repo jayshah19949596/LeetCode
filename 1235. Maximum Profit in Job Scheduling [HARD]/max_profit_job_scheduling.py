@@ -50,7 +50,7 @@ class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
         jobs = [[startTime[i], endTime[i], profit[i]] for i in range(len(startTime))]
         jobs.sort(key=lambda x: x[0])
-        memo = {}
+        memo = {} # memo stores the maximum profit obtainable starting from a given job index.
 
         def get_max_profit(cur_job_idx):
             # Base case
