@@ -11,14 +11,14 @@ class Solution:
 
             # Case 2: subarray on mid's left is sorted
             elif nums[mid] >= nums[left]:
-                if target >= nums[left] and target < nums[mid]:
+                if nums[mid] > target >= nums[left]:
                     right = mid - 1
                 else:
                     left = mid + 1
 
             # Case 3: subarray on mid's right is sorted.
             else:
-                if target <= nums[right] and target > nums[mid]:
+                if nums[mid] < target <= nums[right]:
                     left = mid + 1
                 else:
                     right = mid - 1
