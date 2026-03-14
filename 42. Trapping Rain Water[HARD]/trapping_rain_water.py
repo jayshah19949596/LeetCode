@@ -17,3 +17,21 @@ class Solution:
                     water = water + (max_ryt - height[ryt])
                 ryt -= 1
         return water
+
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        lft, ryt = 0, len(height) - 1
+        max_lft = max_ryt = water = 0
+
+        while lft < ryt:
+            if height[lft] < height[ryt]:
+                max_lft = max(max_lft, height[lft])
+                water += max_lft - height[lft]
+                lft += 1
+            else:
+                max_ryt = max(max_ryt, height[ryt])
+                water += max_ryt - height[ryt]
+                ryt -= 1
+
+        return water
