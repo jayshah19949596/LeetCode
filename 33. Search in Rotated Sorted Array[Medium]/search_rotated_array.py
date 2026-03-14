@@ -1,3 +1,15 @@
+"""
+We solve this problem using a modified binary search because the array is originally sorted but then rotated. 
+At any step of binary search, at least one half of the array must still be sorted.
+We compute the middle index and first check if the middle element is the target. 
+If not, we determine which half is sorted by comparing nums[left] with nums[mid]. 
+If nums[left] <= nums[mid], the left half is sorted. We then check whether the target lies within this sorted range. 
+If it does, we continue searching in the left half; otherwise, we search in the right half. 
+If the left half is not sorted, then the right half must be sorted, and we similarly check whether the target lies within the sorted right range to decide which side to discard.
+
+Time Complexity: O(log n)
+Space Complexity: O(1)
+"""
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         n = len(nums)
