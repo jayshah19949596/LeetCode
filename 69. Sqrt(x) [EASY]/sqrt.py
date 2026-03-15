@@ -1,3 +1,8 @@
+"""
+We binary search the range [1, x//2] and compare mid² with x. 
+If mid² is too large we move left, otherwise we move right. 
+When the search finishes, right is the largest integer whose square is less than or equal to x, which is the integer square root.
+"""
 class Solution:
     def mySqrt(self, x: int) -> int:
         if x<=1: return x
