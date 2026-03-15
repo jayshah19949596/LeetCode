@@ -66,19 +66,21 @@ from typing import List
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        freq = Counter(nums)                  # element -> count
-        buckets = [[] for _ in range(len(nums) + 1)]
-
-        for num, count in freq.items():
-            buckets[count].append(num)       # place num in its frequency bucket
-
+        freq_map = Counter(nums)
+        
+        bucket = defaultdict(list)
+        max_count, min_count = -float("inf"), float("inf")
+        for num, count in freq_map.items():
+            max_count, min_count = max(max_count, count), min(min_count, count)
+            bucket[count].append(num)
+        
         res = []
-        for count in range(len(buckets) - 1, 0, -1):   # high freq to low freq
-            for num in buckets[count]:
+        for count in range(max_count, min_count-1, -1):
+            for num in bucket[count]:
                 res.append(num)
-                if len(res) == k:
-                    return res
-
+                if len(res) == k: return res
+        return res
+        
 """
 ============================
 # APPROACH 4: Quickselect with Lomutos Partition
