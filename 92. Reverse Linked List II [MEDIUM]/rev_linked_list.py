@@ -23,9 +23,8 @@ class Solution:
         curr = prev.next
 
         """
-        reverse nodes between left and right
-        prev always remains the same.
-        curr always remains the same.
+        Reverse nodes between left and right
+        prev always remains the same. curr always remains the same.
         temp is the target that get's shifte to the front. 
         Each iteration takes the node pointed to by temp and inserts it right after prev.
         """ 
