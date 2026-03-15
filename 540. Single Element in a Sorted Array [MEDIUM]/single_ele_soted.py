@@ -1,5 +1,10 @@
 """
-We use binary search. When we find the pair containing mid, we check the size of the remaining left or right section excluding that pair. If that section has even length, it contains only pairs; if it has odd length, it must contain the single element. So we move the search toward the odd-length side.
+
+We use binary search. 
+When we find the pair containing mid, we check the size of the remaining left or right section excluding that pair.
+If that section has even length, it contains only pairs; if it has odd length, it must contain the single element. 
+So we move the search toward the odd-length side.
+
 """
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
