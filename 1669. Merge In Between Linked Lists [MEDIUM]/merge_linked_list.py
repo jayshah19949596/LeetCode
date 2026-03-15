@@ -7,15 +7,16 @@
 class Solution:
     def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
         node, i = list1, 0        
-        while True:
-            if i == a-1: prev_a_node = node
+        while i <= b:
+            if i == a-1: 
+                prev_a_node = node
             if i == b: 
                 b_node = node
-                break
             node = node.next
             i += 1
         
         prev_a_node.next = node = list2
-        while node.next: node = node.next
+        while node.next: 
+            node = node.next
         node.next = b_node.next
         return list1
