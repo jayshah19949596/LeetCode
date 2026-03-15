@@ -3,7 +3,8 @@ Inbound binary search
 
 We binary search the eating speed between 1 and max(piles). 
 For each candidate speed we compute the total hours using ceiling division. 
-If the hours exceed h, the speed is too slow; otherwise we try smaller speeds. The smallest valid speed is the answer.
+If the hours exceed h, the speed is too slow; otherwise we try smaller speeds. 
+The smallest valid speed is the answer.
 """
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:  
@@ -37,7 +38,8 @@ Regular Binary Search
 
 We binary search the eating speed between 1 and max(piles). 
 For each candidate speed we compute the total hours using ceiling division. 
-If the hours exceed h, the speed is too slow; otherwise we try smaller speeds. The smallest valid speed is the answer.
+If the hours exceed h, the speed is too slow; otherwise we try smaller speeds. 
+The smallest valid speed is the answer.
 """
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:  
