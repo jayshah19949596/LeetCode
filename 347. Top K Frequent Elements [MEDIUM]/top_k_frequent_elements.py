@@ -47,7 +47,41 @@ class Solution:
 
 """
 ============================
-# APPROACH 3: Quickselect with Lomutos Partition
+# APPROACH 3: BucketSort
+============================
+
+### 1. Solution Explanation:
+----------------------------
+Count how many times each number appears.
+Put numbers into buckets where the index represents the frequency.
+Traverse buckets from highest frequency to lowest until you collect k elements.
+
+### 2. Complexity Analysis:
+----------------------------
+Time Complexity: O(N),
+Space Complexity: O(N)
+"""
+from collections import Counter
+from typing import List
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq = Counter(nums)                  # element -> count
+        buckets = [[] for _ in range(len(nums) + 1)]
+
+        for num, count in freq.items():
+            buckets[count].append(num)       # place num in its frequency bucket
+
+        res = []
+        for count in range(len(buckets) - 1, 0, -1):   # high freq to low freq
+            for num in buckets[count]:
+                res.append(num)
+                if len(res) == k:
+                    return res
+
+"""
+============================
+# APPROACH 4: Quickselect with Lomutos Partition
 ============================
 
 ### 1. Solution Explanation:
