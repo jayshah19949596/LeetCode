@@ -26,7 +26,6 @@ Space - O(k)
 from collections import deque
 from typing import List
 
-
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         queue = deque()  # deque acts as a monotonic decreasing queue
@@ -36,16 +35,12 @@ class Solution:
 
             while queue and nums[queue[-1]] < num:  # pop smaller numbers from RHS
                 queue.pop()
-
             queue.append(end)  # append this number at RHS
 
-            if end-queue[0]+1 > k:  # if LHS is outside window, remove it
+            if end - k == queue[0]:  # if LHS is outside window, remove it
                 queue.popleft()
 
             if end >= k - 1:  # if window is at least k, add LHS to result
                 results.append(nums[queue[0]])
 
         return results
-
-
-
