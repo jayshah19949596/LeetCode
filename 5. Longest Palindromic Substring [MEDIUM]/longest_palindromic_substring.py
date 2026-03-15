@@ -4,7 +4,7 @@ class Solution:
         
         for center in range(2*len(s)-1):
             l = center//2
-            r = l + center%2
+            r = l + center%2 # For even "center", right=left ELSE right=left+1  
             
             while l>=0 and r<len(s) and s[l] == s[r]:
                 l, r = l-1, r+1
