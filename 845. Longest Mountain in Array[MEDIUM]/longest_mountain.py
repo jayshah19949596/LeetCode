@@ -9,11 +9,13 @@ class Solution:
 
         while i < n-1:
             if arr[i - 1] < arr[i] > arr[i + 1]:
+                
                 l, r = i-1, i+1
-                while l>0 and arr[l-1]<arr[l]:
+                while l-1>=0 and arr[l-1]<arr[l]:
                     l -= 1
-                while r<len(arr)-1 and arr[r]>arr[r+1]:
+                while r+1<=len(arr)-1 and arr[r]>arr[r+1]:
                     r += 1
+                    
                 max_ans = max(max_ans, r-l+1)
                 i = r
             else:
