@@ -1,3 +1,9 @@
+"""
+We traverse list1 to locate the node before index a and the node at index b. 
+Then we connect the node before a to the head of list2, find the tail of list2, and connect it to the node after b, 
+effectively replacing the segment [a..b] with list2.
+"""
+
 # Definition for singly-linked list.
 # class ListNode:a
 #     def __init__(self, val=0, next=None):
