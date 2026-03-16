@@ -48,11 +48,73 @@ class Solution:
 
         return -1
 
+"""
+=======================
+Approach:2 - Bidirectional BFS
+=======================
+"""
 
+from collections import deque
+from typing import List
+
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        def neighbors(arr):
+            neighbor_list = []
+            for i in range(4):
+                num = arr[i]
+
+                arr[i] = str((int(num) + 1) % 10)
+                neighbor_list.append("".join(arr))
+
+                arr[i] = str((int(num) - 1) % 10)
+                neighbor_list.append("".join(arr))
+
+                arr[i] = num
+            return neighbor_list
+
+        start = "0000"
+        dead_set = set(deadends)
+
+        if start == target:
+            return 0
+        if start in dead_set or target in dead_set:
+            return -1
+
+        begin_set = set([start])
+        end_set = set([target])
+        visited = set([start, target])
+        steps = 0
+
+        while begin_set and end_set:
+            # always expand the smaller frontier
+            if len(begin_set) > len(end_set):
+                begin_set, end_set = end_set, begin_set
+
+            next_level = set()
+            steps += 1
+
+            for cur_node in begin_set:
+                for child_node in neighbors(list(cur_node)):
+                    if child_node in dead_set:
+                        continue
+
+                    if child_node in end_set:
+                        return steps
+
+                    if child_node in visited:
+                        continue
+
+                    visited.add(child_node)
+                    next_level.add(child_node)
+
+            begin_set = next_level
+
+        return -1
 
 """
 =======================
-Approach:2 - A*
+Approach:3 - A*
 
 Because the state space is small, edges are uniform, and the target is known, bidirectional BFS typically outperforms A*. 
 A* helps when the heuristic is extremely strong or the state space is very large.
