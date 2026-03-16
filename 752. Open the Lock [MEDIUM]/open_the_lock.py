@@ -49,9 +49,9 @@ class Solution:
         return -1
 
 """
-=======================
-Approach:2 - Bidirectional BFS
-=======================
+=============================================
+Approach:2 - Bidirectional BFS with Set
+=============================================
 """
 
 from collections import deque
@@ -113,8 +113,76 @@ class Solution:
         return -1
 
 """
+=================================================
+Approach:3 - Bidirectional BFS with Queue
+=================================================
+"""
+
+from collections import deque
+from typing import List
+
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+
+        def neighbors(arr):
+            res = []
+            for i in range(4):
+                num = arr[i]
+
+                arr[i] = str((int(num) + 1) % 10)
+                res.append("".join(arr))
+
+                arr[i] = str((int(num) - 1) % 10)
+                res.append("".join(arr))
+
+                arr[i] = num
+            return res
+
+        start = "0000"
+        dead_set = set(deadends)
+
+        if start == target:
+            return 0
+        if start in dead_set or target in dead_set:
+            return -1
+
+        # two BFS queues
+        q1 = deque([start])
+        q2 = deque([target])
+
+        # distance maps
+        dist1 = {start: 0}
+        dist2 = {target: 0}
+
+        while q1 and q2:
+
+            # expand the smaller queue for efficiency
+            if len(q1) > len(q2):
+                q1, q2 = q2, q1
+                dist1, dist2 = dist2, dist1
+
+            for _ in range(len(q1)):
+                cur = q1.popleft()
+
+                for nxt in neighbors(list(cur)):
+                    if nxt in dead_set:
+                        continue
+
+                    if nxt in dist1:
+                        continue
+
+                    # searches meet
+                    if nxt in dist2:
+                        return dist1[cur] + 1 + dist2[nxt]
+
+                    dist1[nxt] = dist1[cur] + 1
+                    q1.append(nxt)
+
+        return -1
+
+"""
 =======================
-Approach:3 - A*
+Approach:4 - A*
 
 Because the state space is small, edges are uniform, and the target is known, bidirectional BFS typically outperforms A*. 
 A* helps when the heuristic is extremely strong or the state space is very large.
