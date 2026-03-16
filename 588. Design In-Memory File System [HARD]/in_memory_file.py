@@ -13,11 +13,14 @@ class FileSystem:
     def mkdir(self, path: str) -> None:
         directories = path.split("/")
 
-        for i in range(1,len(directories)):
-            cur = "/".join(directories[:i]) or "/"   
+        # Start from 1 because index 0 is the empty string before the first "/"
+        for i in range(1, len(directories)):
+            parent_path = "/".join(directories[:i])
+            if parent_path == "": parent_path = "/"
+            current_dir = directories[i]
+            if current_dir not in self.paths[parent_path]:
+                bisect.insort(self.paths[parent_path], current_dir)
 
-            if cur not in self.paths or directories[i] not in self.paths[cur]:
-                bisect.insort(self.paths[cur], directories[i])
 
     def addContentToFile(self, filePath: str, content: str) -> None:
         if filePath not in self.files: 
@@ -29,9 +32,4 @@ class FileSystem:
         return self.files[filePath] #this will be filename with its path i.e, /a/b/c.txt
 
 
-# Your FileSystem object will be instantiated and called as such:
-# obj = FileSystem()
-# param_1 = obj.ls(path)
-# obj.mkdir(path)
-# obj.addContentToFile(filePath,content)
-# param_4 = obj.readContentFromFile(filePath)
+
