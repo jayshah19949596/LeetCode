@@ -13,14 +13,14 @@ Finally, we return dummy.next, which points to the new head of the modified list
 class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
         dummy = ListNode(0, head)
-        prev = dummy
+        prev_node = dummy
 
         # move prev to node before reversal and always remains this node
         for _ in range(left - 1):
-            prev = prev.next
+            prev_node = prev_node.next
 
         # cur points to at reversal and always remains this node
-        curr = prev.next
+        curr_node = prev_node.next
 
         """
         Reverse nodes between left and right
@@ -29,9 +29,9 @@ class Solution:
         Each iteration takes the node pointed to by temp and inserts it right after prev.
         """ 
         for _ in range(right - left):
-            temp = curr.next
-            curr.next = temp.next
-            temp.next = prev.next
-            prev.next = temp
+            temp_node = curr_node.next
+            curr_node.next = temp_node.next
+            temp_node.next = prev_node.next
+            prev_node.next = temp_node
 
         return dummy.next
