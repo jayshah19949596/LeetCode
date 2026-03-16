@@ -114,9 +114,7 @@ class Solution:
         results = []
         stack = [[0, []]]
         while stack:
-            print(stack)
-            cur_ele = stack.pop()
-            cur_idx, cur_node = cur_ele
+            cur_idx, cur_node = stack.pop()
             if cur_idx == len(digits):
                 results.append(cur_node)
                 continue
@@ -149,16 +147,15 @@ class Solution:
 
         results = []
         queue = deque([[0, []]])
+      
         while queue:
-            print(queue)
-            cur_ele = queue.pop()
-            cur_idx, cur_node = cur_ele
+            cur_idx, cur_node = queue.pop()
             if cur_idx == len(digits):
                 results.append(cur_node)
                 continue
             for digit in digits[cur_idx]:
-                for alpha in num2letter[int(digit)]:
-                    queue.appendleft([cur_idx+1, cur_node+[alpha]])
+                for char in num2letter[int(digit)]:
+                    queue.appendleft([cur_idx+1, cur_node+[char]])
 
         return ["".join(result) for result in results]
 
