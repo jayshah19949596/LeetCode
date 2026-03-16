@@ -106,9 +106,9 @@ class Solution:
             return []
 
         num2letter = { 
-            2: ["a", "b", "c"], 3: ["d", "e", "f"], 4: ["g", "h", "i"],
-            5: ["j", "k", "l"], 6: ["m", "n", "o"], 7: ["p", "q", "r", "s"],
-            8: ["t", "u", "v"], 9: ["w", "x", "y", "z"]
+            "2": ["a", "b", "c"], "3": ["d", "e", "f"], "4": ["g", "h", "i"],
+            "5": ["j", "k", "l"], "6": ["m", "n", "o"], "7": ["p", "q", "r", "s"],
+            "8": ["t", "u", "v"], "9": ["w", "x", "y", "z"]
         }
 
         results = []
@@ -119,7 +119,7 @@ class Solution:
                 results.append(cur_node)
                 continue
             for digit in digits[cur_idx]:
-                for alpha in num2letter[int(digit)]:
+                for alpha in num2letter[digit]:
                     stack.append([cur_idx+1, cur_node+[alpha]])
 
         return ["".join(result) for result in results]
@@ -140,9 +140,9 @@ class Solution:
             return []
 
         num2letter = { 
-            2: ["a", "b", "c"], 3: ["d", "e", "f"], 4: ["g", "h", "i"],
-            5: ["j", "k", "l"], 6: ["m", "n", "o"], 7: ["p", "q", "r", "s"],
-            8: ["t", "u", "v"], 9: ["w", "x", "y", "z"]
+            "2": ["a", "b", "c"], "3": ["d", "e", "f"], "4": ["g", "h", "i"],
+            "5": ["j", "k", "l"], "6": ["m", "n", "o"], "7": ["p", "q", "r", "s"],
+            "8": ["t", "u", "v"], "9": ["w", "x", "y", "z"]
         }
 
         results = []
@@ -154,8 +154,7 @@ class Solution:
                 results.append(cur_node)
                 continue
             for digit in digits[cur_idx]:
-                for char in num2letter[int(digit)]:
+                for char in num2letter[digit]:
                     queue.appendleft([cur_idx+1, cur_node+[char]])
 
         return ["".join(result) for result in results]
-
