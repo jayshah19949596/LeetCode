@@ -1,4 +1,5 @@
 """
+Approach-1: BruteForce
 We are essentially checking every possible consecutive sequence that could sum to n.
 This brute force works but is slow
 """
