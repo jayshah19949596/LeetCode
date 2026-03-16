@@ -1,3 +1,9 @@
+"""
+We first parse and sort transactions by time in O(n log n).
+Then we process them using a sliding 60-minute window maintained by a deque.
+Each transaction is compared with other transactions in the current window to check the city rule.
+In the worst case, the window can contain O(n) transactions, leading to O(n²) total comparisons.
+"""
 from collections import deque
 from typing import List
 
