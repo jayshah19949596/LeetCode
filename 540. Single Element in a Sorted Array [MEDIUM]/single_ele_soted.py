@@ -10,7 +10,7 @@ class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
         lo, hi = 0, len(nums) - 1
 
-        while lo < hi:
+        while lo <= hi:
             mid = (lo + hi) // 2
 
             # Case 1: mid forms a pair with the left element
