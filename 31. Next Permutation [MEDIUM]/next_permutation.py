@@ -28,8 +28,6 @@ Space - O(1)
 """
 from typing import List
 
-from typing import List
-
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
         n = len(nums)
