@@ -32,10 +32,11 @@ class Solution:
                 count_s[char] -= 1
                 if count_s[char] == 0: count_zeros += 1
                 continue
-            return False
+            return False # if less than 0
         return count_zeros == len(count_s)
 
     def using_sorting(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
         return sorted(s) == sorted(t)
+
