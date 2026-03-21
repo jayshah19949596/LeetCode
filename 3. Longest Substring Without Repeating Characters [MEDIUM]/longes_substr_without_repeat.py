@@ -4,7 +4,8 @@ class Solution:
         start = longest = 0
         for end, char in enumerate(s):
             """
-            2nd condition is to only move "start" if the repeated char is with-in current window else wihtout it start can go backwards.
+            2nd condition is to only move "start" if the repeated char is with-in current window 
+            else wihtout it start pointer can go backwards. 
             Failure case : s = "abba"
             """
             if char in last_seen and start<=last_seen[char]: 
