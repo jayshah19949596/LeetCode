@@ -31,17 +31,17 @@ class Solution2(object):
 class Solution:
 
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def recurse_permute(arr, lft, ryt):
+        ryt = len(nums) - 1
+        permutations = []
+
+        def recurse_permute(lft):
             if lft == ryt:
-                nonlocal permutations
-                permutations.append(arr[:])
+                permutations.append(nums[:])
                 return
             for idx in range(lft, ryt + 1):
-                arr[lft], arr[idx] = arr[idx], arr[lft]
-                recurse_permute(arr, lft + 1, ryt)
-                arr[lft], arr[idx] = arr[idx], arr[lft]
-        permutations = []
-        recurse_permute(nums, 0, len(nums) - 1)
+                nums[lft], nums[idx] = nums[idx], nums[lft]
+                recurse_permute(lft + 1)
+                nums[lft], nums[idx] = nums[idx], nums[lft]
+
+        recurse_permute(0)
         return permutations
-
-
