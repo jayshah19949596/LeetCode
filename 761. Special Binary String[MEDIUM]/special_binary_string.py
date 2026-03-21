@@ -62,12 +62,8 @@ class Solution(object):
             if balance == 0:
                 # The 'guts' [start+1 : end] are guaranteed to be a valid Special String.
                 nxt_atomic_str = S[start + 1: end]  # end is exclusive
-                print("nxt_atomic_str", nxt_atomic_str)
                 atomic_lexic_largest = self.makeLargestSpecial(nxt_atomic_str)
                 specials.append("1" + atomic_lexic_largest + "0")
                 start = end + 1
-        print(specials)
         specials.sort(reverse=True)
-        print(specials)
-        print("=============")
         return "".join(specials)
