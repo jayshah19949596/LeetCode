@@ -15,11 +15,11 @@ Then the next permutation of that array is the permutation that follows it in th
 
 ### 2. Solution:
 ----------------------------
-[1, 5, 8, 4, 7, 6, 5, 3, 1]
-[1, 5, 8, {4}, 7, 6, 5, 3, 1].    # Find first element in decreasing order from right to left
-[1, 5, 8, 4, 7, 6, {5}, 3, 1].    # Find element just larger than {4}
-[1, 5, 8, {5}, 7, 6, {4}, 3, 1]   # Swap the two elements found
-[1, 5, 8, 5, 1, 3, 4, 6, 7]       # Reverse elements from the swapped element
+[1, 5, 8, 4,   7, 6, 5,   3, 1]
+[1, 5, 8, {4}, 7, 6, 5,   3, 1]     # Find first element in decreasing order from right to left
+[1, 5, 8, 4,   7, 6, {5}, 3, 1]     # Find element just larger than {4}
+[1, 5, 8, {5}, 7, 6, {4}, 3, 1]     # Swap the two elements found
+[1, 5, 8, 5,   1, 3, 4,   6, 7]     # Reverse elements from the swapped element
 
 ### 3. Complexity Analysis:
 ----------------------------
