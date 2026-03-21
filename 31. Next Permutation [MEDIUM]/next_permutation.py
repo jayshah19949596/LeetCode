@@ -28,6 +28,32 @@ Space - O(1)
 """
 from typing import List
 
+from typing import List
+
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        n = len(nums)
+        pivot = -1
+        
+        # 1. Find the first 'dip' starting from the right (n-1)
+        # We compare the current element with the one to its left
+        for i in range(n - 1, 0, -1):
+            if nums[i - 1] < nums[i]:
+                pivot = i - 1
+                break
+        
+        # 2. If a pivot exists, find the successor and swap
+        if pivot != -1:
+            for j in range(n - 1, pivot, -1):
+                if nums[j] > nums[pivot]:
+                    nums[pivot], nums[j] = nums[j], nums[pivot]
+                    break            
+        
+        # 3. Reverse the suffix in-place
+        # Using pivot + 1 correctly handles the full reverse if pivot is -1
+        nums[pivot + 1:] = nums[pivot + 1:][::-1]
+        
+
 
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
