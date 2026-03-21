@@ -31,7 +31,7 @@ from typing import List
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
         n = len(nums)
-        pivot = -1
+        pivot = -1 # pivot keep track of first 'dip' starting from the right
         
         # 1. Find the first 'dip' starting from the right (n-1)
         # We compare the current element with the one to its left
