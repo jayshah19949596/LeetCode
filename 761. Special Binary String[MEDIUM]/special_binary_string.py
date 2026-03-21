@@ -47,23 +47,21 @@ The Algorithm:
 5. Rejoin them.
 """
 
-class Solution(object):
-    def makeLargestSpecial(self, S):
+class Solution:
+    def makeLargestSpecial(self, s: str) -> str:
+        if not s: return ""
+
         specials = []
-
-        if not S: return ""
-
-        balance, start = 0, 0
-        for end, char in enumerate(S):
-            
+        balance = start = 0
+        for end, char in enumerate(s):
             if char == "1": balance += 1
             else: balance -= 1
 
             if balance == 0:
-                # The 'guts' [start+1 : end] are guaranteed to be a valid Special String.
-                nxt_atomic_str = S[start + 1: end]  # end is exclusive
-                atomic_lexic_largest = self.makeLargestSpecial(nxt_atomic_str)
-                specials.append("1" + atomic_lexic_largest + "0")
-                start = end + 1
+                nxt_innter_str = s[start+1: end]
+                lexico_sorted = self.makeLargestSpecial(nxt_innter_str)
+                specials.append("1" + lexico_sorted + "0")
+                start = end+1
+
         specials.sort(reverse=True)
         return "".join(specials)
