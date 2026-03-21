@@ -42,7 +42,7 @@ class Solution:
                 pivot = i - 1
                 break
         
-        # 2. If a pivot exists, find the successor and swap
+        # 2. If a pivot exists, find the successor and swap else the input is already sorted
         if pivot != -1:
             for j in range(n - 1, pivot, -1):
                 if nums[j] > nums[pivot]:
