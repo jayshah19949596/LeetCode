@@ -20,19 +20,23 @@ class Solution:
              for j in range(no_of_cols//2):
                 matrix[i][j], matrix[i][no_of_cols-1-j] = matrix[i][no_of_cols-1-j], matrix[i][j]
                 
-class Solution1:
-    def rotate(self, matrix):
+
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
         """
-        :type matrix: List[List[int]]
-        :rtype: void Do not return anything, modify matrix in-place instead.
+        Do not return anything, modify matrix in-place instead.
         """
-        layers = len(matrix)//2
-        n = len(matrix)-1
+        n = len(matrix) - 1  # last index
+        layers = len(matrix) // 2  # number of rings
         for layer in range(layers):
-            for i in range(layer, n - layer):
-                temp = matrix[layer][i]
-                matrix[layer][i] = matrix[n - i][layer]
-                matrix[n - i][layer] = matrix[n - layer][n - i]
-                matrix[n - layer][n - i] = matrix[i][n - layer]
-                matrix[i][n - layer] = temp
+            last = n - layer
+            # iterate all column elements in top row of the layer
+            for c in range(layer, last):
+                # clockwise swap
+                temp = matrix[layer][c]                      # save top 
+                matrix[layer][c] = matrix[n - c][layer]      # lft col → top row
+                matrix[n - c][layer] = matrix[last][n - c]   # dwn row → lft col
+                matrix[last][n - c] = matrix[c][last]        # ryt col → dwn row
+                matrix[c][last] = temp                       # top row → ryt col
+
             
