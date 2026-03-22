@@ -1,0 +1,25 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        # Stack stores tuples: (current_string, open_count, close_count)
+        stack = [("", 0, 0)]
+        results = []
+        
+        while stack:
+            s, opening, closing = stack.pop()
+            
+            # Base Case: If the string is complete (length 2*n)
+            if len(s) == 2 * n:
+                results.append(s)
+                continue
+            
+            # 1. Try adding a Closing Parenthesis
+            # We can only add ')' if we have more '(' currently open
+            if closing < opening:
+                stack.append((s + ")", opening, closing + 1))
+            
+            # 2. Try adding an Opening Parenthesis
+            # We can only add '(' if we haven't reached the limit n
+            if opening < n:
+                stack.append((s + "(", opening + 1, closing))
+                
+        return results
