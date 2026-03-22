@@ -22,8 +22,8 @@ class Solution:
         low, high = 0, len(nums1)
         half_len = (x+y+1)//2
         while low<=high:
-            partition_x = (low+high)//2 # element at partition_x on right half of nums1 
-            partition_y = half_len-partition_x  # element at partition_y on on right half of nums2 
+            partition_x = (low+high)//2 # nums1[partition_x] is the first element of the right half
+            partition_y = half_len-partition_x  # nums2[partition_y] is the first element of the right half 
 
             if partition_x-1 < 0: max_left_x = -float("inf")
             else: max_left_x = nums1[partition_x-1]
