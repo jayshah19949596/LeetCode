@@ -26,24 +26,21 @@ If any one value is zero then result is all zeros apart from that entry.
 Time Complexity: O(N)
 Space Complexity: O(N)
 """
-from typing import List
-
-class Solution(object):
+class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        # products[i] will store the product of all elements to the LEFT of index i
-        products = [1]
+        n = len(nums)
+        res = []
 
+        left_prod = 1
         # Build prefix products
-        for i in range(len(nums) - 1):
-            products.append(products[-1] * nums[i])
+        for i in range(n):
+            res.append(left_prod)
+            left_prod *= nums[i]
 
-        # right_product keeps track of the product of elements to the RIGHT of the current index
-        right_product = 1
-
+        right_prod = 1
         # Traverse from right to left to build suffix product
-        for i in range(len(nums) - 1, -1, -1):
-            products[i] *= right_product
-            right_product *= nums[i] ## right product for next iteration
+        for i in range(n - 1, -1, -1):
+            res[i] *= right_prod
+            right_prod *= nums[i]  ## right product for next iteration
 
-        # products now contains the final answer
-        return products
+        return res
