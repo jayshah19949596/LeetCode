@@ -31,12 +31,10 @@ class Solution:
         for layer in range(layers):
             last = n - layer
             # iterate all column elements in top row of the layer
-            for c in range(layer, last):
+            for i in range(layer, last):
                 # clockwise swap
-                temp = matrix[layer][c]                      # save top 
-                matrix[layer][c] = matrix[n - c][layer]      # lft col → top row
-                matrix[n - c][layer] = matrix[last][n - c]   # dwn row → lft col
-                matrix[last][n - c] = matrix[c][last]        # ryt col → dwn row
-                matrix[c][last] = temp                       # top row → ryt col
-
-            
+                temp = matrix[layer][i]                      # save top 
+                matrix[layer][i] = matrix[n - i][layer]      # lft col → top row
+                matrix[n - i][layer] = matrix[last][n - i]   # dwn row → lft col
+                matrix[last][n - i] = matrix[i][last]        # ryt col → dwn row
+                matrix[i][last] = temp                       # top row → ryt col
