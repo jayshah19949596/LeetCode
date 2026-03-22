@@ -1,3 +1,8 @@
+"""
+Every time you find a matching remainder in the map, 
+it means the "chunk" of numbers between the previous time you saw that remainder 
+and the current time must sum up to something divisible by $k$.
+"""
 class Solution:
     def subarraysDivByK(self, nums: List[int], k: int) -> int:
         remainder_map = defaultdict(int) # Empty dictionary
