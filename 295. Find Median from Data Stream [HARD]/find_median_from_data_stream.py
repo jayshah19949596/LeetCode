@@ -14,6 +14,32 @@ Space complexity: O(N)
 """
 import heapq
 
+from heapq import heappush, heappop
+
+class MedianFinder:
+    def __init__(self):
+        # Max-heap (stores smaller half, use negative numbers)
+        self.small_max_heap = [] 
+        # Min-heap (stores larger half)
+        self.large_min_heap = []
+
+    def addNum(self, num: int) -> None:
+        # Overall logic: Left -> Right -> Rebalance
+        # Step 1: Always push to max-heap (left), then move the largest in left to min-heap (right)
+        # This automatically "sorts" the new number into the correct half
+        heappush(self.small_max_heap, -num)
+        heappush(self.large_min_heap, -heappop(self.small_max_heap))
+        
+        # Step 2: Rebalance if the right side gets larger than the left
+        # We want small_max_heap to always be >= large_min_heap in size
+        if len(self.large_min_heap) > len(self.small_max_heap):
+            heappush(self.small_max_heap, -heappop(self.large_min_heap))
+
+    def findMedian(self) -> float:
+        if len(self.small_max_heap) > len(self.large_min_heap):
+            return float(-self.small_max_heap[0])
+        return (-self.small_max_heap[0] + self.large_min_heap[0]) / 2.0
+
 
 class MedianFinder:
 
