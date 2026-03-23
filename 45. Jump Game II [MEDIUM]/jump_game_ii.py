@@ -22,16 +22,10 @@ class Solution:
 
 
 class Solution(object):
-    def jump(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if len(nums) == 1:
-            return 0
+    def jump(self, nums: list[int]) -> int:
+        if len(nums) == 1: return 0
 
-        start, end = 0, 0   # indices in nums of current range
-        max_index = 0
+        max_index = start = end = 0   # indices in nums of current range
         steps = 1
 
         while True:         # will always terminate since last index is accessible
