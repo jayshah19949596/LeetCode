@@ -17,44 +17,45 @@
 
 class Solution(object):
     def fullJustify(self, words, maxWidth):
-        """
-        :type words: List[str]
-        :type maxWidth: int
-        :rtype: List[str]
-        """
         line_chars = 0          # number of chars on current line (without spaces)
         line_words = []         # list of words on current line
         justified = []          # output, list of justified strings
 
         for word in words:
-
-            if line_chars + len(line_words) + len(word) <= maxWidth:    # add word to current line
-                line_words.append(word)
-                line_chars += len(word)
-
-            else:                                   # word cannot be added to current line
-                gaps = len(line_words) - 1          # nb gaps between words
-                spaces = maxWidth - line_chars      # nb of spaces to make line maxWidth
-                line = [line_words[0]]              # list of words and spaces
+            # Check if adding this word (plus at least one space per existing word) exceeds maxWidth
+            if line_chars + len(line_words) + len(word) > maxWidth:
+                gaps = len(line_words) - 1
+                spaces = maxWidth - line_chars
                 
-                if gaps == 0:                       # pad end if single word
-                    line.append(" " * spaces)
+                if gaps == 0:
+                    # Case: Only one word on the line
+                    line_str = line_words[0] + (" " * spaces)
+                else:
+                    # Case: Multiple words, distribute spaces evenly
+                    line = [line_words[0]]
+                    for i in range(1, len(line_words)):
+                        # Distribute spaces: current_spaces // remaining_gaps (rounded up if needed)
+                        space_count = spaces // gaps
+                        if spaces % gaps != 0:          # round up if uneven division of spaces
+                            space_count += 1 
+                        line.append(" " * space_count)
+                        line.append(line_words[i])
+                        spaces -= space_count
+                        gaps -= 1
+                    line_str = "".join(line)
+                
+                justified.append(line_str)
+                # Reset for the next line
+                line_words = []
+                line_chars = 0
 
-                for line_word in line_words[1:]:    # distribute spaces between other words
-                    space = spaces//gaps
-                    if spaces % gaps != 0:          # round up if uneven division of spaces
-                        space += 1
-                    line.append(" " * space)        # add space
-                    spaces -= space                 # reduce remaining spaces and gaps
-                    gaps -= 1
-                    line.append(line_word)
+            # Always add the current word to the (potentially new) line
+            line_words.append(word)
+            line_chars += len(word)
 
-                justified.append("".join(line))
-
-                line_words = [word]                 # add word to next line.
-                line_chars = len(word)
-
-        final_line = " ".join(line_words)           # pad final line with spaces
+        # Handle the last line: Left justified
+        final_line = " ".join(line_words)
+        # Pad the remainder of the last line with spaces
         final_line += " " * (maxWidth - len(final_line))
         justified.append(final_line)
 
