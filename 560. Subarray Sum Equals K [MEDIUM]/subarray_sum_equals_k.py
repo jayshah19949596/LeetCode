@@ -34,14 +34,13 @@ from typing import List
 
 class Solution(object):
     def subarraySum(self, nums: List[int], k: int) -> int:
-        total = 0
+        running_sum = total = 0
         sums_seen = defaultdict(int) # key is prefix sum, value is count of number of prefixes
-        running_sum = 0
 
         for i, num in enumerate(nums):
-
-            running_sum += num
-
+            prefix_sum += num
+            
+            # (running_sum - k) exists in our history, it indicate there is a starting point 'j' such that the sum from j to i is k.
             if running_sum == k:
                 total += 1
             if running_sum - k in sums_seen:
