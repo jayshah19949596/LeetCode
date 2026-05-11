@@ -20,8 +20,7 @@ from typing import List
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
         if numRows == 0: return [] # Handle edge case
-        
-        res = [[1]]
+        res = [[1]] # Base Case
         for row in range(1, numRows):
             no_of_ele = row + 1
             cur_row = [1]
