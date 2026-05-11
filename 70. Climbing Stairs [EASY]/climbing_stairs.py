@@ -13,6 +13,7 @@ class Solution:
     def climbStairs(self, n):
         memo = {}
         def climb_recursive_memo(idx):
+            # memo of "idx" represent total no. of ways to reach the top (step n) starting from the current "idx"
             if idx in memo : return memo[idx]
             if idx > n: return 0
             if idx == n: return 1            
