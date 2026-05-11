@@ -11,13 +11,13 @@ class LRUCache:
         self.cap = capacity
         self.cache = {}
 
-        self.oldest = Node(0, 0)
-        self.latest = Node(0, 0)
-        self.oldest.nxt = self.latest
-        self.latest.prv = self.oldest
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.nxt = self.tail
+        self.tail.prv = self.head
         
     def insert(self, node):
-        prv_node, nxt_node = self.latest.prv, self.latest
+        prv_node, nxt_node = self.tail.prv, self.tail
         prv_node.nxt = nxt_node.prv = node
         node.nxt = nxt_node
         node.prv = prv_node
@@ -41,6 +41,6 @@ class LRUCache:
         self.insert(self.cache[key])
 
         if len(self.cache) > self.cap:
-            lru_node = self.oldest.nxt
+            lru_node = self.head.nxt
             self.remove(lru_node)
             del self.cache[lru_node.key]
