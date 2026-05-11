@@ -8,7 +8,7 @@ class Solution:
             count[s[right]] = count[s[right]]+1
             max_freq = max(max_freq, count[s[right]])
 
-            # If replacements needed > k, shrink window
+            # If replacements needed > k, shrink window. Don't care updating max_freq on shrinking window
             if (right - left + 1) - max_freq > k:
                 count[s[left]] -= 1
                 left += 1
