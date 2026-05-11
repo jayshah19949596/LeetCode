@@ -22,21 +22,15 @@ class Solution:
         full_len = x+y
         low, high = 0, len(nums1)
         half_len = (full_len+1)//2
-        while low<=high:
+        while low <= high:
             pivot_x = (low+high)//2 # nums1[pivot_x] is the first element of the right half
             pivot_y = half_len-pivot_x  # nums2[pivot_y] is the first element of the right half 
 
-            if pivot_x-1 < 0: max_left_x = -float("inf")
-            else: max_left_x = nums1[pivot_x-1]
+            max_left_x = nums1[pivot_x - 1] if pivot_x > 0 else float("-inf")
+            min_right_x = nums1[pivot_x] if pivot_x < x else float("inf")
 
-            if pivot_x == x: min_right_x = float("inf")
-            else: min_right_x = nums1[pivot_x]
-
-            if pivot_y-1 < 0: max_left_y = -float("inf")
-            else: max_left_y = nums2[pivot_y-1]
-
-            if pivot_y == y:  min_right_y = float("inf")
-            else: min_right_y = nums2[pivot_y]
+            max_left_y = nums2[pivot_y - 1] if pivot_y > 0 else float("-inf")
+            min_right_y = nums2[pivot_y] if pivot_y < y else float("inf")
 
             results = max(max_left_x, max_left_y)
             if max_left_x<=min_right_y and max_left_y<=min_right_x:
