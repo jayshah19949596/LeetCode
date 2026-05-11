@@ -9,6 +9,15 @@ class TreeNode:
         self.left = left
         self.right = right
 
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root: return 
+        def recurse(node):
+            node.left, node.right = node.right, node.left
+            if node.left: recurse(node.left)
+            if node.right: recurse(node.right)
+        recurse(root) 
+        return root
 
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
