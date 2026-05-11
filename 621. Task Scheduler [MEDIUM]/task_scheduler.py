@@ -28,18 +28,22 @@ from typing import List
 
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        # frequencies of the tasks
-        frequencies = [0] * 26
+        # Use defaultdict to count frequencies
+        task_counts = defaultdict(int)
         for t in tasks:
-            frequencies[ord(t) - ord('A')] += 1
-        frequencies.sort()
+            task_counts[t] += 1
+        
+        # Extract frequencies and sort them
+        frequencies = sorted(task_counts.values())
 
         # max frequency
         f_max = frequencies.pop()
-        idle_time = (f_max - 1) * n  # This defines the max possible idle times
-
+        idle_time = (f_max - 1) * n # Max possible idle slots
+        
         while frequencies and idle_time > 0:
+            # We use frequencies.pop() to get the next highest frequency
             idle_time -= min(f_max - 1, frequencies.pop())
+        
         idle_time = max(0, idle_time)
 
-        return len(tasks) + idle_time
+        return idle_time + len(tasks)
