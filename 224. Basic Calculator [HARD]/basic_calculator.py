@@ -20,7 +20,7 @@ class Solution:
     def calculate(self, s: str) -> int:
         # Stack will store [previous_total, previous_sign]
         stack = []
-        num, sign = 0, 1 # 1 means positive, -1 means negative. Sign is sign of next number which is yet to iterate. 
+        num, sign = 0, 1 # 1 means positive, -1 means negative. Sign represents the operator preceding the current number (the 'pending' operation). 
         ans = 0
         s = s + "+" # We add a '+' at the end to "flush" the final number into the total
         
