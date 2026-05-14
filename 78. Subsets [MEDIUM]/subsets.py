@@ -30,13 +30,13 @@ Space: O(n)
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         subsets = []
-        def recurse(arr, inter_arr, idx, n):
+        def recurse(inter_arr, idx):
             subsets.append(inter_arr[:])
-            for i in range(idx, n):
-                inter_arr.append(arr[i])
-                recurse(arr, inter_arr, i+1, n)
+            for i in range(idx, len(nums)):
+                inter_arr.append(nums[i])
+                recurse(inter_arr, i+1)
                 inter_arr.pop()
-        recurse(nums, [], 0, len(nums))
+        recurse([], 0)
         return subsets
 
 """
