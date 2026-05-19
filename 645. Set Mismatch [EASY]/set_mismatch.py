@@ -40,7 +40,7 @@ class Solution:
                 dup = num  
             visited[num - 1] = 1  
                 
-        for i, val in enumerate(seen):
+        for i, val in enumerate(visited):
             if val == -1:
                 miss = i + 1  
                 break
